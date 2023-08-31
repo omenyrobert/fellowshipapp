@@ -125,13 +125,10 @@ const ChatRoom = () => {
 
                                     </View> :
                                         <View key={item.id} style={tw`flex-row m-5`}>
-
-
-
-                                            <View style={tw`w-[30%]`}>
+                                            <View style={tw`w-[20%]`}>
 
                                             </View>
-                                            <View style={tw`mx-2 w-[70%]`}>
+                                            <View style={tw`mx-2 w-[80%]`}>
                                                 <View style={tw`flex-row justify-between`}>
                                                     <View>
 
