@@ -10,7 +10,7 @@ const ForgotPin = ({ navigation }) => {
 
     return (
         <View>
-            <View style={tw`text-white h-1/4 p-5 bg-[#149A1A]`}>
+            <View style={tw`text-white h-1/4 p-5 bg-[#193296]`}>
                 <Image source={logourl} style={tw`mt-10 w-38 ml-[30%] h-28`} />
             </View>
             <View style={tw`rounded-t-3xl -mt-10 bg-white p-5 h-full`}>
@@ -49,7 +49,7 @@ const ForgotPin = ({ navigation }) => {
                 />
                 <TouchableOpacity
 
-                    style={tw`bg-[#149A1A] mt-2 p-2 rounded-md`}
+                    style={tw`bg-[#FE7D06] mt-2 p-2 rounded-md`}
                     onPress={() => navigation.navigate('Home')}
                 >
                     <Text style={tw`text-white text-center font-bold text-lg`}>Resset Pin</Text>

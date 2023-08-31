@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "transport",
-    "slug": "transport",
+    "name": "Women's Fellowship",
+    "slug": "Women's Fellowship",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -9,22 +9,29 @@
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#149A1A"
+      "backgroundColor": "#193296"
     },
     "assetBundlePatterns": [
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.fellowship"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#149A1A"
-      }
+        "backgroundColor": "#193296"
+      },
+      "package": "com.fellowship"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "2e436dbb-d514-498e-b48e-e0b59f3ab0eb"
+      }
     }
   }
 }

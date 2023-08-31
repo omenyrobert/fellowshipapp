@@ -10,8 +10,8 @@ const SignUp = ({ navigation }) => {
     const [pin, setPin] = useState("");
     return (
         <View>
-            <View style={tw`text-white h-1/4 p-5 bg-[#149A1A]`}>
-                <Image source={logourl} style={tw`mt-10  w-38 ml-[30%] h-28`} />
+            <View style={tw`text-white h-1/4 p-5 bg-[#193296]`}>
+            <Image source={logourl} style={tw`mt-20 w-50 ml-[20%] h-50`} />
             </View>
             <View style={tw`rounded-t-3xl -mt-10 bg-white p-5 h-full`}>
                 <Text style={tw`text-2xl font-bold mt-2`}>SignUp</Text>
@@ -46,14 +46,14 @@ const SignUp = ({ navigation }) => {
                 />
                 <TouchableOpacity
 
-                    style={tw`bg-[#149A1A] mt-2 p-2 rounded-md`}
+                    style={tw`bg-[#FE7D06] mt-2 p-2 rounded-md`}
                     onPress={() => navigation.navigate('Home')}
                 >
                     <Text style={tw`text-white text-center font-bold text-lg`}>Signup</Text>
                 </TouchableOpacity>
                 <View style={tw`mt-1 flex-row justify-between`}>
                     <View></View>
-                    <Text onPress={() => navigation.navigate('Login')} style={tw`font-semibold text-lg text-[#149A1A]`}>Login</Text>
+                    <Text onPress={() => navigation.navigate('Login')} style={tw`font-semibold text-lg text-[#193296]`}>Login</Text>
                 </View>
             </View>
 
