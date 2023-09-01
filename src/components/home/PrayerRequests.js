@@ -43,7 +43,7 @@ const PrayerRequests = () => {
                     {prayers.map((item) => {
                         return (
 
-                            <ImageBackground source={{ uri: item.photo }} style={tw`rounded-md  w-60 h-28 mx-2`}>
+                            <ImageBackground key={item.id} source={{ uri: item.photo }} style={tw`rounded-md  w-60 h-28 mx-2`}>
                                 <View >
                                     <View style={tw`bottom-0 bg-black/50 p-2 mt-18`}>
                                         <Text style={tw`font-bold -mt-2 text-white`}>

@@ -10,13 +10,15 @@ import Meeting from "./screens/Meeting";
 import Give from "./screens/Give";
 import Chat from "./screens/Chat";
 import ChatRoom from "./screens/ChatRoom";
+import About from "./screens/About";
 
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
+
 function TabNav() {
     return (
-        <Tab.Navigator tabBarOptions={{
+        <Tab.Navigator screenOptions={{
             activeTintColor: '#193296',
 
             labelStyle: {
@@ -57,7 +59,7 @@ function TabNav() {
                 }}
                 component={Chat} />
 
-                
+
 
         </Tab.Navigator>
     )
@@ -70,6 +72,7 @@ function StackNav() {
             <Stack.Screen name="SignUp" component={SignUp} />
             <Stack.Screen name="ForgotPin" component={ForgotPin} />
             <Stack.Screen name="ChatRoom" component={ChatRoom} />
+            <Stack.Screen name="About" component={About} />
             <Stack.Screen name="TabNav" component={TabNav} />
         </Stack.Navigator>
     )

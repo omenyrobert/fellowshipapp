@@ -9,7 +9,7 @@ const Banner = () => {
     const navigation = useNavigation();
     return (
         <>
-            <View style={tw`m-5 bg-[#193296] p-3 rounded-md`}>
+            <View style={tw`mx-5 my-2 bg-[#193296] p-3 rounded-md`}>
                 <View style={tw`flex-row `} >
                     <View>
                         <Feather name="video" style={tw`mt-3`} size={36} color="white" />
@@ -30,14 +30,13 @@ const Banner = () => {
                 </View>
             </View>
 
-            <View style={tw`flex-row justify-between mx-5 my-2`}>
+            <View style={tw`flex-row justify-between mx-5 mb-5`}>
                 <TouchableOpacity style={tw`bg-[#FE7D06] w-28 rounded p-2`}>
                     <Text style={tw`text-center`}>Support Us</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={tw`border border-[#193296] rounded p-2`}>
                     <Text style={tw`text-white text-[#193296]`} >Find Members</Text>
                 </TouchableOpacity>
-
             </View>
 
 

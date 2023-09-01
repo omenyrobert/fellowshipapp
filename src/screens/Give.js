@@ -1,126 +1,185 @@
-import { View, Text, ScrollView, TouchableOpacity } from "react-native"
+import { View, Text, ScrollView, Image, TextInput, TouchableOpacity } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import tw from 'twrnc';
 import { Feather, FontAwesome } from '@expo/vector-icons';
 import HomeHeader from "../components/HomeHeader";
-import Banner from "../components/home/Banner";
+import { useState } from "react";
 
 const Give = () => {
 
-    const trans = [
-        {
-            id: 1,
-            name: 'Omeny Robert',
-            amount: '350,000',
-            sub: 1,
-            account: '+256 756 8976 578',
-            cat: 'Airtel Money',
-            date: '22nd June 2023',
-            isReady: 1,
-        },
-        {
-            id: 2,
-            name: 'William Omiel',
-            amount: '50,000',
-            sub: 1,
-            account: '+256 776 8976 578',
-            cat: 'Mobile Money',
-            date: '3rd Dec 2023',
-            isReady: 0,
-        },
-        {
-            id: 3,
-            name: 'Give Cash',
-            amount: '1,050,000',
-            sub: 2,
-            account: 'ABSA Bank',
-            cat: 'Benard Joel',
-            date: '3rd Aug 2023',
-            isReady: 1,
-        },
-        {
-            id: 4,
-            name: 'Cash Top up',
-            amount: '90,000',
-            account: '+256 776 8976 578',
-            cat: 'Equity Bank',
-            sub: 2,
-            date: '22nd June 2023',
-            isReady: 0,
-        },
-        {
-            id: 5,
-            name: 'Withdrawal',
-            amount: '750,000',
-            account: '+256 776 8976 578',
-            cat: 'Centinary Bank',
-            sub: 2,
-            date: '22nd June 2023',
-            isReady: 0,
-        },
-    ]
+    const [mobile, setMobile] = useState(false);
+    const [bank, setBank] = useState(false);
 
+    const openBank = () => {
+        setBank(true);
+        setMobile(false);
+    }
+
+    const openMobile = () => {
+        setBank(false);
+        setMobile(true);
+    }
     return (
         <SafeAreaView style={{ backgroundColor: '#fff' }}>
-            <HomeHeader />
-            <ScrollView>
-                <Banner />
+            <View style={tw`border-b border-gray-200`}>
+                <HomeHeader />
+            </View>
+            <ScrollView >
                 <View>
-                    <Text style={tw`font-medium ml-5 text-xl`}>
-                        Give Cash
+                    <Text style={tw`font-medium ml-5 text-xl mt-5`}>
+                        Give Offerty/Tithe
                     </Text>
-                    <View style={tw`bg-white mt-2 pt-5`}>
+                    <View style={tw`bg-white mt-2`}>
+                        <TouchableOpacity onPress={openMobile} style={tw`p-3 rounded-md border-b border-gray-200 mx-5 my-2`}>
 
-                        {trans.map((item) => {
-                            return (
-                                <View key={item.id} style={tw`p-3 rounded-md border-b border-gray-200 mx-5 my-2`}>
-                                    <View style={tw`flex-row justify-between`}>
-                                        <View style={tw`flex-row`}>
-                                            <View style={tw`mt-1`}>
-                                                {item.sub === 1 ? <Feather name="smartphone" size={24} color="black" /> : <FontAwesome name="cc-mastercard" size={24} color="black" />}
-                                            </View>
-                                            <View style={tw`ml-2`}>
-                                                <Text style={tw`text-lg font-medium -mt-1`}>
-                                                    {item.cat}
-                                                </Text>
-                                                <Text style={tw`text-gray-500 -mt-1`}>
-                                                    {item.date}
-                                                </Text>
-                                                <View style={tw`mt-5`}>
-                                                    <Text>
-                                                        {item.account}
-                                                    </Text>
-                                                    <Text style={tw`-mt-1 font-light  text-gray-700`}>
-                                                        {item.name}
-                                                    </Text>
-                                                </View>
-                                            </View>
-
-
-                                        </View>
-                                        <View>
-                                            <Text style={tw`text-2xl font-bold text-[#149A1A]`}>
-                                                {item.amount}
-                                            </Text>
-                                            {item.isReady === 1 ? <TouchableOpacity style={tw`text-white mt-5 font-bold p-2 rounded-md bg-[#149A1A]`}>
-                                                <Text style={tw`text-white font-bold text-center`} >Withdraw</Text>
-                                            </TouchableOpacity> : <TouchableOpacity style={tw`text-white mt-5 p-2 rounded-md bg-gray-100`}>
-                                                <Text style={tw`font-bold text-center`} >Not Mature</Text>
-                                            </TouchableOpacity>}
-
-
-                                        </View>
-
-                                    </View>
-
-
+                            <View style={tw`flex-row`}>
+                                <View style={tw`mt-1`}>
+                                    <Feather name="smartphone" size={24} color="black" />
                                 </View>
-                            )
-                        })}
+                                <View style={tw`ml-2`}>
+                                    <Text style={tw`text-lg font-medium -mt-1`}>
+                                        Mobile Money
+                                    </Text>
+                                    <Text style={tw`text-gray-500 -mt-1`}>
+                                        Airtel Money & MTN Momo
+                                    </Text>
+                                </View>
+                            </View>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity onPress={openBank} style={tw`p-3 rounded-md border-b border-gray-200 mx-5 my-2`}>
+
+                            <View style={tw`flex-row`}>
+                                <View style={tw`mt-1`}>
+
+                                    <FontAwesome name="cc-mastercard" size={24} color="black" />
+                                </View>
+                                <View style={tw`ml-2`}>
+                                    <Text style={tw`text-lg font-medium -mt-1`}>
+                                        Bank Transfer
+                                    </Text>
+                                    <Text style={tw`text-gray-500 -mt-1`}>
+                                        Visa Card, Master Card, Debit Card ect
+                                    </Text>
+                                </View>
+                            </View>
+                        </TouchableOpacity>
+
+
+                        {mobile ? <View>
+                            <View style={tw`flex-row p-2 m-2 bg-gray-100`}>
+                                <Image source={require('../../assets/airtel.png')} style={tw`w-10 h-10`} />
+                                <View>
+                                    <Text style={tw`ml-5`}>
+                                        Airtel
+                                    </Text>
+                                    <Text style={tw`ml-5 text-xs text-gray-500`}>
+                                        Airtel Money
+                                    </Text>
+                                </View>
+                            </View >
+
+                            <View style={tw`flex-row p-2 m-2`}>
+                                <Image source={require('../../assets/mtn.jpeg')} style={tw`w-10 h-10`} />
+                                <View>
+                                    <Text style={tw`ml-5`}>
+                                        MTN
+                                    </Text>
+                                    <Text style={tw`ml-5 text-xs text-gray-500`}>
+                                        Momo Money
+                                    </Text>
+                                </View>
+                            </View >
+                            <Text style={tw`ml-5 mt-5`}>
+                                Phone Number
+                            </Text>
+                            <TextInput
+                                placeholder="Phone Number"
+                                style={tw`bg-gray-100 py-3 pl-5 mx-5 mt-2 border border-gray-200 rounded-md`}
+                            />
+
+                            <Text style={tw`ml-5 mt-5`}>
+                                Enter Amount
+                            </Text>
+                            <TextInput
+                                placeholder="Amount"
+                                style={tw`bg-gray-100 py-3 pl-5 mx-5 mt-2 border border-gray-200 rounded-md`}
+                            />
+                            <Text style={tw`ml-5 mt-5`}>
+                                Prayer Request
+                            </Text>
+
+                            <TextInput
+                                placeholder="Amount"
+                                editable
+                                multiline
+                                numberOfLines={4}
+                                maxLength={40}
+                                style={tw`bg-gray-100 py-3 pl-5 mx-5 mt-2 border border-gray-200 rounded-md`}
+                            />
+
+
+                            <TouchableOpacity
+                                style={tw`bg-[#FE7D06] m-5 p-2 rounded-md`}
+                            >
+                                <Text style={tw`text-white text-center font-bold text-lg`}>Send</Text>
+                            </TouchableOpacity>
+                        </View>
+                            : null}
+
+
+                        {bank ?
+
+                            <View>
+                                <Text style={tw`ml-5 mt-5`}>
+                                    Bank Account Name
+                                </Text>
+                                <TextInput
+                                    placeholder="Account Name"
+                                    style={tw`bg-gray-100 py-3 pl-5 mx-5 mt-2 border border-gray-200 rounded-md`}
+                                />
+                                <Text style={tw`ml-5 mt-5`}>
+                                    Select Bank
+                                </Text>
+                                <TextInput
+                                    placeholder="Account Name"
+                                    style={tw`bg-gray-100 py-3 pl-5 mx-5 mt-2 border border-gray-200 rounded-md`}
+                                />
+                                <Text style={tw`ml-5 mt-5`}>
+                                    Amount
+                                </Text>
+                                <TextInput
+                                    placeholder="Amount"
+                                    style={tw`bg-gray-100 py-3 pl-5 mx-5 mt-2 border border-gray-200 rounded-md`}
+                                />
+
+                                <Text style={tw`ml-5 mt-5`}>
+                                    Prayer Request
+                                </Text>
+
+                                <TextInput
+                                    placeholder="Amount"
+                                    editable
+                                    multiline
+                                    numberOfLines={4}
+                                    maxLength={40}
+                                    style={tw`bg-gray-100 py-3 pl-5 mx-5 mt-2 border border-gray-200 rounded-md`}
+                                />
+
+
+                                <TouchableOpacity
+                                    style={tw`bg-[#FE7D06] m-5 p-2 rounded-md`}
+                                >
+                                    <Text style={tw`text-white text-center font-bold text-lg`}>Send</Text>
+                                </TouchableOpacity>
+                            </View>
+                            : null}
+
+
+
                     </View>
                 </View>
-                <View style={{ height: 100 }}>
-
+                <View style={{ height: 150, backgroundColor: '#fff' }}>
                 </View>
             </ScrollView>
         </SafeAreaView>

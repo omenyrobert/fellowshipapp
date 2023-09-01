@@ -26,7 +26,7 @@ const PreviousMeeting = () => {
         {
             id: 4,
             type: 'The power of prayer',
-            account: 'Philomon 1:',
+            account: 'Philomon 1:4',
             date: '22nd June 2023'
         },
         {

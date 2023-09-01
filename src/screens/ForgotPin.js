@@ -11,7 +11,7 @@ const ForgotPin = ({ navigation }) => {
     return (
         <View>
             <View style={tw`text-white h-1/4 p-5 bg-[#193296]`}>
-                <Image source={logourl} style={tw`mt-10 w-38 ml-[30%] h-28`} />
+            <Image source={logourl} style={tw`mt-20 w-50 ml-[20%] h-50`} />
             </View>
             <View style={tw`rounded-t-3xl -mt-10 bg-white p-5 h-full`}>
                 <Text style={tw`text-2xl font-bold mt-2`}>Resset Pin</Text>

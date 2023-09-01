@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Women's Fellowship",
-    "slug": "Women's Fellowship",
+    "name": "Women-Fellowship",
+    "slug": "Women-Fellowship",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -30,7 +30,7 @@
     },
     "extra": {
       "eas": {
-        "projectId": "2e436dbb-d514-498e-b48e-e0b59f3ab0eb"
+        "projectId": "b2161730-6a4a-40a2-9c17-33f701d561a3"
       }
     }
   }

@@ -10,54 +10,34 @@ const Meeting = () => {
     const trans = [
         {
             id: 1,
-            name: 'Omeny Robert',
-            amount: '350,000',
-            sub: 1,
-            account: '+256 756 8976 578',
-            cat: 'Airtel Money',
-            date: '22nd June 2023',
-            isReady: 1,
+            type: 'Jesus the healer',
+            account: 'Mathew 11:32',
+            date: '22nd June 2023'
         },
         {
             id: 2,
-            name: 'William Omiel',
-            amount: '50,000',
-            sub: 1,
-            account: '+256 776 8976 578',
-            cat: 'Mobile Money',
-            date: '3rd Dec 2023',
-            isReady: 0,
+            type: 'Overcoming Trials',
+            account: 'Genesis 7:33',
+            date: '3rd Dec 2023'
         },
         {
             id: 3,
-            name: 'Received Cash',
-            amount: '1,050,000',
-            sub: 2,
-            account: 'ABSA Bank',
-            cat: 'Benard Joel',
-            date: '3rd Aug 2023',
-            isReady: 1,
+            type: 'Light to the world',
+            account: 'Luke 22:3',
+            date: '3rd Aug 2023'
         },
         {
             id: 4,
-            name: 'Cash Top up',
-            amount: '90,000',
-            account: '+256 776 8976 578',
-            cat: 'Equity Bank',
-            sub: 2,
-            date: '22nd June 2023',
-            isReady: 0,
+            type: 'The power of prayer',
+            account: 'Philomon 1:4',
+            date: '22nd June 2023'
         },
         {
             id: 5,
-            name: 'Withdrawal',
-            amount: '750,000',
-            account: '+256 776 8976 578',
-            cat: 'Centinary Bank',
-            sub: 2,
-            date: '22nd June 2023',
-            isReady: 0,
-        },
+            type: 'Blessing in Giving',
+            account: 'John 2:44',
+            date: '22nd June 2023'
+        }
     ]
 
     return (
@@ -66,53 +46,41 @@ const Meeting = () => {
             <ScrollView>
                 <Banner />
                 <View>
-                    <Text style={tw`font-medium ml-5 text-xl`}>
-                        Received Cash
+                    <Text style={tw`font-medium ml-5 mt-5 text-xl`}>
+                        Scheduled Meetings
                     </Text>
-                    <View style={tw`bg-white mt-2 pt-5`}>
+                    <View style={tw`bg-white mt-2`}>
 
                         {trans.map((item) => {
                             return (
                                 <View key={item.id} style={tw`p-3 rounded-md border-b border-gray-200 mx-5 my-2`}>
-                                    <View style={tw`flex-row justify-between`}>
+                                    <View style={tw``}>
                                         <View style={tw`flex-row`}>
                                             <View style={tw`mt-1`}>
-                                                {item.sub === 1 ? <Feather name="smartphone" size={24} color="black" /> : <FontAwesome name="cc-mastercard" size={24} color="black" />}
+                                                <Feather name="video" size={24} color="blue" />
                                             </View>
                                             <View style={tw`ml-2`}>
                                                 <Text style={tw`text-lg font-medium -mt-1`}>
-                                                    {item.cat}
+                                                    {item.type}
                                                 </Text>
-                                                <Text style={tw`text-gray-500 -mt-1`}>
-                                                    {item.date}
-                                                </Text>
-                                                <View style={tw`mt-5`}>
-                                                    <Text>
-                                                        {item.account}
-                                                    </Text>
-                                                    <Text style={tw`-mt-1 font-light  text-gray-700`}>
-                                                        {item.name}
-                                                    </Text>
-                                                </View>
+                                                {/* <Text style={tw`text-gray-500 -mt-1`}>
+                                        {item.date}
+                                    </Text> */}
                                             </View>
 
 
                                         </View>
-                                        <View>
-                                            <Text style={tw`text-2xl font-bold text-[#149A1A]`}>
-                                                {item.amount}
-                                            </Text>
-                                            {item.isReady === 1 ? <TouchableOpacity style={tw`text-white mt-5 font-bold p-2 rounded-md bg-[#149A1A]`}>
-                                                <Text style={tw`text-white font-bold text-center`} >Withdrawn</Text>
-                                            </TouchableOpacity> : <TouchableOpacity style={tw`text-white mt-5 font-bold p-2 rounded-md border border-red-600`}>
-                                                <Text style={tw`text-red-600 font-bold text-center`} >Canceled</Text>
-                                            </TouchableOpacity>}
 
-
-                                        </View>
 
                                     </View>
-
+                                    <View style={tw`flex-row mt-5`}>
+                                        <Text>
+                                            {item.account}
+                                        </Text>
+                                        <Text style={tw`ml-5 py-1 px-2 rounded text-gray-700 bg-gray-100`}>
+                                            {item.date}
+                                        </Text>
+                                    </View>
 
                                 </View>
                             )
