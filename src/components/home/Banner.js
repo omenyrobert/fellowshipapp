@@ -31,7 +31,7 @@ const Banner = () => {
             </View>
 
             <View style={tw`flex-row justify-between mx-5 mb-5`}>
-                <TouchableOpacity style={tw`bg-[#FE7D06] w-28 rounded p-2`}>
+                <TouchableOpacity  onPress={() => navigation.navigate('Give')} style={tw`bg-[#FE7D06] w-28 rounded p-2`}>
                     <Text style={tw`text-center`}>Support Us</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={tw`border border-[#193296] rounded p-2`}>

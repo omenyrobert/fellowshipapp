@@ -11,6 +11,8 @@ import Give from "./screens/Give";
 import Chat from "./screens/Chat";
 import ChatRoom from "./screens/ChatRoom";
 import About from "./screens/About";
+import Resset from "./screens/Resset";
+import Notes from "./screens/Notes";
 
 
 const Tab = createBottomTabNavigator();
@@ -68,11 +70,14 @@ function TabNav() {
 function StackNav() {
     return (
         <Stack.Navigator screenOptions={{ headerShown: false }}>
+
             <Stack.Screen name="Login" component={Login} />
             <Stack.Screen name="SignUp" component={SignUp} />
+            <Stack.Screen name="Resset" component={Resset} />
             <Stack.Screen name="ForgotPin" component={ForgotPin} />
             <Stack.Screen name="ChatRoom" component={ChatRoom} />
             <Stack.Screen name="About" component={About} />
+            <Stack.Screen name="Notes" component={Notes} />
             <Stack.Screen name="TabNav" component={TabNav} />
         </Stack.Navigator>
     )

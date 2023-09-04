@@ -17,16 +17,16 @@ const Login = () => {
             <View style={tw`rounded-t-3xl -mt-10 bg-white p-5 h-full`}>
                 <Text style={tw`text-2xl font-bold mt-10`}>Login</Text>
 
-                <Text style={tw`mt-8`}>Phone Number</Text>
+                <Text style={tw`mt-8`}>Email</Text>
                 <TextInput
-                    placeholder="Eg 07****"
+                    placeholder="Email"
                     style={tw`bg-gray-100 p-3 my-2 rounded-md`}
                     onChangeText={setPhone}
                     value={phone}
                 />
-                <Text style={tw`mt-5`}>Pin</Text>
+                <Text style={tw`mt-5`}>Password</Text>
                 <TextInput
-                    placeholder="4 digits * * * *"
+                    placeholder="Password"
                     style={tw`bg-gray-100 p-3 my-2 rounded-md`}
                     onChangeText={setPin}
                     value={pin}
