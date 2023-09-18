@@ -23,7 +23,7 @@ const Resset = ({ navigation }) => {
                     onChangeText={setPhone}
                     value={phone}
                 />
-                 <Text style={tw`mt-2`}>Confirm Password</Text>
+                <Text style={tw`mt-2`}>Confirm Password</Text>
                 <TextInput
                     placeholder="Confirm Password"
                     style={tw`bg-gray-100 p-3 my-2 rounded-md`}
