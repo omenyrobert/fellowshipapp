@@ -13,12 +13,12 @@ import ChatRoom from "./screens/ChatRoom";
 import About from "./screens/About";
 import Resset from "./screens/Resset";
 import Notes from "./screens/Notes";
-//  import { createDrawerNavigator } from "@react-navigation/drawer";
+import { createDrawerNavigator } from "@react-navigation/drawer";
 import CustomDrawer from "./components/CustomDrawer";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
-// const Drawer = createDrawerNavigator();
+const Drawer = createDrawerNavigator();
 
 function TabNav() {
     return (
@@ -85,35 +85,35 @@ function StackNav() {
     )
 }
 
-// function DrawNav() {
-//     return (
-//         <Drawer.Navigator drawerContent={props => <CustomDrawer {...props}/>} screenOptions={{ headerShown: false }}>
-//             <Drawer.Screen options={{
-//           drawerIcon: ({color}) => (
-//             <Ionicons name="home-outline" size={22} color={color} />
-//           ),
-//         }} name="Login" component={Login} />
-//             <Drawer.Screen options={{
-//           drawerIcon: ({color}) => (
-//             <Ionicons name="home-outline" size={22} color={color} />
-//           ),
-//         }} name="SignUp" component={SignUp} />
-//             <Drawer.Screen name="Resset" component={Resset} />
-//             <Drawer.Screen name="ForgotPin" component={ForgotPin} />
-//             <Drawer.Screen name="ChatRoom" component={ChatRoom} />
-//             <Drawer.Screen name="About" component={About} />
-//             <Drawer.Screen name="Notes" component={Notes} />
-//             <Drawer.Screen name="TabNav" component={TabNav} />
-//         </Drawer.Navigator>
-//     )
-// }
+function DrawNav() {
+    return (
+        <Drawer.Navigator drawerContent={props => <CustomDrawer {...props} />} screenOptions={{ headerShown: false }}>
+            <Drawer.Screen options={{
+                drawerIcon: ({ color }) => (
+                    <Ionicons name="home-outline" size={22} color={color} />
+                ),
+            }} name="Login" component={Login} />
+            <Drawer.Screen options={{
+                drawerIcon: ({ color }) => (
+                    <Ionicons name="home-outline" size={22} color={color} />
+                ),
+            }} name="SignUp" component={SignUp} />
+            <Drawer.Screen name="Resset" component={Resset} />
+            <Drawer.Screen name="ForgotPin" component={ForgotPin} />
+            <Drawer.Screen name="ChatRoom" component={ChatRoom} />
+            <Drawer.Screen name="About" component={About} />
+            <Drawer.Screen name="Notes" component={Notes} />
+            <Drawer.Screen name="TabNav" component={TabNav} />
+        </Drawer.Navigator>
+    )
+}
 
 export default function Navigation() {
     return (
         <>
             <NavigationContainer>
                 <StackNav />
-                {/* <DrawNav/> */}
+                <DrawNav />
                 {/* <TabNav /> */}
             </NavigationContainer>
         </>
