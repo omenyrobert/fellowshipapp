@@ -1,14 +1,16 @@
 import { View, Text, ScrollView, Image, TouchableOpacity } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import tw from 'twrnc';
-import { Feather, FontAwesome, MaterialIcons } from '@expo/vector-icons';
+import { Feather, FontAwesome, MaterialIcons, Ionicons } from '@expo/vector-icons';
+import HomeHeader from "../components/HomeHeader";
 
-const About = ({ navigation }) => {
+const Profile = ({ navigation }) => {
 
     return (
         <SafeAreaView style={{ backgroundColor: '#fff' }}>
-           
+
             <ScrollView style={{ backgroundColor: '#f5f5f5' }}>
+                <HomeHeader />
                 <View style={{ backgroundColor: '#3326AE', height: 200 }}>
 
                 </View>
@@ -32,41 +34,36 @@ const About = ({ navigation }) => {
                                 Omeny Robert
                             </Text>
                         </View>
+                        <Ionicons name="ios-pencil" size={20} style={tw`ml-5 font-light`} color="gray" />
 
                     </View>
 
                     <View style={tw` border-b border-gray-200  flex-row p-3 mx-5 mt-5`}>
-                        <MaterialIcons name="email" style={tw`text-lg`} />
+                        <Feather name="phone" size={24} color="black" />
                         <Text style={tw`ml-5 font-light text-sm`}>
                             +256 768 890 876
                         </Text>
+                        <Ionicons name="ios-pencil" size={20} style={tw`ml-5 font-light`} color="gray" />
 
                     </View>
                     <View style={tw` border-b border-gray-200  flex-row p-3 mx-5 mt-5`}>
-                        <MaterialIcons name="email" style={tw`text-lg`} />
+                        <FontAwesome name="child" size={24} color="black" />
                         <Text style={tw`ml-5 font-light text-sm`}>
-                            +256 768 890 876
+                            2 children
                         </Text>
+                        <Ionicons name="ios-pencil" style={tw`ml-5 font-light`} size={20} color="gray" />
                     </View>
 
-
-
-
-                    <TouchableOpacity onPress={() => navigation.navigate('Login')} style={tw`p-3 m-5 bg-[#FF392B] rounded-md`}>
-                        <Text style={tw`text-center`}>
-                            Logout
-                        </Text>
-                    </TouchableOpacity>
 
                 </View>
                 <View style={{ height: 100 }}>
 
                 </View>
             </ScrollView>
-           
+
         </SafeAreaView>
 
 
     )
 }
-export default About
+export default Profile

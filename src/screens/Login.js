@@ -33,13 +33,13 @@ const Login = () => {
                     onChangeText={setPin}
                     value={pin}
                 />
-                <TouchableOpacity
+            <TouchableOpacity
 
-                    style={tw`bg-[#FF392B] mt-2 p-2 rounded-md`}
-                    onPress={() => navigation.navigate('TabNav')}
-                >
-                    <Text style={tw`text-white text-center font-bold text-lg`}>Login</Text>
-                </TouchableOpacity>
+                style={tw`bg-[#FF392B] mt-2 p-2 rounded-md`}
+                onPress={() => navigation.navigate('TabNav')}
+            >
+                <Text style={tw`text-white text-center font-bold text-lg`}>Login</Text>
+            </TouchableOpacity>
                 <View style={tw`mt-5 flex-row justify-between`}>
                     <Text onPress={() => navigation.navigate('SignUp')} style={tw`font-semibold text-lg`}>Signup</Text>
                     <Text onPress={() => navigation.navigate('ForgotPin')} style={tw`font-semibold text-lg text-[#3326AE]`}>Forgot pin?</Text>

@@ -42,7 +42,7 @@ const News = () => {
     return (
         <>
             <Text style={tw`font-medium ml-5 mt-5 text-xl`}>
-                News & Testimonies
+                Testimonies
             </Text>
             <View style={tw`mx-2 mt-2`}>
 
@@ -60,13 +60,13 @@ const News = () => {
                                 <Text style={tw`text-[#3326AE] font-bold`}>
                                     {item.name}
                                 </Text>
-            
+
                                 <Text style={tw`text-gray-600`}>
                                     {item.description}
                                 </Text>
                             </View>
                             <View style={tw`w-10`}>
-                                
+
                             </View>
 
                         </View>

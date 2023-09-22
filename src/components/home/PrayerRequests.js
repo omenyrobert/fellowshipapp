@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { View, Text, ScrollView, ImageBackground, TouchableOpacity, TextInput, StyleSheet, Image } from "react-native";
+import { View, Text, ScrollView, Image, TouchableOpacity, TextInput, StyleSheet } from "react-native";
 import tw from 'twrnc';
 import { useNavigation } from "@react-navigation/native";
 
@@ -35,26 +35,30 @@ const PrayerRequests = () => {
     ]
     return (
         <>
-            <Text style={tw`font-medium ml-5 mt-5 text-xl`}>
+            <Text style={tw`font-medium ml-5 text-xl`}>
                 Prayer points
             </Text>
             <View style={tw`mx-2 rounded-md mt-2`}>
                 <ScrollView horizontal contentContainerStyle={StyleSheet.container}>
                     {prayers.map((item) => {
                         return (
-
-                            <ImageBackground key={item.id} source={{ uri: item.photo }} style={tw`rounded-md  w-60 h-28 mx-2`}>
-                                <View >
-                                    <View style={tw`bottom-0 bg-black/50 p-2 mt-18`}>
-                                        <Text style={tw`font-bold -mt-2 text-white`}>
-                                            {item.name}
-                                        </Text>
-                                        <Text numberOfLines={1} ellipsizeMode='tail' style={tw`text-white text-xs`}>
-                                            {item.description}
-                                        </Text>
-                                    </View>
+                            <View style={tw`flex-row m-2 w-[62] h-28 rounded-lg border border-gray-100`}>
+                                <View style={tw`w-5/12`}>
+                                    <Image key={item.id} source={{ uri: item.photo }} style={tw`rounded-md h-28  w-full`} />
                                 </View>
-                            </ImageBackground>
+
+                                <View style={tw`w-7/12 p-2`}>
+                                    <Text style={tw`font-bold`}>
+                                        {item.name}
+                                    </Text>
+                                    <Text numberOfLines={3} ellipsizeMode='tail' style={tw`mt-5 text-xs`}>
+                                        {item.description}
+                                    </Text>
+                                </View>
+
+                            </View>
+
+
 
                         )
                     })}

@@ -4,17 +4,20 @@ import SignUp from "./screens/SignUp";
 import ForgotPin from "./screens/ForgotPin";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "./screens/Home";
-import { Feather, FontAwesome5, Entypo, Ionicons, MaterialIcons } from '@expo/vector-icons';
+import { Feather, FontAwesome5, Entypo, Ionicons, FontAwesome, MaterialIcons } from '@expo/vector-icons';
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Meeting from "./screens/Meeting";
 import Give from "./screens/Give";
 import Chat from "./screens/Chat";
 import ChatRoom from "./screens/ChatRoom";
-import About from "./screens/About";
+import Profile from "./screens/Profile";
 import Resset from "./screens/Resset";
 import Notes from "./screens/Notes";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import CustomDrawer from "./components/CustomDrawer";
+import Prayer from "./screens/Prayer";
+import Testmonies from "./screens/Testmonies";
+import News from "./screens/News";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -88,6 +91,7 @@ function StackNav() {
 function DrawNav() {
     return (
         <Drawer.Navigator drawerContent={props => <CustomDrawer {...props} />} screenOptions={{ headerShown: false }}>
+
             <Drawer.Screen options={{
                 drawerIcon: ({ color }) => (
                     <Ionicons name="home-outline" size={22} color={color} />
@@ -95,15 +99,42 @@ function DrawNav() {
             }} name="Login" component={Login} />
             <Drawer.Screen options={{
                 drawerIcon: ({ color }) => (
-                    <Ionicons name="home-outline" size={22} color={color} />
+                    <FontAwesome name="user-circle" size={22} color="black" />
+
                 ),
-            }} name="SignUp" component={SignUp} />
-            <Drawer.Screen name="Resset" component={Resset} />
-            <Drawer.Screen name="ForgotPin" component={ForgotPin} />
-            <Drawer.Screen name="ChatRoom" component={ChatRoom} />
-            <Drawer.Screen name="About" component={About} />
-            <Drawer.Screen name="Notes" component={Notes} />
+            }} name="Profile" component={Profile} />
+
+            <Drawer.Screen options={{
+                drawerIcon: ({ color }) => (
+                    <FontAwesome5 name="praying-hands" size={20} color="black" />
+                ),
+            }} name="Prayer Requests" component={Prayer} />
+
+            <Drawer.Screen options={{
+                drawerIcon: ({ color }) => (
+                    <Ionicons name="ios-happy-outline" size={22} color="black" />
+                ),
+            }} name="Testimonies" component={Testmonies} />
+
+            <Drawer.Screen options={{
+                drawerIcon: ({ color }) => (
+                    <FontAwesome name="thumbs-o-up" size={22} color="black" />
+                ),
+            }} name="News" component={News} />
+
+
+            <Drawer.Screen options={{
+                drawerIcon: ({ color }) => (
+                    <Entypo name="pencil" size={22} color="black" />
+                ),
+            }} name="Notes" component={Notes} />
+
+
+
+
             <Drawer.Screen name="TabNav" component={TabNav} />
+
+
         </Drawer.Navigator>
     )
 }

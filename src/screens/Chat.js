@@ -90,6 +90,12 @@ const Chat = () => {
                     />
                 </View>
                 <ScrollView horizontal>
+                    <View style={{ borderRadius: 100, margin: 10, height: 50, width: 50, padding: 10, backgroundColor: '#FF392B' }}>
+                        <Text style={{ color: '#fff', fontWeight: 'bold', fontSize: 18, marginTop: 1, marginLeft: -2, textAlign: 'center' }}>
+                            All
+                        </Text>
+
+                    </View>
                     {buses.map((item) => {
                         return (
                             <TouchableOpacity key={item.id} onPress={() => navigation.navigate('ChatRoom')} style={tw`m-2 border-b pb-2 border-gray-200`}>
