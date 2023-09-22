@@ -23,7 +23,7 @@ const Drawer = createDrawerNavigator();
 function TabNav() {
     return (
         <Tab.Navigator screenOptions={{
-            activeTintColor: '#193296',
+            activeTintColor: '#3326AE',
 
             labelStyle: {
                 fontSize: 12,
@@ -112,7 +112,7 @@ export default function Navigation() {
     return (
         <>
             <NavigationContainer>
-                <StackNav />
+                {/* <StackNav /> */}
                 <DrawNav />
                 {/* <TabNav /> */}
             </NavigationContainer>

@@ -120,7 +120,7 @@ const Give = () => {
 
 
                             <TouchableOpacity
-                                style={tw`bg-[#FE7D06] m-5 p-2 rounded-md`}
+                                style={tw`bg-[#FF392B] m-5 p-2 rounded-md`}
                             >
                                 <Text style={tw`text-white text-center font-bold text-lg`}>Send</Text>
                             </TouchableOpacity>
@@ -168,7 +168,7 @@ const Give = () => {
 
 
                                 <TouchableOpacity
-                                    style={tw`bg-[#FE7D06] m-5 p-2 rounded-md`}
+                                    style={tw`bg-[#FF392B] m-5 p-2 rounded-md`}
                                 >
                                     <Text style={tw`text-white text-center font-bold text-lg`}>Send</Text>
                                 </TouchableOpacity>

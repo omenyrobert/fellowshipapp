@@ -94,11 +94,11 @@ const Members = () => {
                         return (
                             <TouchableOpacity key={item.id} onPress={() => navigation.navigate('ChatRoom')} style={tw`m-2 border-b pb-2 border-gray-200`}>
                                 <View style={tw`w-20`}>
-                                    <View style={tw`bg-gray-100 ml-2 h-14 w-14 rounded-full  p-1 border border-[#193296]`}>
+                                    <View style={tw`bg-gray-100 ml-2 h-14 w-14 rounded-full  p-1 border border-[#3326AE]`}>
                                         <Image source={{ uri: item.photo }} style={{ objectFit: 'cover', height: '100%', width: '100%', borderRadius: 100 }} />
                                     </View>
                                 </View>
-                                <Text style={tw`text-[#193296] w-20 text-center font-bold`}>
+                                <Text style={tw`text-[#3326AE] w-20 text-center font-bold`}>
                                     {((item.name).length > 9) ?
                                         (((item.name).substring(0, 9 - 1)) + '...') :
                                         item.name}
@@ -115,19 +115,19 @@ const Members = () => {
                         return (
 
                             <TouchableOpacity key={item.id} onPress={() => navigation.navigate('ChatRoom')} style={tw`flex-row  m-2 border-b pb-2 border-gray-200`}>
-                                <View style={tw`bg-gray-100 h-14 w-14 rounded-full  p-1 border border-[#193296]`}>
+                                <View style={tw`bg-gray-100 h-14 w-14 rounded-full  p-1 border border-[#3326AE]`}>
                                     <Image source={{ uri: item.photo }} style={{ objectFit: 'cover', height: '100%', width: '100%', borderRadius: 100 }} />
 
                                 </View>
 
                                 <View style={tw`mx-2 w-[80%] `}>
                                     <View style={tw`flex-row justify-between `}>
-                                        <Text style={tw`text-[#193296] font-bold`}>
+                                        <Text style={tw`text-[#3326AE] font-bold`}>
                                             {item.name}
                                         </Text>
                                         <View>
 
-                                            <Text style={tw`text-[#193296]`}>
+                                            <Text style={tw`text-[#3326AE]`}>
                                                 {item.time}
                                             </Text>
 
@@ -140,7 +140,7 @@ const Members = () => {
                                             {item.description}
                                         </Text>
                                         <View style={tw`text-gray-600 w-[15%]`} >
-                                            <View style={tw`bg-[#FE7D06] w-6  mt-1 rounded-full px-2`} onPress={() => navigation.navigate('About')}>
+                                            <View style={tw`bg-[#FF392B] w-6  mt-1 rounded-full px-2`} onPress={() => navigation.navigate('About')}>
                                                 <Text style={tw`font-bold`} >2</Text>
                                             </View>
                                         </View>

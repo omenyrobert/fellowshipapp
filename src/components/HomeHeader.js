@@ -10,7 +10,7 @@ const HomeHeader = () => {
     <View style={tw`flex-row px-3 pb-5 pt-8 justify-between`} >
       {/* Logo */}
       <View >
-        <Text style={tw`text-xl text-[#193296] font-bold`}>
+        <Text style={tw`text-xl text-[#3326AE] font-bold`}>
           Omeny Robert
         </Text>
         <Text>

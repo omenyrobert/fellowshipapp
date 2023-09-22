@@ -100,23 +100,23 @@ const ChatRoom = () => {
                                 {
                                     item.isSend === 1 ?
                                         <View key={item.id} style={tw`flex-row  m-5`}>
-                                            <View style={tw`bg-gray-100 h-10 w-10 rounded-full  p-1 border border-[#193296]`}>
+                                            <View style={tw`bg-gray-100 h-10 w-10 rounded-full  p-1 border border-[#3326AE]`}>
                                                 <Image source={{ uri: item.photo }} style={{ objectFit: 'cover', height: '100%', width: '100%', borderRadius: 100 }} />
 
                                             </View>
 
                                             <View style={tw`mx-2 w-[70%] `}>
                                                 <View style={tw`flex-row `}>
-                                                    <Text style={tw`text-[#193296] font-bold`}>
+                                                    <Text style={tw`text-[#3326AE] font-bold`}>
                                                         {item.name}
                                                     </Text>
-                                                    <Text style={tw`text-[#193296] ml-5`}>
+                                                    <Text style={tw`text-[#3326AE] ml-5`}>
                                                         {item.time}
                                                     </Text>
                                                 </View>
 
 
-                                                <Text style={tw`text-white bg-[#193296] mt-1 p-2 rounded-md`}>
+                                                <Text style={tw`text-white bg-[#3326AE] mt-1 p-2 rounded-md`}>
                                                     {item.description}
                                                 </Text>
                                             </View>
@@ -134,13 +134,13 @@ const ChatRoom = () => {
                                                     <View>
 
                                                     </View>
-                                                    <Text style={tw`text-[#193296] ml-5`}>
+                                                    <Text style={tw`text-[#3326AE] ml-5`}>
                                                         {item.time}
                                                     </Text>
-                                                    <Text style={tw`text-[#193296] font-bold`}>
+                                                    <Text style={tw`text-[#3326AE] font-bold`}>
                                                         {item.name}
                                                     </Text>
-                                                    <View style={tw`bg-gray-100 h-10 w-10 rounded-full  p-1 border border-[#193296]`}>
+                                                    <View style={tw`bg-gray-100 h-10 w-10 rounded-full  p-1 border border-[#3326AE]`}>
                                                         <Image source={{ uri: item.photo }} style={{ objectFit: 'cover', height: '100%', width: '100%', borderRadius: 100 }} />
 
                                                     </View>

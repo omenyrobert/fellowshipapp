@@ -9,7 +9,7 @@ const About = ({ navigation }) => {
         <SafeAreaView style={{ backgroundColor: '#fff' }}>
            
             <ScrollView style={{ backgroundColor: '#f5f5f5' }}>
-                <View style={{ backgroundColor: '#193296', height: 200 }}>
+                <View style={{ backgroundColor: '#3326AE', height: 200 }}>
 
                 </View>
                 <View>
@@ -52,7 +52,7 @@ const About = ({ navigation }) => {
 
 
 
-                    <TouchableOpacity onPress={() => navigation.navigate('Login')} style={tw`p-3 m-5 bg-[#FE7D06] rounded-md`}>
+                    <TouchableOpacity onPress={() => navigation.navigate('Login')} style={tw`p-3 m-5 bg-[#FF392B] rounded-md`}>
                         <Text style={tw`text-center`}>
                             Logout
                         </Text>

@@ -50,14 +50,14 @@ const News = () => {
                     return (
 
                         <View key={item.id} style={tw`flex-row  m-2 border-b pb-2 border-gray-200`}>
-                            <View style={tw`bg-gray-100 h-14 w-14 rounded-full  p-1 border border-[#193296]`}>
+                            <View style={tw`bg-gray-100 h-14 w-14 rounded-full  p-1 border border-[#3326AE]`}>
                                 <Image source={{ uri: item.photo }} style={{ objectFit: 'cover', height: '100%', width: '100%', borderRadius: 100 }} />
 
                             </View>
 
                             <View style={tw`mx-2 w-[70%] `}>
 
-                                <Text style={tw`text-[#193296] font-bold`}>
+                                <Text style={tw`text-[#3326AE] font-bold`}>
                                     {item.name}
                                 </Text>
             
