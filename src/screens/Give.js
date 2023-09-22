@@ -4,11 +4,15 @@ import tw from 'twrnc';
 import { Feather, FontAwesome } from '@expo/vector-icons';
 import HomeHeader from "../components/HomeHeader";
 import { useState } from "react";
+import CheckBox from "expo-checkbox";
 
 const Give = () => {
 
     const [mobile, setMobile] = useState(false);
     const [bank, setBank] = useState(false);
+    const [pin, setPin] = useState("");
+    const [agree, setAgree] = useState(false);
+    const [no, setNo] = useState(false);
 
     const openBank = () => {
         setBank(true);
@@ -26,9 +30,25 @@ const Give = () => {
             </View>
             <ScrollView >
                 <View>
-                    <Text style={tw`font-medium ml-5 text-xl mt-5`}>
-                        Give Offerty/Tithe
+                    <Text style={tw`font-medium text-[#FF392B] ml-5 text-xl mt-5`}>
+                        Support Our Ministriy
                     </Text>
+                    <Text style={tw`ml-8 text-lg font-medium mt-5`}>Type of Giving</Text>
+                    <View style={tw`flex-row mt-2 ml-8`}>
+
+                        <View style={tw`mt-2 `}>
+                            <CheckBox value={agree}
+                                onValueChange={() => setAgree(!agree)}
+                                color={agree ? "#FF392B" : undefined} />
+                            <Text style={tw`ml-8 -mt-5`}>Offertory</Text>
+                        </View>
+                        <View style={tw`mt-2 ml-10`}>
+                            <CheckBox value={no}
+                                onValueChange={() => setAgree(!no)}
+                                color={no ? "#FF392B" : undefined} />
+                            <Text style={tw`ml-8 -mt-5`}>Tithe</Text>
+                        </View>
+                    </View>
                     <View style={tw`bg-white mt-2`}>
                         <TouchableOpacity onPress={openMobile} style={tw`p-3 rounded-md border-b border-gray-200 mx-5 my-2`}>
 
