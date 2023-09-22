@@ -15,6 +15,13 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 const CustomDrawer = props => {
+  const activeItemStyle = {
+    backgroundColor: '#000',
+  };
+
+  const inactiveItemStyle = {
+    backgroundColor: 'white',
+  };
   return (
     <DrawerContentScrollView
       {...props}
@@ -52,7 +59,7 @@ const CustomDrawer = props => {
             </View>
         </ImageBackground>
         <View style={{ flex: 1, backgroundColor: '#fff', paddingTop: 10 }}>
-          <DrawerItemList {...props} />
+          <DrawerItemList  style={isFocused ? activeItemStyle : inactiveItemStyle} {...props} />
         </View>
 
         <View style={{ padding: 20, borderTopWidth: 1, borderTopColor: '#ccc' }}>

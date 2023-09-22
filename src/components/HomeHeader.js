@@ -1,7 +1,7 @@
 
 import { View, Image, TouchableOpacity, Text } from 'react-native';
 import tw from 'twrnc';
-import { AntDesign,Foundation } from '@expo/vector-icons';
+import { AntDesign, Foundation,Entypo } from '@expo/vector-icons';
 import { useNavigation } from "@react-navigation/native";
 
 const HomeHeader = () => {
@@ -21,7 +21,7 @@ const HomeHeader = () => {
       {/* Profile Avatar */}
       <View style={tw`flex-row `}>
         <TouchableOpacity onPress={() => navigation.navigate('Notes')} style={tw`mr-8`}>
-        <Foundation name="clipboard-notes" size={30} color="black" />
+          <Foundation name="clipboard-notes" size={30} color="black" />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('Chat')} >
           <AntDesign name="message1" size={30} style={tw`relative`} color="black" />
@@ -29,8 +29,8 @@ const HomeHeader = () => {
             <Text style={tw`text-white font-bold`} >O</Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity style={tw`bg-amber-600 ml-8  rounded-full h-8 w-8 pl-2`} onPress={() => navigation.navigate('About')}>
-          <Text style={tw`text-white font-bold text-xl`} >O</Text>
+        <TouchableOpacity style={tw`bg-amber-600 ml-8  rounded-full h-8 w-8 pl-2`} onPress={() => navigation.openDrawer()}>
+          <Entypo name="menu" size={24} color="black" />
         </TouchableOpacity>
       </View>
     </View>
