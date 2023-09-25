@@ -18,6 +18,7 @@ import CustomDrawer from "./components/CustomDrawer";
 import Prayer from "./screens/Prayer";
 import Testmonies from "./screens/Testmonies";
 import News from "./screens/News";
+import Users from "./screens/Users";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -128,6 +129,14 @@ function DrawNav() {
                     <Entypo name="pencil" size={22} color="black" />
                 ),
             }} name="Notes" component={Notes} />
+
+            <Drawer.Screen options={{
+                drawerIcon: ({ color }) => (
+                    <Entypo name="users" size={22} color="black" />
+                ),
+            }} name="New Users" component={Users} />
+
+
 
 
 

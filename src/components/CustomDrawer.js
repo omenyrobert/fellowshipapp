@@ -13,6 +13,8 @@ import {
 import tw from 'twrnc';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import Navigation from '../Navigation';
+import { useNavigation } from "@react-navigation/native";
 
 const CustomDrawer = props => {
   // const activeItemStyle = {
@@ -22,6 +24,7 @@ const CustomDrawer = props => {
   // const inactiveItemStyle = {
   //   backgroundColor: 'white',
   // };
+  const navigation = useNavigation();
   return (
     <DrawerContentScrollView
       {...props}
@@ -76,7 +79,7 @@ const CustomDrawer = props => {
               </Text>
             </View> */}
           </TouchableOpacity>
-          <TouchableOpacity  style={tw`bg-[#FF392B] mt-2 p-2 rounded-md`} onPress={() => { }} >
+          <TouchableOpacity  style={tw`bg-[#FF392B] mt-2 p-2 rounded-md`} onPress={() => navigation.navigate('Login')} >
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
               <Ionicons name="exit-outline" style={{color: '#fff', marginLeft: 70}} size={22} />
               <Text
