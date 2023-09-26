@@ -14,7 +14,7 @@ const Login = () => {
         <View>
             <Image source={bg} style={tw`w-full h-72`} />
             <View style={tw`text-white h-1/4 rounded-3xl -mt-20 p-5 bg-white`}>
-                <Image source={logourl} style={tw`-mt-5 w-56 ml-[21%] h-56`} />
+                <Image source={logourl} style={tw`-mt-5 w-full h-56`} />
             </View>
             <View style={tw`rounded-t-3xl bg-white px-5 -mt-14  h-full`}>
                 <Text style={tw`text-2xl text-[#FF392B] font-bold -mt-14`}>Login</Text>
@@ -42,7 +42,7 @@ const Login = () => {
             </TouchableOpacity>
                 <View style={tw`mt-5 flex-row justify-between`}>
                     <Text onPress={() => navigation.navigate('SignUp')} style={tw`font-semibold text-lg`}>Signup</Text>
-                    <Text onPress={() => navigation.navigate('ForgotPin')} style={tw`font-semibold text-lg text-[#3326AE]`}>Forgot pin?</Text>
+                    <Text onPress={() => navigation.navigate('ForgotPassword')} style={tw`font-semibold text-lg text-[#3326AE]`}>Forgot Password?</Text>
                 </View>
             </View>
 

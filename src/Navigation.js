@@ -1,7 +1,7 @@
 import { NavigationContainer } from "@react-navigation/native";
 import Login from "./screens/Login";
 import SignUp from "./screens/SignUp";
-import ForgotPin from "./screens/ForgotPin";
+import ForgotPassword from "./screens/ForgotPassword";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "./screens/Home";
 import { Feather, FontAwesome5, Entypo, Ionicons, FontAwesome, MaterialIcons } from '@expo/vector-icons';
@@ -80,7 +80,7 @@ function StackNav() {
             <Stack.Screen name="Login" component={Login} />
             <Stack.Screen name="SignUp" component={SignUp} />
             <Stack.Screen name="Resset" component={Resset} />
-            <Stack.Screen name="ForgotPin" component={ForgotPin} />
+            <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
             <Stack.Screen name="ChatRoom" component={ChatRoom} />
             <Stack.Screen name="About" component={About} />
             <Stack.Screen name="Notes" component={Notes} />
@@ -135,6 +135,24 @@ function DrawNav() {
                     <Entypo name="users" size={22} color="black" />
                 ),
             }} name="New Users" component={Users} />
+
+            <Drawer.Screen options={{
+                drawerIcon: ({ color }) => (
+                    <Entypo name="user" size={22} color="black" />
+                ),
+            }} name="SignUp" component={SignUp} />
+
+            <Drawer.Screen options={{
+                drawerIcon: ({ color }) => (
+                    <Entypo name="user" size={22} color="black" />
+                ),
+            }} name="ForgotPassword" component={ForgotPassword} />
+
+<Drawer.Screen options={{
+                drawerIcon: ({ color }) => (
+                    <Entypo name="chat" size={22} color="black" />
+                ),
+            }} name="ChatRoom" component={ChatRoom} />
 
 
 

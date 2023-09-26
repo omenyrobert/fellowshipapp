@@ -4,7 +4,7 @@ import tw from 'twrnc';
 const logourl = require('../../assets/icon.png')
 const bg = require('../../assets/bg.jpg')
 
-const ForgotPin = ({ navigation }) => {
+const ForgotPassword = ({ navigation }) => {
 
     const [phone, setPhone] = useState("");
     const [pin, setPin] = useState("");
@@ -13,10 +13,10 @@ const ForgotPin = ({ navigation }) => {
         <View>
             <Image source={bg} style={tw`w-full h-72`} />
             <View style={tw`text-white rounded-3xl -mt-20 p-5 bg-white`}>
-                <Image source={logourl} style={tw`-mt-5 w-50 ml-[20%] h-50`} />
+                <Image source={logourl} style={tw`-mt-5 w-full h-50`} />
             </View>
             <View style={tw`rounded-t-3xl -mt-14 bg-white p-5 h-full`}>
-                <Text style={tw`text-2xl font-bold mt-2`}>Resset Pin</Text>
+                <Text style={tw`text-2xl font-bold mt-2`}>Resset Password</Text>
 
                 <Text style={tw`mt-2`}>Email</Text>
                 <TextInput
@@ -41,4 +41,4 @@ const ForgotPin = ({ navigation }) => {
         </View>
     )
 }
-export default ForgotPin
+export default ForgotPassword

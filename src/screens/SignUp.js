@@ -17,7 +17,7 @@ const SignUp = ({ navigation }) => {
             <View>
                 <Image source={bg} style={tw`w-full h-72`} />
                 <View style={tw`text-white rounded-3xl -mt-20 p-5 bg-white`}>
-                    <Image source={logourl} style={tw` -mt-5 w-50 ml-[21%] h-50`} />
+                    <Image source={logourl} style={tw` -mt-5 w-full h-50`} />
                 </View>
                 <View style={tw`rounded-t-3xl -mt-20 bg-white p-5 h-full`}>
 

@@ -42,7 +42,7 @@ const PrayerRequests = () => {
                 <ScrollView horizontal contentContainerStyle={StyleSheet.container}>
                     {prayers.map((item) => {
                         return (
-                            <View style={tw`flex-row m-2 w-[62] h-28 rounded-lg border border-gray-100`}>
+                            <View key={item.id} style={tw`flex-row m-2 w-[62] h-28 rounded-lg border border-gray-100`}>
                                 <View style={tw`w-5/12`}>
                                     <Image key={item.id} source={{ uri: item.photo }} style={tw`rounded-md h-28  w-full`} />
                                 </View>

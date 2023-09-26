@@ -52,6 +52,7 @@ const Banner = () => {
                 {prayers.map((pray) => {
                     return (
                         <ImageBackground
+                        key={pray.id}
                             source={{ uri: pray.photo }} // Replace with your image path or URL
                             style={{ margin: 20, borderRadius: 20 }}
                         >

@@ -1,9 +1,10 @@
-import { View, Text, Image, ScrollView } from "react-native"
+import { View, Text, Image, ScrollView, TextInput } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import tw from 'twrnc';
 import { Feather, FontAwesome, MaterialIcons } from '@expo/vector-icons';
 import HomeHeader from "../components/HomeHeader";
-
+const logourl = require('../../assets/icon.png')
+import { Ionicons } from '@expo/vector-icons';
 const ChatRoom = () => {
 
     const chat = [
@@ -91,80 +92,93 @@ const ChatRoom = () => {
     return (
         <SafeAreaView style={{ backgroundColor: '#fff' }}>
             <HomeHeader />
-            <ScrollView style={{ backgroundColor: '#f5f5f5' }}>
+            <View style={tw`flex-row p-2`}>
+                <View>
+                    <Image source={logourl} style={tw`w-14 h-14 border-2 border-blue-700 rounded-full`} />
+                </View>
+                <View style={{ marginLeft: 10 }}>
+                    <Text style={tw`text-xl font-bold text-[#FF392B]`}>Prayer room</Text>
+                    <Text>Talk to everyone</Text>
+                </View>
+
+            </View>
+            <ScrollView style={tw`bg-gray-100 p-3 h-[65%]`}>
                 <View style={tw`mx-2 mt-2`}>
 
                     {chat.map((item) => {
                         return (
                             <>
-                                {
-                                    item.isSend === 1 ?
-                                        <View key={item.id} style={tw`flex-row  m-5`}>
-                                            <View style={tw`bg-gray-100 h-10 w-10 rounded-full  p-1 border border-[#3326AE]`}>
-                                                <Image source={{ uri: item.photo }} style={{ objectFit: 'cover', height: '100%', width: '100%', borderRadius: 100 }} />
+                                <View key={item.id}>
+                                    {
+                                        item.isSend === 1 ?
+                                            <View style={tw`flex-row  m-5`}>
+                                                <View style={tw`bg-gray-100 h-10 w-10 rounded-full  p-1 border border-[#3326AE]`}>
+                                                    <Image source={{ uri: item.photo }} style={{ objectFit: 'cover', height: '100%', width: '100%', borderRadius: 100 }} />
 
-                                            </View>
-
-                                            <View style={tw`mx-2 w-[70%] `}>
-                                                <View style={tw`flex-row `}>
-                                                    <Text style={tw`text-[#3326AE] font-bold`}>
-                                                        {item.name}
-                                                    </Text>
-                                                    <Text style={tw`text-[#3326AE] ml-5`}>
-                                                        {item.time}
-                                                    </Text>
                                                 </View>
 
-
-                                                <Text style={tw`text-white bg-[#3326AE] mt-1 p-2 rounded-md`}>
-                                                    {item.description}
-                                                </Text>
-                                            </View>
-                                            <View style={tw`w-10`}>
-
-                                            </View>
-
-                                        </View> :
-                                        <View key={item.id} style={tw`flex-row m-5`}>
-                                            <View style={tw`w-[20%]`}>
-
-                                            </View>
-                                            <View style={tw`mx-2 w-[80%]`}>
-                                                <View style={tw`flex-row justify-between`}>
-                                                    <View>
-
-                                                    </View>
-                                                    <Text style={tw`text-[#3326AE] ml-5`}>
-                                                        {item.time}
-                                                    </Text>
-                                                    <Text style={tw`text-[#3326AE] font-bold`}>
-                                                        {item.name}
-                                                    </Text>
-                                                    <View style={tw`bg-gray-100 h-10 w-10 rounded-full  p-1 border border-[#3326AE]`}>
-                                                        <Image source={{ uri: item.photo }} style={{ objectFit: 'cover', height: '100%', width: '100%', borderRadius: 100 }} />
-
-                                                    </View>
-                                                    <View>
-
-                                                    </View>
-                                                </View>
-
-                                                <View style={tw`flex-row -mt-5`}>
-                                                    <View style={tw`w-[75%]`}>
-                                                        <Text style={tw`text-gray-700 bg-white mt-1 p-2 rounded-md`}>
-                                                            {item.description}
+                                                <View style={tw`mx-2 w-[70%] `}>
+                                                    <View style={tw`flex-row `}>
+                                                        <Text style={tw`text-[#3326AE] font-bold`}>
+                                                            {item.name}
+                                                        </Text>
+                                                        <Text style={tw`text-[#3326AE] ml-5`}>
+                                                            {item.time}
                                                         </Text>
                                                     </View>
-                                                    <View style={tw`w-[25%]`}>
 
-                                                    </View>
+
+                                                    <Text style={tw`text-white bg-[#3326AE] mt-1 p-2 rounded-md`}>
+                                                        {item.description}
+                                                    </Text>
                                                 </View>
+                                                <View style={tw`w-10`}>
+
+                                                </View>
+
+                                            </View> :
+                                            <View style={tw`flex-row m-5`}>
+                                                <View style={tw`w-[20%]`}>
+
+                                                </View>
+                                                <View style={tw`mx-2 w-[80%]`}>
+                                                    <View style={tw`flex-row justify-between`}>
+                                                        <View>
+
+                                                        </View>
+                                                        <Text style={tw`text-[#3326AE] ml-5`}>
+                                                            {item.time}
+                                                        </Text>
+                                                        <Text style={tw`text-[#3326AE] font-bold`}>
+                                                            {item.name}
+                                                        </Text>
+                                                        <View style={tw`bg-gray-100 h-10 w-10 rounded-full  p-1 border border-[#3326AE]`}>
+                                                            <Image source={{ uri: item.photo }} style={{ objectFit: 'cover', height: '100%', width: '100%', borderRadius: 100 }} />
+
+                                                        </View>
+                                                        <View>
+
+                                                        </View>
+                                                    </View>
+
+                                                    <View style={tw`flex-row -mt-5`}>
+                                                        <View style={tw`w-[75%]`}>
+                                                            <Text style={tw`text-gray-700 bg-white mt-1 p-2 rounded-md`}>
+                                                                {item.description}
+                                                            </Text>
+                                                        </View>
+                                                        <View style={tw`w-[25%]`}>
+
+                                                        </View>
+                                                    </View>
+
+                                                </View>
+
 
                                             </View>
 
-
-                                        </View>
-                                }
+                                    }
+                                </View>
                             </>
 
                         )
@@ -172,10 +186,16 @@ const ChatRoom = () => {
 
 
                 </View>
-                <View style={{ height: 100 }}>
+                <View style={{ height: 50 }}>
 
                 </View>
             </ScrollView>
+            <View style={tw`flex-row p-2`}>
+
+                <TextInput placeholder="text message"
+                    style={tw`bg-gray-100 p-3 m-2 w-[80%] rounded-md`} />
+                <Ionicons name="send-sharp" style={{marginLeft: 10, marginTop: 20}} size={32} color="#FF392B" />
+            </View>
         </SafeAreaView>
 
 

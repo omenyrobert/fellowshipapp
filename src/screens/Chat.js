@@ -81,6 +81,7 @@ const Chat = () => {
     return (
         <SafeAreaView style={{ backgroundColor: '#fff' }}>
             <HomeHeader />
+            
             <ScrollView style={{ backgroundColor: '#f5f5f5' }}>
                 <View style={tw`flex-row relative ml-6 mt-3`}>
                     <FontAwesome style={tw`absolute z-50 mt-3 ml-4`} name="search" size={24} color="black" />

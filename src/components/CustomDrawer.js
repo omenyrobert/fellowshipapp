@@ -13,7 +13,6 @@ import {
 import tw from 'twrnc';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import Navigation from '../Navigation';
 import { useNavigation } from "@react-navigation/native";
 
 const CustomDrawer = props => {
@@ -89,7 +88,7 @@ const CustomDrawer = props => {
                   marginLeft: 5,
                   color: '#fff'
                 }}>
-                Sign Out
+                logout
               </Text>
             </View>
           </TouchableOpacity>

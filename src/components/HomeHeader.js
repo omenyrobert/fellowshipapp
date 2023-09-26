@@ -7,7 +7,7 @@ import { useNavigation } from "@react-navigation/native";
 const HomeHeader = () => {
   const navigation = useNavigation();
   return (
-    <View style={tw`flex-row px-3 pb-5 pt-8 justify-between`} >
+    <View style={tw`flex-row px-3 border-b border-gray-200 mb-2 pb-5 pt-8 justify-between`} >
       {/* Logo */}
       <View >
         <Text style={tw`text-xl text-[#3326AE] font-bold`}>
