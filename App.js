@@ -5,10 +5,10 @@ import { AppCtxProvider } from "./src/context/AppData";
 
 export default function App() {
   return (
-    <AppCtxProvider>
-      <AuthProvider>
+    <AuthProvider>
+      <AppCtxProvider>
         <Navigation />
-      </AuthProvider>
-    </AppCtxProvider>
+      </AppCtxProvider>
+    </AuthProvider>
   );
 }

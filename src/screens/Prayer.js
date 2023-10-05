@@ -2,9 +2,17 @@ import { View, Text, ScrollView, TouchableOpacity, TextInput, Image } from "reac
 import { SafeAreaView } from "react-native-safe-area-context"
 import HomeHeader from "../components/HomeHeader"
 import tw from 'twrnc';
+import React, { useState, useEffect, useContext } from 'react';
+import axiosInstance from "../hooks/axios";
+import { AuthContext } from "../context/Auth";
+import { useAppData } from "../hooks/app-data";
+
 
 
 const Prayer = () => {
+    const [prayer, setPrayer] = useState('')
+    const { user } = useContext(AuthContext)
+    const { getPrayers } = useAppData()
     const prayers = [
         {
             id: 1,
@@ -38,6 +46,31 @@ const Prayer = () => {
         }
 
     ]
+
+    useEffect(() => {
+        getPrayers()
+    }
+        , [])
+
+
+    async function submitPrayer() {
+        try {
+            const response = await axiosInstance.post('/prayer-requets/create', {
+                request: prayer,
+                user: user.id
+            })
+
+            const { status, payload } = response.data
+
+            if (status) {
+                alert("Prayer request sent successfully")
+            } else {
+                alert(payload)
+            }
+        } catch (error) {
+            alert(error.message)
+        }
+    }
     return (
         <SafeAreaView style={{ backgroundColor: '#fff' }}>
             <HomeHeader />
@@ -50,11 +83,13 @@ const Prayer = () => {
                         style={tw`bg-gray-200 p-5 my-2 rounded-md`}
                         multiline
                         numberOfLines={8}
+                        onChangeText={(text) => setPrayer(text)}
 
                     />
 
                     <TouchableOpacity
                         style={tw`bg-[#FF392B] mt-2 p-2 rounded-md`}
+                        onPress={() => submitPrayer()}
                     >
                         <Text style={tw`text-white text-center font-bold text-lg`}>Submit</Text>
                     </TouchableOpacity>

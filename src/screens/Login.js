@@ -2,14 +2,29 @@ import { useState } from "react";
 import { View, Text, TouchableOpacity, TextInput, Image } from "react-native";
 import tw from 'twrnc';
 import { useNavigation } from "@react-navigation/native";
+import { useAuth } from "../hooks/auth";
 
 const logourl = require('../../assets/icon.png')
 const bg = require('../../assets/bg.jpg')
 
 const Login = () => {
-    const [phone, setPhone] = useState("");
-    const [pin, setPin] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
     const navigation = useNavigation();
+    const { login } = useAuth()
+
+    async function loginUser() {
+        const result = await login(
+            email,
+            password
+        )
+
+        if (result.status) {
+            navigation.navigate('TabNav')
+        } else {
+            alert(result.data)
+        }
+    }
     return (
         <View>
             <Image source={bg} style={tw`w-full h-72`} />
@@ -23,23 +38,26 @@ const Login = () => {
                 <TextInput
                     placeholder="Email"
                     style={tw`bg-gray-100 p-3 my-2 rounded-md`}
-                    onChangeText={setPhone}
-                    value={phone}
+                    onChangeText={setEmail}
+                    value={email}
                 />
                 <Text style={tw`mt-5`}>Password</Text>
                 <TextInput
                     placeholder="Password"
                     style={tw`bg-gray-100 p-3 my-2 rounded-md`}
-                    onChangeText={setPin}
-                    value={pin}
+                    onChangeText={setPassword}
+                    value={password}
                 />
-            <TouchableOpacity
+                <TouchableOpacity
 
-                style={tw`bg-[#FF392B] mt-2 p-2 rounded-md`}
-                onPress={() => navigation.navigate('TabNav')}
-            >
-                <Text style={tw`text-white text-center font-bold text-lg`}>Login</Text>
-            </TouchableOpacity>
+                    style={tw`bg-[#FF392B] mt-2 p-2 rounded-md`}
+                    onPress={() => {
+                        // navigation.navigate('TabNav')
+                        loginUser()
+                    }}
+                >
+                    <Text style={tw`text-white text-center font-bold text-lg`}>Login</Text>
+                </TouchableOpacity>
                 <View style={tw`mt-5 flex-row justify-between`}>
                     <Text onPress={() => navigation.navigate('SignUp')} style={tw`font-semibold text-lg`}>Signup</Text>
                     <Text onPress={() => navigation.navigate('ForgotPassword')} style={tw`font-semibold text-lg text-[#3326AE]`}>Forgot Password?</Text>

@@ -2,16 +2,45 @@ import { useState } from "react";
 import { View, Text, ScrollView, TouchableOpacity, TextInput, Image } from "react-native";
 import tw from 'twrnc';
 import CheckBox from "expo-checkbox";
+import { useAuth } from "../hooks/auth";
+
+
+
 const logourl = require('../../assets/icon.png')
 const bg = require('../../assets/bg.jpg')
+
 
 
 const SignUp = ({ navigation }) => {
 
     const [phone, setPhone] = useState("");
     const [pin, setPin] = useState("");
-    const [agree, setAgree] = useState(false);
-    const [no, setNo] = useState(false);
+    const [fullname, setFullname] = useState("");
+    const [email, setEmail] = useState("");
+    const [ref, setRef] = useState("");
+    const [isMother, setIsMother] = useState(false);
+    const [children, setChildren] = useState("");
+    const { register } = useAuth();
+
+    async function signup() {
+        const result = await register(
+            fullname,
+            phone,
+            email,
+            ref,
+            isMother,
+            children,
+            pin
+        )
+
+        if (result.status) {
+            alert("Success")
+        } else {
+            alert(result.data)
+        }
+    }
+
+
     return (
         <ScrollView>
             <View>
@@ -27,45 +56,52 @@ const SignUp = ({ navigation }) => {
                     <TextInput
                         placeholder="Full Name"
                         style={tw`bg-gray-100 p-3 my-2 rounded-md`}
-                        onChangeText={setPhone}
-                        value={phone}
+                        onChangeText={setFullname}
+                        value={fullname}
                     />
                     <Text style={tw`mt-5`}>Email</Text>
                     <TextInput
                         placeholder="Enter Email"
                         style={tw`bg-gray-100 p-3 my-2 rounded-md`}
-                        onChangeText={setPhone}
-                        value={phone}
+                        onChangeText={setEmail}
+                        value={email}
                     />
                     <Text style={tw`mt-5`}>Phone number/whatsApp</Text>
                     <TextInput
                         placeholder="WhatsApp Number"
                         style={tw`bg-gray-100 p-3 my-2 rounded-md`}
+                        onChangeText={setPhone}
+                        value={phone}
+                    />
+
+                    <Text style={tw`mt-5`}>Password</Text>
+                    <TextInput
+                        placeholder="Password"
+                        style={tw`bg-gray-100 p-3 my-2 rounded-md`}
                         onChangeText={setPin}
                         value={pin}
                     />
+
                     <Text style={tw`mt-5`}>Who recommended You</Text>
 
                     <TextInput
                         placeholder="Enter Name"
                         style={tw`bg-gray-100 p-3 my-2 rounded-md`}
-                        onChangeText={setPin}
-                        value={pin}
+                        onChangeText={setRef}
+                        value={ref}
                     />
                     <Text style={tw`mt-5`}>  Are you a mother</Text>
                     <View style={tw`flex-row`}>
 
                         <View style={tw`mt-2`}>
-                            <CheckBox value={agree}
-                                onValueChange={() => setAgree(!agree)}
-                                color={agree ? "#FF392B" : undefined} />
-                            <Text style={tw`ml-8 -mt-5`}>Yes</Text>
-                        </View>
-                        <View style={tw`mt-2 ml-10`}>
-                            <CheckBox value={no}
-                                onValueChange={() => setAgree(!no)}
-                                color={no ? "#FF392B" : undefined} />
-                            <Text style={tw`ml-8 -mt-5`}>No</Text>
+                            <CheckBox value={isMother}
+                                onValueChange={(value) => {
+                                    setIsMother(value)
+                                }}
+                                color={isMother ? "#FF392B" : undefined} />
+                            <Text style={tw`ml-8 -mt-5`}>{
+                                isMother ? "Yes (Click to Change)" : "No (Click to Change)"
+                            }</Text>
                         </View>
                     </View>
 
@@ -74,8 +110,8 @@ const SignUp = ({ navigation }) => {
                     <TextInput
                         placeholder="Enter Name"
                         style={tw`bg-gray-100 p-3 my-2 rounded-md`}
-                        onChangeText={setPin}
-                        value={pin}
+                        onChangeText={setChildren}
+                        value={children}
                     />
 
                     <Text style={tw`my-2`}>
@@ -84,7 +120,9 @@ const SignUp = ({ navigation }) => {
                     <TouchableOpacity
 
                         style={tw`bg-[#FF392B] mt-2 p-2 rounded-md`}
-                        onPress={() => navigation.navigate('Home')}
+                        onPress={() => {
+                            signup()
+                        }}
                     >
                         <Text style={tw`text-white text-center font-bold text-lg`}>Signup</Text>
                     </TouchableOpacity>

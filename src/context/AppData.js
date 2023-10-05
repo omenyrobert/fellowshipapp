@@ -1,6 +1,7 @@
-import React, {createContext, useState, useContext, useEffect} from "react"
+import React, { createContext, useState, useContext, useEffect } from "react"
 import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
+import * as SecureStore from 'expo-secure-store';
 
 Notifications.setNotificationHandler({
     handleNotification: async () => ({
@@ -10,19 +11,19 @@ Notifications.setNotificationHandler({
     }),
 });
 
-    async function registerForPushNotificationsAsync() {
-        let token;
-    
-        if (Platform.OS === 'android') {
+async function registerForPushNotificationsAsync() {
+    let token;
+
+    if (Platform.OS === 'android') {
         await Notifications.setNotificationChannelAsync('default', {
             name: 'default',
             importance: Notifications.AndroidImportance.MAX,
             vibrationPattern: [0, 250, 250, 250],
             lightColor: '#FF231F7C',
         });
-        }
-    
-        if (Device.isDevice) {
+    }
+
+    if (Device.isDevice) {
         const { status: existingStatus } = await Notifications.getPermissionsAsync();
         let finalStatus = existingStatus;
         if (existingStatus !== 'granted') {
@@ -34,26 +35,37 @@ Notifications.setNotificationHandler({
             return;
         }
         token = (await Notifications.getExpoPushTokenAsync({ projectId: '1edc0255-01f1-485a-90f7-b7d6e426df52' })).data;
-        console.log(token);
-        } else {
+    } else {
         alert('Must use physical device for Push Notifications');
-        }
-    
-        return token;
     }
+
+    return token;
+}
 
 export const AppContext = createContext({})
 
-export function AppCtxProvider({children}) {
-    const [expoPushToken, setExpoPushToken] = useState('');
+export function AppCtxProvider({ children }) {
+    const [expoPushToken, setExpoPushToken] = useState(null);
+    const [prayers, setPrayers] = useState([])
 
     useEffect(() => {
-        registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
+        async function getAndSaveToken() {
+            let result = await SecureStore.getItemAsync("expoPushToken");
+            console.log(result)
+            if (!result) {
+                result = await registerForPushNotificationsAsync();
+                await SecureStore.setItemAsync("expoPushToken", result);
+            }
+            setExpoPushToken(result);
+        }
+        getAndSaveToken();
     }, []);
 
     return (
         <AppContext.Provider value={{
-            expoPushToken
+            expoPushToken,
+            prayers,
+            setPrayers
         }}>
             {children}
         </AppContext.Provider>
