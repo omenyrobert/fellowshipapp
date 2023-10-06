@@ -47,11 +47,12 @@ export const AppContext = createContext({})
 export function AppCtxProvider({ children }) {
     const [expoPushToken, setExpoPushToken] = useState(null);
     const [prayers, setPrayers] = useState([])
+    const [testimonies, setTestimonies] = useState([])
+    const [news, setNews] = useState([])
 
     useEffect(() => {
         async function getAndSaveToken() {
             let result = await SecureStore.getItemAsync("expoPushToken");
-            console.log(result)
             if (!result) {
                 result = await registerForPushNotificationsAsync();
                 await SecureStore.setItemAsync("expoPushToken", result);
@@ -65,7 +66,11 @@ export function AppCtxProvider({ children }) {
         <AppContext.Provider value={{
             expoPushToken,
             prayers,
-            setPrayers
+            setPrayers,
+            testimonies,
+            setTestimonies,
+            news,
+            setNews
         }}>
             {children}
         </AppContext.Provider>
