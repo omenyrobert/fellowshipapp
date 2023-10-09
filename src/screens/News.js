@@ -16,8 +16,7 @@ const News = () => {
 
     useEffect(() => {
         getNews()
-    }
-        , [])
+    }, [])
 
 
     return (
@@ -32,7 +31,7 @@ const News = () => {
                         <View style={tw`border border-gray-200 rounded-lg my-2`}>
 
                             <ImageBackground
-                                source={{ uri: UPLOADS_URL + pray.image }} // Replace with your image path or URL
+                                source={{ uri: pray.image }} // Replace with your image path or URL
 
                                 key={pray.id}
                             >

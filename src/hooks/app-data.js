@@ -5,7 +5,7 @@ import { AuthContext } from "../context/Auth";
 import * as SecureStore from 'expo-secure-store';
 
 export const useAppData = () => {
-  const { expoPushToken, setPrayers, setTestimonies, setNews } = useContext(AppContext);
+  const { expoPushToken, setPrayers, setTestimonies, setNews, setMeetings, setUsers, setChatUsers, setNotes } = useContext(AppContext);
   const { token, user } = useContext(AuthContext)
 
   const getPrayers = async () => {
@@ -66,10 +66,100 @@ export const useAppData = () => {
     }
   }
 
+  const getMeetings = async () => {
+    try {
+
+      const respose = await axiosInstance.get("/meetings/get", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      const { status } = respose.data;
+
+      if (status) {
+        await SecureStore.setItemAsync("meetings", JSON.stringify(respose.data.payload));
+        setMeetings(respose.data.payload)
+      } else {
+        setMeetings([])
+      }
+
+    } catch (error) {
+
+    }
+  }
+
+  const getUsers = async () => {
+    try {
+      const respose = await axiosInstance.get("/users", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      const { status } = respose.data;
+
+      if (status) {
+        await SecureStore.setItemAsync("users", JSON.stringify(respose.data.payload));
+        setUsers(respose.data.payload)
+      } else {
+        setUsers([])
+      }
+    } catch (error) {
+
+    }
+  }
+
+  const getChatUsers = async () => {
+    try {
+      const respose = await axiosInstance.get("/users/chat", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      const { status } = respose.data;
+
+      if (status) {
+        await SecureStore.setItemAsync("chatusers", JSON.stringify(respose.data.payload));
+        setChatUsers(respose.data.payload)
+      } else {
+        setChatUsers([])
+      }
+    } catch (error) {
+
+    }
+  }
+
+  const getNotes = async () => {
+    try {
+      const respose = await axiosInstance.get("/notes/user", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      const { status } = respose.data;
+
+      if (status) {
+        await SecureStore.setItemAsync("notes", JSON.stringify(respose.data.payload));
+        setNotes(respose.data.payload)
+      } else {
+        setNotes([])
+      }
+    } catch (error) {
+
+    }
+  }
+
 
   return {
     getPrayers,
     getTestimonies,
     getNews,
+    getMeetings,
+    getUsers,
+    getChatUsers,
+    getNotes
   }
 }

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { View, Text, ScrollView, TouchableOpacity, TextInput, Image } from "react-native";
+import { View, Text, ScrollView, TouchableOpacity, TextInput, Image, Alert } from "react-native";
 import tw from 'twrnc';
 import CheckBox from "expo-checkbox";
 import { useAuth } from "../hooks/auth";
@@ -34,7 +34,16 @@ const SignUp = ({ navigation }) => {
         )
 
         if (result.status) {
-            alert("Success")
+            Alert.alert(
+                "Success",
+                "Account created successfully",
+                [
+                    {
+                        text: "OK",
+                        onPress: () => navigation.navigate("Login")
+                    }
+                ]
+            )
         } else {
             alert(result.data)
         }

@@ -1,28 +1,72 @@
-import { View, Text, ScrollView, Image, TextInput, TouchableOpacity } from "react-native"
+import { View, Text, ScrollView, Image, TextInput, TouchableOpacity, ActivityIndicator } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import tw from 'twrnc';
 import { Feather, FontAwesome } from '@expo/vector-icons';
 import HomeHeader from "../components/HomeHeader";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import CheckBox from "expo-checkbox";
+import axiosInstance from "../hooks/axios";
+import { AuthContext } from "../context/Auth";
+import { AppContext } from "../context/AppData";
+import * as WebBrowser from 'expo-web-browser';
+
 
 const Give = () => {
 
-    const [mobile, setMobile] = useState(false);
-    const [bank, setBank] = useState(false);
-    const [pin, setPin] = useState("");
-    const [agree, setAgree] = useState(false);
-    const [no, setNo] = useState(false);
 
-    const openBank = () => {
-        setBank(true);
-        setMobile(false);
+
+    const [loading, setLoading] = useState(false)
+    const [network, setNetwork] = useState("MTN")
+    const [amount, setAmount] = useState("")
+    const [phone, setPhone] = useState("")
+    const [prayer, setPrayer] = useState("")
+    const [isOffertory, setIsOffertory] = useState(false)
+    const { token, user } = useContext(AuthContext)
+    const { expoPushToken } = useContext(AppContext)
+
+    const sendMobile = async () => {
+        if (amount === "" || phone === "" || prayer === "") {
+            alert("All fields are required")
+            return
+        }
+        if (amount < 600) {
+            alert("Amount must be greater than 600")
+            return
+        }
+        try {
+            // userid, amount, transaction_type, phone_number, email, reason, network, device_id
+            setLoading(true)
+            const response = await axiosInstance.post('/transaction/mobile-money', {
+                user_id: user.id,
+                amount,
+                transaction_type: isOffertory ? "OFFERTORY" : "TITHE",
+                phone_number: phone,
+                email: user.email,
+                reason: prayer,
+                network,
+                device_id: expoPushToken
+            }, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            const { status, payload } = response.data
+            if (status) {
+                setLoading(false)
+                await WebBrowser.openBrowserAsync(payload.redirect_url)
+            } else {
+                setLoading(false)
+                alert(payload)
+            }
+        } catch (error) {
+            setLoading(false)
+            alert(error.message)
+
+        }
     }
 
-    const openMobile = () => {
-        setBank(false);
-        setMobile(true);
-    }
+
+
     return (
         <SafeAreaView style={{ backgroundColor: '#fff' }}>
             <View style={tw`border-b border-gray-200`}>
@@ -37,20 +81,96 @@ const Give = () => {
                     <View style={tw`flex-row mt-2 ml-8`}>
 
                         <View style={tw`mt-2 `}>
-                            <CheckBox value={agree}
-                                onValueChange={() => setAgree(!agree)}
-                                color={agree ? "#FF392B" : undefined} />
+                            <CheckBox value={isOffertory === true}
+                                onValueChange={() => setIsOffertory(true)} />
                             <Text style={tw`ml-8 -mt-5`}>Offertory</Text>
                         </View>
                         <View style={tw`mt-2 ml-10`}>
-                            <CheckBox value={no}
-                                onValueChange={() => setAgree(!no)}
-                                color={no ? "#FF392B" : undefined} />
+                            <CheckBox value={isOffertory === false}
+                                onValueChange={() => setIsOffertory(false)} />
                             <Text style={tw`ml-8 -mt-5`}>Tithe</Text>
                         </View>
                     </View>
                     <View style={tw`bg-white mt-2`}>
-                        <TouchableOpacity onPress={openMobile} style={tw`p-3 rounded-md border-b border-gray-200 mx-5 my-2`}>
+
+
+
+                        <View>
+
+
+                            <Text style={tw`ml-5 mt-5`}>
+                                Phone Number
+                            </Text>
+                            <TextInput
+                                placeholder="Phone Number"
+                                style={tw`bg-gray-100 py-3 pl-5 mx-5 mt-2 border border-gray-200 rounded-md`}
+                                value={phone}
+                                onChangeText={setPhone}
+                            />
+
+                            <Text style={tw`ml-5 mt-5`}>
+                                Enter Amount
+                            </Text>
+                            <TextInput
+                                placeholder="Amount"
+                                style={tw`bg-gray-100 py-3 pl-5 mx-5 mt-2 border border-gray-200 rounded-md`}
+                                value={amount}
+                                onChangeText={setAmount}
+                            />
+                            <Text style={tw`ml-5 mt-5`}>
+                                Prayer Request
+                            </Text>
+
+                            <TextInput
+                                placeholder="Amount"
+                                editable
+                                multiline
+                                numberOfLines={4}
+                                maxLength={40}
+                                style={tw`bg-gray-100 py-3 pl-5 mx-5 mt-2 border border-gray-200 rounded-md`}
+                                value={prayer}
+                                onChangeText={setPrayer}
+                            />
+
+
+
+                            {
+                                loading ? (
+                                    <View style={tw`flex-row justify-center bg-[#FF392B] m-5 p-2 rounded-md`}>
+                                        <ActivityIndicator size="large" color="#fff" />
+                                    </View>
+                                ) : (
+                                    <TouchableOpacity
+                                        style={tw`bg-[#FF392B] m-5 p-2 rounded-md`}
+                                        onPress={sendMobile}
+                                    >
+
+                                        <Text style={tw`text-white text-center font-bold text-lg`}>
+                                            Send
+                                        </Text>
+                                    </TouchableOpacity>
+                                )
+                            }
+                        </View>
+
+
+
+
+                    </View>
+                </View>
+                <View style={{ height: 150, backgroundColor: '#fff' }}>
+                </View>
+            </ScrollView>
+        </SafeAreaView>
+
+
+    )
+}
+export default Give
+
+
+/* 
+<TouchableOpacity onPress={openMobile} style={tw`p-3 rounded-md border-b border-gray-200 mx-5 my-2`}>
 
                             <View style={tw`flex-row`}>
                                 <View style={tw`mt-1`}>
@@ -83,71 +203,48 @@ const Give = () => {
                                     </Text>
                                 </View>
                             </View>
-                        </TouchableOpacity>
-
-
-                        {mobile ? <View>
-                            <View style={tw`flex-row p-2 m-2 bg-gray-100`}>
-                                <Image source={require('../../assets/airtel.png')} style={tw`w-10 h-10`} />
-                                <View>
-                                    <Text style={tw`ml-5`}>
-                                        Airtel
-                                    </Text>
-                                    <Text style={tw`ml-5 text-xs text-gray-500`}>
-                                        Airtel Money
-                                    </Text>
-                                </View>
-                            </View >
-
-                            <View style={tw`flex-row p-2 m-2`}>
-                                <Image source={require('../../assets/mtn.jpeg')} style={tw`w-10 h-10`} />
-                                <View>
-                                    <Text style={tw`ml-5`}>
-                                        MTN
-                                    </Text>
-                                    <Text style={tw`ml-5 text-xs text-gray-500`}>
-                                        Momo Money
-                                    </Text>
-                                </View>
-                            </View >
-                            <Text style={tw`ml-5 mt-5`}>
-                                Phone Number
-                            </Text>
-                            <TextInput
-                                placeholder="Phone Number"
-                                style={tw`bg-gray-100 py-3 pl-5 mx-5 mt-2 border border-gray-200 rounded-md`}
-                            />
-
-                            <Text style={tw`ml-5 mt-5`}>
-                                Enter Amount
-                            </Text>
-                            <TextInput
-                                placeholder="Amount"
-                                style={tw`bg-gray-100 py-3 pl-5 mx-5 mt-2 border border-gray-200 rounded-md`}
-                            />
-                            <Text style={tw`ml-5 mt-5`}>
-                                Prayer Request
-                            </Text>
-
-                            <TextInput
-                                placeholder="Amount"
-                                editable
-                                multiline
-                                numberOfLines={4}
-                                maxLength={40}
-                                style={tw`bg-gray-100 py-3 pl-5 mx-5 mt-2 border border-gray-200 rounded-md`}
-                            />
+                        </TouchableOpacity> 
+                        
+                        
+                        
+                        <TouchableOpacity onPress={() => {
+                                setNetwork("Airtel")
+                            }} >
+                                <View style={
+                                    network === "Airtel" ? tw`flex-row p-2 m-2 bg-gray-100` : tw`flex-row p-2 m-2`
+                                }>
+                                    <Image source={require('../../assets/airtel.png')} style={tw`w-10 h-10`} />
+                                    <View>
+                                        <Text style={tw`ml-5`}>
+                                            Airtel
+                                        </Text>
+                                        <Text style={tw`ml-5 text-xs text-gray-500`}>
+                                            Airtel Money
+                                        </Text>
+                                    </View>
+                                </View >
+                            </TouchableOpacity>
 
 
                             <TouchableOpacity
-                                style={tw`bg-[#FF392B] m-5 p-2 rounded-md`}
+                                onPress={() => {
+                                    setNetwork("MTN")
+                                }}
                             >
-                                <Text style={tw`text-white text-center font-bold text-lg`}>Send</Text>
+                                <View style={
+                                    network === "MTN" ? tw`flex-row p-2 m-2 bg-gray-100` : tw`flex-row p-2 m-2`
+                                }>
+                                    <Image source={require('../../assets/mtn.jpeg')} style={tw`w-10 h-10`} />
+                                    <View>
+                                        <Text style={tw`ml-5`}>
+                                            MTN
+                                        </Text>
+                                        <Text style={tw`ml-5 text-xs text-gray-500`}>
+                                            Momo Money
+                                        </Text>
+                                    </View>
+                                </View >
                             </TouchableOpacity>
-                        </View>
-                            : null}
-
-
                         {bank ?
 
                             <View>
@@ -189,22 +286,13 @@ const Give = () => {
 
                                 <TouchableOpacity
                                     style={tw`bg-[#FF392B] m-5 p-2 rounded-md`}
+
                                 >
                                     <Text style={tw`text-white text-center font-bold text-lg`}>Send</Text>
                                 </TouchableOpacity>
                             </View>
                             : null}
 
-
-
-                    </View>
-                </View>
-                <View style={{ height: 150, backgroundColor: '#fff' }}>
-                </View>
-            </ScrollView>
-        </SafeAreaView>
-
-
-    )
-}
-export default Give
+                        
+                        
+                            */

@@ -82,7 +82,7 @@ const Testimonies = () => {
 
                                 <View key={item.id} style={tw`flex-row  m-2 border-b pb-2 border-gray-200`}>
                                     <View style={tw`bg-gray-100 h-14 w-14 rounded-full  p-1 border border-[#3326AE]`}>
-                                        <Image source={{ uri: item.photo }} style={{ objectFit: 'cover', height: '100%', width: '100%', borderRadius: 100 }} />
+                                        <Image source={{ uri: item.user?.profile_picture }} style={{ objectFit: 'cover', height: '100%', width: '100%', borderRadius: 100 }} />
 
                                     </View>
 

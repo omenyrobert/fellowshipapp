@@ -7,7 +7,7 @@ import { AuthContext } from "../context/Auth";
 
 export const useAuth = () => {
   const { expoPushToken } = useContext(AppContext);
-  const { setUser } = useContext(AuthContext)
+  const { setUser, setIsAuthenticated, init, setInit } = useContext(AuthContext)
 
 
   const register = async (
@@ -86,9 +86,33 @@ export const useAuth = () => {
 
   }
 
+  async function logout() {
+    try {
+      await SecureStore.deleteItemAsync("mothersToken")
+      await SecureStore.deleteItemAsync("mothersUser")
+      await SecureStore.deleteItemAsync("prayers")
+      await SecureStore.deleteItemAsync("testimonies")
+      await SecureStore.deleteItemAsync("news")
+      setUser(null)
+      return {
+        status: true,
+        data: "Successful logout",
+      };
+    } catch (error) {
+      return {
+        status: false,
+        data: error.message
+      }
+    }
+
+  }
+
+
+
   return {
     register,
-    login
+    login,
+    logout
   }
 
 }

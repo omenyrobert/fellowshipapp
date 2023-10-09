@@ -1,17 +1,20 @@
 
 import { View, Image, TouchableOpacity, Text } from 'react-native';
 import tw from 'twrnc';
-import { AntDesign, Foundation,Entypo } from '@expo/vector-icons';
+import { AntDesign, Foundation, Entypo } from '@expo/vector-icons';
 import { useNavigation } from "@react-navigation/native";
+import { AuthContext } from '../context/Auth';
+import { useContext } from 'react';
 
 const HomeHeader = () => {
   const navigation = useNavigation();
+  const { user } = useContext(AuthContext)
   return (
     <View style={tw`flex-row px-3 border-b border-gray-200 mb-2 pb-5 pt-8 justify-between`} >
       {/* Logo */}
       <View >
         <Text style={tw`text-xl text-[#3326AE] font-bold`}>
-          Omeny Robert
+          {user?.full_name}
         </Text>
         <Text>
           Welcome to prayer room
@@ -25,12 +28,12 @@ const HomeHeader = () => {
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('Chat')} >
           <AntDesign name="message1" size={30} style={tw`relative`} color="black" />
-          <View style={tw`bg-red-700 ml-5  rounded-full h-5 w-5 pl-1 absolute`}>
+          {/* <View style={tw`bg-red-700 ml-5  rounded-full h-5 w-5 pl-1 absolute`}>
             <Text style={tw`text-white font-bold`} >O</Text>
-          </View>
+          </View> */}
         </TouchableOpacity>
         <TouchableOpacity style={tw`ml-8  rounded-full h-8 w-10 pl-2`} onPress={() => navigation.openDrawer()}>
-        <AntDesign name="menu-unfold" size={36} color="black" />
+          <AntDesign name="menu-unfold" size={36} color="black" />
         </TouchableOpacity>
       </View>
     </View>

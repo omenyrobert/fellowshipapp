@@ -49,6 +49,10 @@ export function AppCtxProvider({ children }) {
     const [prayers, setPrayers] = useState([])
     const [testimonies, setTestimonies] = useState([])
     const [news, setNews] = useState([])
+    const [meetings, setMeetings] = useState([])
+    const [users, setUsers] = useState([])
+    const [chatUsers, setChatUsers] = useState([])
+    const [notes, setNotes] = useState([])
 
     useEffect(() => {
         async function getAndSaveToken() {
@@ -62,6 +66,8 @@ export function AppCtxProvider({ children }) {
         getAndSaveToken();
     }, []);
 
+
+
     return (
         <AppContext.Provider value={{
             expoPushToken,
@@ -70,7 +76,15 @@ export function AppCtxProvider({ children }) {
             testimonies,
             setTestimonies,
             news,
-            setNews
+            setNews,
+            meetings,
+            setMeetings,
+            users,
+            setUsers,
+            chatUsers,
+            setChatUsers,
+            notes,
+            setNotes
         }}>
             {children}
         </AppContext.Provider>

@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { View, Text, TouchableOpacity, TextInput, Image } from "react-native";
 import tw from 'twrnc';
 import { useNavigation } from "@react-navigation/native";
 import { useAuth } from "../hooks/auth";
+import { AuthContext } from "../context/Auth";
 
 const logourl = require('../../assets/icon.png')
 const bg = require('../../assets/bg.jpg')
@@ -12,6 +13,7 @@ const Login = () => {
     const [password, setPassword] = useState("");
     const navigation = useNavigation();
     const { login } = useAuth()
+    const { setInit, init } = useContext(AuthContext)
 
     async function loginUser() {
         const result = await login(
@@ -20,7 +22,7 @@ const Login = () => {
         )
 
         if (result.status) {
-            navigation.navigate('TabNav')
+            setInit(!init)
         } else {
             alert(result.data)
         }
