@@ -1,4 +1,4 @@
-import { View, Text, Image, ScrollView, TextInput,Keyboard, Dimensions } from "react-native"
+import { View, Text, Image, ScrollView, TextInput, KeyboardAvoidingView, Platform } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import tw from 'twrnc';
 import { Feather, FontAwesome, MaterialIcons } from '@expo/vector-icons';
@@ -130,7 +130,9 @@ const ChatRoom = ({ route }) => {
 
 
     return (
-        <SafeAreaView style={{ backgroundColor: '#fff' }}>
+        <KeyboardAvoidingView
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+            style={{ backgroundColor: '#fff' }}>
             <HomeHeader />
                 
             <View style={tw`flex-row p-2`}>
@@ -248,7 +250,7 @@ const ChatRoom = ({ route }) => {
                     onPress={sendMessage}
                     name="send-sharp" style={{ marginLeft: 10, marginTop: 20 }} size={32} color="#FF392B" />
             </View>
-        </SafeAreaView>
+        </KeyboardAvoidingView>
 
 
     )
