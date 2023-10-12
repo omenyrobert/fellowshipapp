@@ -74,39 +74,39 @@ const DrawerComp = ({ visible, onClose }) => {
             animationOut="slideOutLeft" visible={visible}>
             <View style={tw`h-[200] w-[120%] flex-row -ml-5 top-0 left-0 right-0`}>
                 <View style={tw`bg-white h-full w-[60%]`}>
-                    <ImageBackground style={tw`mb-5`} source={bg} resizeMode="cover" >
-                        <View style={{ backgroundColor: '#00000093', padding: 20 }}>
 
-                            <Image
-                                source={
-                                    user?.profile_picture ? {
-                                        uri: user?.profile_picture,
-                                    } : require('./apic.jpeg')
-                                }
-                                style={{ height: 120, width: 120, borderRadius: 100, marginBottom: 10 }}
-                            />
+                    <View style={tw`p-5 flex-row`}>
+
+                        <Image
+                            source={
+                                user?.profile_picture ? {
+                                    uri: user?.profile_picture,
+                                } : require('./apic.jpeg')
+                            }
+                            style={{ height: 50, width: 50, borderRadius: 100, marginBottom: 10 }}
+                        />
+                        <Text
+                            style={{
+
+                                fontSize: 18,
+                                color: '#000',
+                                marginBottom: 5,
+                            }}>
+                            {user?.full_name}
+
+                        </Text>
+                        <View style={{ flexDirection: 'row' }}>
                             <Text
                                 style={{
-                                    color: '#fff',
-                                    fontSize: 18,
-
-                                    marginBottom: 5,
+                                    color: '#000',
+                                    marginRight: 5,
                                 }}>
-                                {user?.full_name}
-                                
+                                {user?.email}
                             </Text>
-                            <View style={{ flexDirection: 'row' }}>
-                                <Text
-                                    style={{
-                                        color: '#fff',
-                                        marginRight: 5,
-                                    }}>
-                                    {user?.email}
-                                </Text>
 
-                            </View>
                         </View>
-                    </ImageBackground>
+                    </View>
+
                     <View style={{ height: '60%' }}>
 
                         <TouchableOpacity onPress={gotohome} style={route.name === 'Home' ? styles.activeView : styles.inactiveView}>
