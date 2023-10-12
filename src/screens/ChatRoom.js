@@ -1,4 +1,4 @@
-import { View, Text, Image, ScrollView, TextInput, KeyboardAvoidingView, Platform } from "react-native"
+import { View, Text, Image, ScrollView, Keyboard, Dimensions, TextInput, KeyboardAvoidingView, Platform } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import tw from 'twrnc';
 import { Feather, FontAwesome, MaterialIcons } from '@expo/vector-icons';
@@ -114,15 +114,15 @@ const ChatRoom = ({ route }) => {
     const [keyboardHeight, setKeyboardHeight] = useState(0);
 
     useEffect(() => {
-      const keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', (event) => {
-        const screenHeight = Dimensions.get('window').height;
-        const keyboardHeight = screenHeight - event.endCoordinates.screenY;
-        setKeyboardHeight(keyboardHeight);
-      });
-  
-      return () => {
-        keyboardDidShowListener.remove();
-      };
+        const keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', (event) => {
+            const screenHeight = Dimensions.get('window').height;
+            const keyboardHeight = screenHeight - event.endCoordinates.screenY;
+            setKeyboardHeight(keyboardHeight);
+        });
+
+        return () => {
+            keyboardDidShowListener.remove();
+        };
     }, []);
 
 
@@ -134,11 +134,10 @@ const ChatRoom = ({ route }) => {
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
             style={{ backgroundColor: '#fff' }}>
             <HomeHeader />
-                
+
             <View style={tw`flex-row p-2`}>
                 <View style={tw`w-12 h-12 border-2 border-blue-700 rounded-full`}>
                     {reciever.profile_picture ? <Image source={{ uri: reciever?.profile_picture }} style={tw`object-cover rounded-full`} /> : <Text style={tw`text-2xl text-blue-700 font-bold mt-1 text-center`}>{reciever.full_name[0]}</Text>}
-
                 </View>
                 <View style={{ marginLeft: 10 }}>
                     <Text style={tw`text-xl font-bold text-[#FF392B]`}>
@@ -146,11 +145,11 @@ const ChatRoom = ({ route }) => {
                             reciever ? reciever.full_name : 'Chat Room'
                         }
                     </Text>
-                    <Text>Talk to everyone</Text>
+                    <Text>Keep in touch</Text>
                 </View>
 
             </View>
-            
+
             <ScrollView style={tw`bg-gray-100 p-3 h-[65%]`}>
                 <View style={tw`mx-2 mt-2`}>
 
@@ -160,27 +159,30 @@ const ChatRoom = ({ route }) => {
                                 {
                                     item.sender.id !== user?.id ?
                                         <View style={tw`flex-row my-3`}>
-                                            <View style={tw`bg-gray-100 h-10 w-10 rounded-full  p-1 border border-[#3326AE]`}>
+                                            {/* <View style={tw`bg-gray-100 h-10 w-10 rounded-full  p-1 border border-[#3326AE]`}>
 
                                                 {item.photo ? <Image source={{ uri: item.photo }} style={{ objectFit: 'cover', height: '100%', width: '100%', borderRadius: 100 }} /> : <Text style={tw`text-2xl font-bold text-blue-700 -mt-1 text-center`}>{item.sender.full_name[0]}</Text>}
-                                            </View>
+                                            </View> */}
 
                                             <View style={tw`mx-2 w-[70%] `}>
                                                 <View style={tw`flex-row `}>
-                                                    <Text style={tw`text-[#3326AE] font-bold`}>
+                                                    {/* <Text style={tw`text-[#3326AE] font-bold`}>
                                                         {item.sender?.full_name}
+                                                    </Text> */}
+
+                                                </View>
+
+
+                                                <View style={tw`text-white flex-row justify-between bg-[#3326AE] mt-1 p-2 rounded-md`}>
+                                                    <Text style={tw`text-base text-white w-[80%]`}>
+                                                        {item.content}
                                                     </Text>
-                                                    <Text style={tw`text-[#3326AE] ml-5`}>
+                                                    <Text style={tw`text-white text-xs`}>
                                                         {
                                                             new Date(item.created_at).toLocaleTimeString()
                                                         }
                                                     </Text>
                                                 </View>
-
-
-                                                <Text style={tw`text-white bg-[#3326AE] mt-1 p-2 rounded-md`}>
-                                                    {item.content}
-                                                </Text>
                                             </View>
                                             <View style={tw`w-10`}>
 
@@ -192,7 +194,7 @@ const ChatRoom = ({ route }) => {
 
                                             </View>
                                             <View style={tw`mx-2 w-[80%]`}>
-                                                <View style={tw`flex-row justify-between`}>
+                                                {/* <View style={tw`flex-row justify-between`}>
                                                     <View>
 
                                                     </View>
@@ -210,15 +212,24 @@ const ChatRoom = ({ route }) => {
                                                     <View>
 
                                                     </View>
-                                                </View>
+                                                </View> */}
 
                                                 <View style={tw`flex-row -mt-5`}>
-                                                    <View style={tw`w-[75%]`}>
-                                                        <Text style={tw`text-gray-700 bg-white mt-1 p-2 rounded-md`}>
-                                                            {item.content}
-                                                        </Text>
+                                                    <View style={tw`w-[95%]`}>
+                                                        <View style={tw`text-gray-700 flex-row justify-between bg-white mt-1 p-2 rounded-md`}>
+                                                            <Text style={tw`w-[80%]`}>
+
+                                                                {item.content}
+                                                            </Text>
+                                                            <Text style={tw`text-xs font-light`}>
+                                                                {
+                                                                    new Date(item.created_at).toLocaleTimeString()
+                                                                }
+                                                            </Text>
+
+                                                        </View>
                                                     </View>
-                                                    <View style={tw`w-[25%]`}>
+                                                    <View style={tw`w-[5%]`}>
 
                                                     </View>
                                                 </View>
