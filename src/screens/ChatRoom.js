@@ -101,7 +101,6 @@ const ChatRoom = ({ route }) => {
         socket.on('userchat:latestMessages', (message) => {
             setMessages(message.reverse());
             message.forEach((item) => {
-                console.log(item)
                 if (time.unread) {
                     socket.emit("message:read", item.id)
                 }
@@ -137,128 +136,140 @@ const ChatRoom = ({ route }) => {
 
     return (
         <SafeAreaView>
-        <KeyboardAvoidingView
-            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-            style={{ backgroundColor: '#fff' }}>
-            <HomeHeader />
+            <KeyboardAvoidingView
+                behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+                style={{ backgroundColor: '#fff' }}>
+                <HomeHeader />
 
-            <View style={tw`flex-row p-2`}>
-                <View style={tw`w-12 h-12 border-2 border-blue-700 rounded-full`}>
-                    {reciever?.profile_picture ? <Image source={{ uri: reciever?.profile_picture }} style={tw`object-cover rounded-full`} /> : <Text style={tw`text-2xl text-blue-700 font-bold mt-1 text-center`}>{reciever?.full_name[0]}</Text>}
+                <View style={tw`flex-row p-2`}>
+                    <View style={tw`w-12 h-12 border-2 border-blue-700 rounded-full`}>
+                        {reciever?.profile_picture ? <Image source={{ uri: reciever?.profile_picture }} style={tw`object-cover rounded-full`} /> : <Text style={tw`text-2xl text-blue-700 font-bold mt-1 text-center`}>{reciever?.full_name[0]}</Text>}
+                    </View>
+                    <View style={{ marginLeft: 10 }}>
+                        <Text style={tw`text-xl font-bold text-[#FF392B]`}>
+                            {
+                                reciever ? reciever?.full_name : 'Prayer Room'
+                            }
+                        </Text>
+                        <Text>Praise God</Text>
+                    </View>
+
                 </View>
-                <View style={{ marginLeft: 10 }}>
-                    <Text style={tw`text-xl font-bold text-[#FF392B]`}>
-                        {
-                            reciever ? reciever?.full_name : 'Prayer Room'
-                        }
-                    </Text>
-                    <Text>Praise God</Text>
-                </View>
+                <ScrollView ref={ref => { this.scrollView = ref }}
+                    onContentSizeChange={() => this.scrollView.scrollToEnd({ animated: true })} style={tw`bg-gray-100 p-3 h-[65%]`}>
+                    <View style={tw`mx-2 mt-2`}>
 
-            </View>
-
-            <ScrollView style={tw`bg-gray-100 p-3 h-[65%]`}>
-                <View style={tw`mx-2 mt-2`}>
-
-                    {messages.map((item) => {
-                        return (
-                            <View key={item.id}>
-                                {
-                                    item.sender.id !== user?.id ?
-                                        <View style={tw`flex-row  my-3`}>
-                                            {
-                                                reciever ? null : (
-                                                    <View style={tw`bg-gray-100 h-10 w-10 rounded-full  p-1 border border-[#3326AE]`}>
-                                                        {item?.sender?.profile_picture ? <Image source={{ uri: item.sender?.profile_picture }} style={{ objectFit: 'cover', height: '100%', width: '100%', borderRadius: 100 }} />
-                                                            : <Text style={tw`text-xl font-medium text-[#3326AE] text-center`}>{item.sender?.full_name[0]}</Text>}
-
-                                                    </View>
-                                                )
-                                            }
-
-
-                                            <View style={tw`ml-2 w-[70%] `}>
-                                                <View style={tw`flex-row `}>
-                                                    {
-                                                        reciever ? null : (
-                                                            <Text style={tw`text-[#3326AE] font-bold`}>
-                                                                {item.sender?.full_name}
-                                                            </Text>
-                                                        )
-                                                    }
-
-
-                                                </View>
-                                                <View style={tw`p-2 rounded-md text-white rounded bg-[#3326AE] flex-row justify-between`}>
-                                                    <Text style={tw`w-[70%] text-white`}>
-                                                        {item.content}
-                                                    </Text>
-                                                    <Text style={tw`text-xs font-light text-white`}>
-                                                        {
-                                                            new Date(item.created_at).toLocaleTimeString()
-                                                        }
-                                                    </Text>
-                                                </View>
-                                            </View>
-                                            <View style={tw`w-10`}>
-
-                                            </View>
-
-                                        </View> :
-                                        <View style={tw`flex-row my-3`}>
-                                            <View style={tw`w-[20%]`}>
-
-                                            </View>
-                                            <View style={tw`mx-2 w-[80%]`}>
-
-                                                <View style={tw`flex-row -mt-5`}>
-                                                    <View style={tw`w-[95%]`}>
-                                                        <View style={tw`text-gray-700 flex-row justify-between bg-white mt-1 p-2 rounded-md`}>
-                                                            <Text style={tw`w-[75%]`}>
-
-                                                                {item.content}
-                                                            </Text>
-                                                            <Text style={tw`text-xs font-light`}>
-                                                                {
-                                                                    new Date(item.created_at).toLocaleTimeString()
-                                                                }
-                                                            </Text>
+                        {messages.map((item) => {
+                            return (
+                                <View key={item.id}>
+                                    {
+                                        item.sender.id !== user?.id ?
+                                            <View style={tw`flex-row  my-3`}>
+                                                {
+                                                    reciever ? null : (
+                                                        <View style={tw`bg-gray-100 h-10 w-10 rounded-full  p-1 border border-[#3326AE]`}>
+                                                            {item?.sender?.profile_picture ? <Image source={{ uri: item.sender?.profile_picture }} style={{ objectFit: 'cover', height: '100%', width: '100%', borderRadius: 100 }} />
+                                                                : <Text style={tw`text-xl font-medium text-[#3326AE] text-center`}>{item.sender?.full_name[0]}</Text>}
 
                                                         </View>
-                                                    </View>
-                                                    <View style={tw`w-[5%]`}>
+                                                    )
+                                                }
 
+
+                                                <View style={tw`ml-2 w-[70%] `}>
+                                                    <View style={tw`flex-row `}>
+                                                        {
+                                                            reciever ? null : (
+                                                                <Text style={tw`text-[#3326AE] font-bold`}>
+                                                                    {item.sender?.full_name}
+                                                                </Text>
+                                                            )
+                                                        }
+
+
+                                                    </View>
+                                                    <View style={tw`p-2 rounded-md text-white rounded bg-[#3326AE] flex-row justify-between`}>
+                                                        <Text style={tw`w-[70%] text-white`}>
+                                                            {item.content}
+                                                        </Text>
+                                                        <Text style={tw`text-xs font-light text-white`}>
+                                                            {
+                                                                new Date(item.created_at).toLocaleTimeString()
+                                                            }
+                                                        </Text>
                                                     </View>
                                                 </View>
 
+                                                <View style={tw`w-10`}>
+
+                                                </View>
+
+                                            </View> :
+                                            <View style={tw`flex-row my-3`}>
+                                                <View style={tw`w-[20%]`}>
+
+                                                </View>
+                                                <View style={tw`mx-2 w-[80%]`}>
+
+                                                    <View style={tw`flex-row -mt-5`}>
+                                                        <View style={tw`w-[95%]`}>
+                                                            <View style={tw`text-gray-700 flex-row justify-between bg-white mt-1 p-2 rounded-md`}>
+                                                                <Text style={tw`w-[75%]`}>
+
+                                                                    {item.content}
+                                                                </Text>
+                                                                <View>
+
+                                                                    <Text style={tw`text-xs  font-light`}>
+                                                                        {
+                                                                            new Date(item.created_at).toLocaleTimeString()
+                                                                        }
+
+                                                                    </Text>
+                                                                    {
+                                                                        item.unread === false ? <Text style={tw`text-xs font-light`}>Seen</Text> : null
+                                                                    }
+                                                                </View>
+
+                                                            </View>
+                                                        </View>
+
+                                                        <View style={tw`w-[25%]`}>
+
+                                                        </View>
+
+                                                    </View>
+
+
+
+                                                </View>
+
+
                                             </View>
 
+                                    }
+                                </View>
 
-                                        </View>
-
-                                }
-                            </View>
-
-                        )
-                    })}
+                            )
+                        })}
 
 
+                    </View>
+                    <View style={{ height: 50 }}>
+
+                    </View>
+                </ScrollView>
+                <View style={tw`flex-row p-2`}>
+
+                    <TextInput placeholder="text message"
+                        value={message}
+                        onChangeText={setMessage}
+                        style={tw`bg-gray-100 p-3 m-2 w-[80%] rounded-md`} />
+                    <Ionicons
+                        onPress={sendMessage}
+                        name="send-sharp" style={{ marginLeft: 10, marginTop: 20 }} size={32} color="#FF392B" />
                 </View>
-                <View style={{ height: 50 }}>
-
-                </View>
-            </ScrollView>
-            <View style={tw`flex-row p-2`}>
-
-                <TextInput placeholder="text message"
-                    value={message}
-                    onChangeText={setMessage}
-                    style={tw`bg-gray-100 p-3 m-2 w-[80%] rounded-md`} />
-                <Ionicons
-                    onPress={sendMessage}
-                    name="send-sharp" style={{ marginLeft: 10, marginTop: 20 }} size={32} color="#FF392B" />
-            </View>
-        </KeyboardAvoidingView>
+            </KeyboardAvoidingView>
         </SafeAreaView>
 
 
