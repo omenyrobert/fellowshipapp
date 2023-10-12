@@ -100,6 +100,12 @@ const ChatRoom = ({ route }) => {
 
         socket.on('userchat:latestMessages', (message) => {
             setMessages(message.reverse());
+            message.forEach((item) => {
+                console.log(item)
+                if (time.unread) {
+                    socket.emit("message:read", item.id)
+                }
+            })
         })
 
         socket.on('userchat:message', (message) => {
@@ -158,26 +164,28 @@ const ChatRoom = ({ route }) => {
                             <View key={item.id}>
                                 {
                                     item.sender.id !== user?.id ?
-                                        <View style={tw`flex-row my-3`}>
-                                            {/* <View style={tw`bg-gray-100 h-10 w-10 rounded-full  p-1 border border-[#3326AE]`}>
+                                        <View style={tw`flex-row  m-5`}>
+                                            {
+                                                reciever ? null : (
+                                                    <View style={tw`bg-gray-100 h-10 w-10 rounded-full  p-1 border border-[#3326AE]`}>
+                                                        <Image source={{ uri: item.sender?.profile_picture }} style={{ objectFit: 'cover', height: '100%', width: '100%', borderRadius: 100 }} />
 
-                                                {item.photo ? <Image source={{ uri: item.photo }} style={{ objectFit: 'cover', height: '100%', width: '100%', borderRadius: 100 }} /> : <Text style={tw`text-2xl font-bold text-blue-700 -mt-1 text-center`}>{item.sender.full_name[0]}</Text>}
-                                            </View> */}
+                                                    </View>
+                                                )
+                                            }
+
 
                                             <View style={tw`mx-2 w-[70%] `}>
                                                 <View style={tw`flex-row `}>
-                                                    {/* <Text style={tw`text-[#3326AE] font-bold`}>
-                                                        {item.sender?.full_name}
-                                                    </Text> */}
+                                                    {
+                                                        reciever ? null : (
+                                                            <Text style={tw`text-[#3326AE] font-bold`}>
+                                                                {item.sender?.full_name}
+                                                            </Text>
+                                                        )
+                                                    }
 
-                                                </View>
-
-
-                                                <View style={tw`text-white flex-row justify-between bg-[#3326AE] mt-1 p-2 rounded-md`}>
-                                                    <Text style={tw`text-base text-white w-[80%]`}>
-                                                        {item.content}
-                                                    </Text>
-                                                    <Text style={tw`text-white text-xs`}>
+                                                    <Text style={tw`text-[#3326AE] ml-5`}>
                                                         {
                                                             new Date(item.created_at).toLocaleTimeString()
                                                         }
@@ -203,12 +211,21 @@ const ChatRoom = ({ route }) => {
                                                             new Date(item.created_at).toLocaleTimeString()
                                                         }
                                                     </Text>
-                                                    <Text style={tw`text-[#3326AE] font-bold`}>
-                                                        {item.sender?.full_name}
-                                                    </Text>
-                                                    <View style={tw`bg-gray-100 h-10 w-10 rounded-full  p-1 border border-[#3326AE]`}>
-                                                        {item.photo ? <Image source={{ uri: item.photo }} style={{ objectFit: 'cover', height: '100%', width: '100%', borderRadius: 100 }} /> : <Text style={tw`text-2xl text-blue-700 -mt-1 font-bold text-center`}>{item.sender.full_name[0]}</Text>}
-                                                    </View>
+
+                                                    {
+                                                        reciever ? null : (
+                                                            <>
+                                                                <Text style={tw`text-[#3326AE] font-bold`}>
+                                                                    {item.sender?.full_name}
+                                                                </Text>
+                                                                <View style={tw`bg-gray-100 h-10 w-10 rounded-full  p-1 border border-[#3326AE]`}>
+                                                                    <Image source={{ uri: item.sender?.profile_picture }} style={{ objectFit: 'cover', height: '100%', width: '100%', borderRadius: 100 }} />
+
+                                                                </View>
+                                                            </>
+                                                        )
+                                                    }
+
                                                     <View>
 
                                                     </View>

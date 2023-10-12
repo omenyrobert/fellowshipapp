@@ -67,6 +67,7 @@ function TabNav() {
             {/* Chat icon */}
             <Tab.Screen name="Chat"
                 options={{
+                    unmountOnBlur: true,
                     tabBarIcon: ({ color }) => <Entypo name="chat" size={24} color={color} />, headerShown: false
                 }}
                 component={Chat} />
@@ -166,6 +167,7 @@ function DrawNav() {
 
 
             <Drawer.Screen options={{
+                unmountOnBlur: true,
                 drawerIcon: ({ color }) => (
                     <Entypo name="chat" size={22} color="black" />
                 ),
