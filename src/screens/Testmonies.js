@@ -55,12 +55,12 @@ const Testimonies = () => {
             <ScrollView style={{ backgroundColor: '#f5f5f5' }}>
                 <View style={{ padding: 20 }}>
                     <Text style={{ fontSize: 22, fontWeight: 'bold', color: '#FF392B' }}>Testimonies</Text>
-                    <Text style={{ marginTop: 20, fontSize: 18 }}>Testify fot the Lord</Text>
+                    <Text style={{ marginTop: 20, fontSize: 18 }}>Testify for the Lord</Text>
                     <TextInput
                         placeholder="Type your testimony"
                         style={tw`bg-gray-200 p-5 my-2 rounded-md`}
                         multiline
-                        numberOfLines={8}
+                        numberOfLines={4}
                         value={testimony}
                         onChangeText={(text) => setTestimony(text)}
 
@@ -114,7 +114,7 @@ const Testimonies = () => {
 
                                 <View key={item.id} style={tw`flex-row  m-2 border-b pb-2 border-gray-200`}>
                                     <View style={tw`bg-gray-100 h-14 w-14 rounded-full  p-1 border border-[#3326AE]`}>
-                                        <Image source={{ uri: item.photo }} style={{ objectFit: 'cover', height: '100%', width: '100%', borderRadius: 100 }} />
+                                        <Image source={{ uri: item.user?.profile_picture }} style={{ objectFit: 'cover', height: '100%', width: '100%', borderRadius: 100 }} />
 
                                     </View>
 

@@ -35,7 +35,7 @@ const Home = () => {
                 <HomeHeader />
                 <ScrollView>
                     <Banner />
-                    <PrayerRequests />
+                    {/* <PrayerRequests /> */}
                     <News />
                     <PreviousMeeting />
 

@@ -63,7 +63,7 @@ const Prayer = () => {
                         placeholder="Prayer request here"
                         style={tw`bg-gray-200 p-5 my-2 rounded-md`}
                         multiline
-                        numberOfLines={8}
+                        numberOfLines={4}
                         onChangeText={(text) => setPrayer(text)}
 
                     />
