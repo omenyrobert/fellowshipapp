@@ -21,6 +21,7 @@ import Testmonies from "./screens/Testmonies";
 import News from "./screens/News";
 import Users from "./screens/Users";
 import { AuthContext } from "./context/Auth";
+import Testimonies from "./screens/Testmonies";
 
 
 
@@ -87,8 +88,12 @@ function StackNav() {
             <Stack.Screen name="Resset" component={Resset} />
             <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
             <Stack.Screen name="ChatRoom" component={ChatRoom} />
-            <Stack.Screen name="About" component={About} />
+            <Stack.Screen name="Profile" component={Profile} />
             <Stack.Screen name="Notes" component={Notes} />
+            <Stack.Screen name="Prayer" component={Prayer} />
+            <Stack.Screen name="Testimonies" component={Testimonies} />
+            <Stack.Screen name="Home" component={Home} />
+            <Stack.Screen name="News" component={News} />
             <Stack.Screen name="TabNav" component={TabNav} />
         </Stack.Navigator>
     )

@@ -4,11 +4,25 @@ import tw from 'twrnc';
 import { AntDesign, Foundation, Entypo } from '@expo/vector-icons';
 import { useNavigation } from "@react-navigation/native";
 import { AuthContext } from '../context/Auth';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
+import DrawerComp from './DrawerComp';
 
 const HomeHeader = () => {
   const navigation = useNavigation();
   const { user } = useContext(AuthContext)
+
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const openModal = () => {
+    setModalVisible(true);
+  };
+
+  const closeModal = () => {
+    setModalVisible(false);
+  };
+
+
+
   return (
     <View style={tw`flex-row px-3 border-b border-gray-200 mb-2 pb-5 pt-8 justify-between`} >
       {/* Logo */}
@@ -32,9 +46,10 @@ const HomeHeader = () => {
             <Text style={tw`text-white font-bold`} >O</Text>
           </View> */}
         </TouchableOpacity>
-        <TouchableOpacity style={tw`ml-8  rounded-full h-8 w-10 pl-2`} onPress={() => navigation.openDrawer()}>
+        <TouchableOpacity style={tw`ml-8  rounded-full p-2 -mt-2`} onPress={openModal}>
           <AntDesign name="menu-unfold" size={36} color="black" />
         </TouchableOpacity>
+        <DrawerComp visible={modalVisible} onClose={closeModal} />
       </View>
     </View>
   );

@@ -28,12 +28,12 @@ const News = () => {
 
                 {news.map((pray) => {
                     return (
-                        <View style={tw`border border-gray-200 rounded-lg my-2`}>
+                        <View key={pray.id} style={tw`border border-gray-200 rounded-lg my-2`}>
 
                             <ImageBackground
                                 source={{ uri: pray.image }} // Replace with your image path or URL
 
-                                key={pray.id}
+                                
                             >
                                 <View style={tw`rounded-lg h-40 p-5 bg-black/50`}>
                                     <View style={tw`h-18`}>

@@ -73,7 +73,7 @@ const Notes = () => {
                     {
                         notes.map((note) => {
                             return (
-                                <View style={tw`p-2 border-b border-gray-300 flex-row`}>
+                                <View key={note.id} style={tw`p-2 border-b border-gray-300 flex-row`}>
                                     <View>
                                         <EvilIcons style={tw`mt-5`} name="pencil" size={34} color="black" />
                                     </View>
