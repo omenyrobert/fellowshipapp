@@ -1,10 +1,5 @@
 import axios from "axios";
-
-
-//const HOST_URL = "https://schoolsoftapp-3432013afef6.herokuapp.com";
-//const HOST_URL = "https://reports.busiatrust.ac.ug";
-
-const HOST_URL = "http://localhost:3001";
+import { HOST_URL } from "../shared/constants";
 
 
 export const UPLOADS_URL = HOST_URL + "/useruploads/";
@@ -13,7 +8,7 @@ export const UPLOADS_URL = HOST_URL + "/useruploads/";
 const axiosInstance = axios.create({
 	baseURL: HOST_URL + "/api",
 });
-
+/* 
 const requestHandler = (request) => {
 	request.headers.Authorization = `Bearer ${localStorage.getItem('mothersToken')}`;
 
@@ -36,6 +31,6 @@ axiosInstance.interceptors.response.use(
 			window.location.href = '/';
 		}
 	},
-);
+); */
 
 export default axiosInstance;

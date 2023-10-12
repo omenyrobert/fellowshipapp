@@ -4,90 +4,79 @@ import tw from 'twrnc';
 import { Feather, FontAwesome, MaterialIcons } from '@expo/vector-icons';
 import HomeHeader from "../components/HomeHeader";
 import { useNavigation } from "@react-navigation/native";
-const Chat = () => {
-    const buses = [
-        {
-            id: 1,
-            name: 'Mercy Hut',
-            time: '3:10pm',
-            description: 'I thank God for saving my son in a car accident last week',
-            photo: 'https://media.istockphoto.com/id/1412450902/photo/african-beauty-woman-face-profile-natural-curly-afro-hairstyle-over-white-isolated-fashion.jpg?s=612x612&w=0&k=20&c=oe4sJL-yCi--R9RewYbhovlYN2WaJ_T7tp9pf_OSlzU=',
-        },
-        {
-            id: 2,
-            name: 'Akao Teddy',
-            time: '7:00pm',
-            description: 'My daughter was admited in University in USA',
-            photo: 'https://media.istockphoto.com/id/534308672/photo/beautiful-young-african-woman-laughing-outdoors.jpg?s=612x612&w=0&k=20&c=TtvBLZvZDCD-_XcIv27E3Oq3-yJredgR3EaQXACsOck=',
-        },
-        {
-            id: 3,
-            name: 'Nakalema Jane',
-            time: '6:10am',
-            description: 'We had court case about our land that the God helped us to win',
-            photo: 'https://media.istockphoto.com/id/1471295100/photo/senior-black-woman-wearing-white-glasses.jpg?s=612x612&w=0&k=20&c=rdnzD53iVZkXa7O_3qLX-duYLn8q9qPeqyOa4Hbpd7E=',
-        },
-        {
-            id: 4,
-            name: 'Julian Mukibi',
-            time: '3:10pm',
-            description: 'We bought a new house for our retirement in Gulu',
-            photo: 'https://media.istockphoto.com/id/1340257475/photo/young-black-african-woman-explaining-on-video-call-job-interview-why-is-she-the-best-choice.jpg?s=612x612&w=0&k=20&c=VtNFp4dT1a-ivLF-4CIWMT5SNfhSqN4v3qtMoeNuZ6Y=',
-        },
-        {
-            id: 5,
-            name: 'Hellen Lukoma',
-            time: '3:10pm',
-            description: 'I want to thank God for the Job that my Husband got',
-            photo: 'https://media.istockphoto.com/id/1465454175/photo/portrait-of-beautiful-black-millennial-entrepreneur-woman-with-an-afro-hairstyle-and-looking.jpg?s=612x612&w=0&k=20&c=jtvDUfJGhxlT6S5vCgdhe7NNeOfCM4n4rmjvUuZGfWk=',
-        },
-        {
-            id: 6,
-            name: 'Mercy Hut',
-            time: '3:10pm',
-            description: 'I thank God for saving my son in a car accident last week',
-            photo: 'https://media.istockphoto.com/id/1412450902/photo/african-beauty-woman-face-profile-natural-curly-afro-hairstyle-over-white-isolated-fashion.jpg?s=612x612&w=0&k=20&c=oe4sJL-yCi--R9RewYbhovlYN2WaJ_T7tp9pf_OSlzU=',
-        },
-        {
-            id: 7,
-            name: 'Akao Teddy',
-            time: '3:10pm',
-            description: 'My daughter was admited in University in USA',
-            photo: 'https://media.istockphoto.com/id/534308672/photo/beautiful-young-african-woman-laughing-outdoors.jpg?s=612x612&w=0&k=20&c=TtvBLZvZDCD-_XcIv27E3Oq3-yJredgR3EaQXACsOck=',
-        },
-        {
-            id: 8,
-            name: 'Nakalema Jane',
-            description: 'We had court case about our land that the God helped us to win',
-            photo: 'https://media.istockphoto.com/id/1471295100/photo/senior-black-woman-wearing-white-glasses.jpg?s=612x612&w=0&k=20&c=rdnzD53iVZkXa7O_3qLX-duYLn8q9qPeqyOa4Hbpd7E=',
-        },
-        {
-            id: 9,
-            name: 'Julian Mukibi',
-            time: '11:10am',
-            description: 'We bought a new house for our retirement in Gulu',
-            photo: 'https://media.istockphoto.com/id/1340257475/photo/young-black-african-woman-explaining-on-video-call-job-interview-why-is-she-the-best-choice.jpg?s=612x612&w=0&k=20&c=VtNFp4dT1a-ivLF-4CIWMT5SNfhSqN4v3qtMoeNuZ6Y=',
-        },
-        {
-            id: 10,
-            name: 'Hellen Lukoma',
-            time: '03:10pm',
-            description: 'I want to thank God for the Job that my Husband got',
-            photo: 'https://media.istockphoto.com/id/1465454175/photo/portrait-of-beautiful-black-millennial-entrepreneur-woman-with-an-afro-hairstyle-and-looking.jpg?s=612x612&w=0&k=20&c=jtvDUfJGhxlT6S5vCgdhe7NNeOfCM4n4rmjvUuZGfWk=',
-        }
+import { AppContext } from "../context/AppData";
+import { useState, useContext, useEffect } from "react";
+import { useAppData } from "../hooks/app-data";
+import { AuthContext } from "../context/Auth";
 
-    ]
+
+const Chat = () => {
     const navigation = useNavigation();
+    const { users, chatUsers } = useContext(AppContext)
+    const { user } = useContext(AuthContext)
+
+    const { getUsers, getChatUsers } = useAppData()
+
+    useEffect(() => {
+        getUsers()
+        getChatUsers()
+    }, [])
+
+    const [allUsers, setAllUsers] = useState([])
+    const [search, setSearch] = useState('')
+    const [filteredUsers, setFilteredUsers] = useState([])
+    const [allChatUsers, setAllChatUsers] = useState([])
+    const [filteredChatUsers, setFilteredChatUsers] = useState([])
+
+    useEffect(() => {
+        // remove user from users
+        const filteredUsers = users.filter((item) => {
+            return item.id !== user.id
+        })
+        setAllUsers(filteredUsers)
+
+
+    }, [users])
+
+    useEffect(() => {
+        // remove user from chatUsers
+        const filteredChatUsers_ = chatUsers.filter((item) => {
+            return item.id !== user.id
+        })
+        setFilteredChatUsers(filteredChatUsers_)
+    }, [chatUsers])
+
+
+    useEffect(() => {
+        if (search === "") {
+            setFilteredUsers(allUsers)
+            setFilteredChatUsers(allChatUsers)
+            return
+        }
+        const filteredUsers_ = allUsers.filter((item) => {
+            return item.full_name.toLowerCase().includes(search.toLowerCase())
+        })
+        const filteredChatUsers_ = allChatUsers.filter((item) => {
+            return item.full_name.toLowerCase().includes(search.toLowerCase())
+        })
+        setFilteredUsers(filteredUsers_)
+        setFilteredChatUsers(filteredChatUsers_)
+    }, [search, allUsers])
+
+
+
     return (
         <SafeAreaView style={{ backgroundColor: '#fff' }}>
             <HomeHeader />
-            
+
             <ScrollView style={{ backgroundColor: '#f5f5f5' }}>
                 <View style={tw`flex-row relative ml-6 mt-3`}>
                     <FontAwesome style={tw`absolute z-50 mt-3 ml-4`} name="search" size={24} color="black" />
                     <TextInput
                         placeholder="Search for user"
                         style={tw`bg-gray-200 py-3 pl-10 ml-1 border w-[90] border-gray-300 rounded-md`}
+                        onChangeText={(text) => setSearch(text)}
+                        value={search}
                     />
                 </View>
                 <ScrollView horizontal>
@@ -97,18 +86,22 @@ const Chat = () => {
                         </Text>
 
                     </View>
-                    {buses.map((item) => {
+                    {filteredUsers.map((item) => {
                         return (
-                            <TouchableOpacity key={item.id} onPress={() => navigation.navigate('ChatRoom')} style={tw`m-2 border-b pb-2 border-gray-200`}>
+                            <TouchableOpacity key={item.id} onPress={() => {
+                                navigation.navigate('ChatRoom', {
+                                    reciever: item
+                                })
+                            }} style={tw`m-2 border-b pb-2 border-gray-200`}>
                                 <View style={tw`w-20`}>
                                     <View style={tw`bg-gray-100 ml-2 h-14 w-14 rounded-full  p-1 border border-[#3326AE]`}>
-                                        <Image source={{ uri: item.photo }} style={{ objectFit: 'cover', height: '100%', width: '100%', borderRadius: 100 }} />
+                                        <Image source={{ uri: item.profile_picture }} style={{ objectFit: 'cover', height: '100%', width: '100%', borderRadius: 100 }} />
                                     </View>
                                 </View>
                                 <Text style={tw`text-[#3326AE] w-20 text-center font-bold`}>
-                                    {((item.name).length > 9) ?
-                                        (((item.name).substring(0, 9 - 1)) + '...') :
-                                        item.name}
+                                    {((item.full_name).length > 9) ?
+                                        (((item.full_name).substring(0, 9 - 1)) + '...') :
+                                        item.full_name}
                                     {/* {item.name} */}
                                 </Text>
                             </TouchableOpacity>
@@ -118,24 +111,30 @@ const Chat = () => {
 
                 <View style={tw`mx-2 mt-2`}>
 
-                    {buses.map((item) => {
+                    {filteredChatUsers.map((item) => {
                         return (
 
-                            <TouchableOpacity key={item.id} onPress={() => navigation.navigate('ChatRoom')} style={tw`flex-row  m-2 border-b pb-2 border-gray-200`}>
+                            <TouchableOpacity key={item.id} onPress={() => {
+                                navigation.navigate('ChatRoom', {
+                                    reciever: item
+                                })
+                            }} style={tw`flex-row  m-2 border-b pb-2 border-gray-200`}>
                                 <View style={tw`bg-gray-100 h-14 w-14 rounded-full  p-1 border border-[#3326AE]`}>
-                                    <Image source={{ uri: item.photo }} style={{ objectFit: 'cover', height: '100%', width: '100%', borderRadius: 100 }} />
+                                    <Image source={{ uri: item.profile_picture }} style={{ objectFit: 'cover', height: '100%', width: '100%', borderRadius: 100 }} />
 
                                 </View>
 
                                 <View style={tw`mx-2 w-[80%] `}>
                                     <View style={tw`flex-row justify-between `}>
                                         <Text style={tw`text-[#3326AE] font-bold`}>
-                                            {item.name}
+                                            {item.full_name}
                                         </Text>
                                         <View>
 
                                             <Text style={tw`text-[#3326AE]`}>
-                                                {item.time}
+                                                {
+                                                    new Date(item?.latestMessage?.created_at).toLocaleTimeString()
+                                                }
                                             </Text>
 
 
@@ -144,11 +143,18 @@ const Chat = () => {
 
                                     <View style={tw`flex-row`}>
                                         <Text style={tw`text-gray-600 w-[85%]`}>
-                                            {item.description}
+                                            {item?.latestMessage?.content}
                                         </Text>
                                         <View style={tw`text-gray-600 w-[15%]`} >
-                                            <View style={tw`bg-[#FF392B] w-6  mt-1 rounded-full px-2`} onPress={() => navigation.navigate('About')}>
-                                                <Text style={tw`font-bold`} >2</Text>
+                                            <View style={tw`bg-[#FF392B] w-6  mt-1 rounded-full px-2`}>
+                                                {
+                                                    item.unreadMessages === 0 ? null : (
+                                                        <Text style={tw`font-bold`} >
+                                                            {item.unreadMessages}
+                                                        </Text>
+                                                    )
+                                                }
+
                                             </View>
                                         </View>
                                     </View>

@@ -11,9 +11,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#fff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.fellowship"
@@ -28,10 +26,13 @@
     "web": {
       "favicon": "./assets/icon.png"
     },
-    "extra": {
-      "eas": {
-        "projectId": "1edc0255-01f1-485a-90f7-b7d6e426df52"
-      }
-    }
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "The app accesses your photos to set profile."
+        }
+      ]
+    ]
   }
 }

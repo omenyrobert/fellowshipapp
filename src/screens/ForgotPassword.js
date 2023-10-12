@@ -1,13 +1,31 @@
 import { useState } from "react";
 import { View, Text, TouchableOpacity, TextInput, Image } from "react-native";
 import tw from 'twrnc';
+import axiosInstance from "../hooks/axios";
 const logourl = require('../../assets/icon.png')
 const bg = require('../../assets/bg.jpg')
 
 const ForgotPassword = ({ navigation }) => {
+    const [email, setEmail] = useState("");
 
-    const [phone, setPhone] = useState("");
-    const [pin, setPin] = useState("");
+    async function getCode() {
+        try {
+            const response = await axiosInstance.post('/users/token', {
+                email
+            })
+
+            const { status, payload } = response.data
+
+            if (status) {
+                alert("Resset Code sent to your Email")
+                navigation.navigate('Resset', { email })
+            } else {
+                alert(payload)
+            }
+        } catch (error) {
+            alert(error.message)
+        }
+    }
 
     return (
         <View>
@@ -22,13 +40,13 @@ const ForgotPassword = ({ navigation }) => {
                 <TextInput
                     placeholder="Email"
                     style={tw`bg-gray-100 p-3 my-2 rounded-md`}
-                    onChangeText={setPhone}
-                    value={phone}
+                    onChangeText={setEmail}
+                    value={email}
                 />
                 <TouchableOpacity
 
                     style={tw`bg-[#FF392B] mt-2 p-2 rounded-md`}
-                    onPress={() => navigation.navigate('Resset')}
+                    onPress={getCode}
                 >
                     <Text style={tw`text-white text-center font-bold text-lg`}>Resset Password</Text>
                 </TouchableOpacity>

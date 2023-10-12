@@ -4,10 +4,42 @@ import tw from 'twrnc';
 const logourl = require('../../assets/icon.png')
 const bg = require('../../assets/bg.jpg')
 
-const Resset = ({ navigation }) => {
+const Resset = ({ route, navigation }) => {
+    const { email } = route.params
 
     const [phone, setPhone] = useState("");
-    const [pin, setPin] = useState("");
+    const [password, setPassword] = useState("");
+    const [token, setToken] = useState("");
+
+    async function resset() {
+        if (!token) {
+            return alert("Token is required")
+        }
+        if (!password) {
+            return alert("Password is required")
+        }
+        if (password.length < 4) {
+            return alert("Password must be at least 4 characters")
+        }
+        try {
+            const response = await axiosInstance.post('/users/update-password', {
+                email,
+                token,
+                password
+            })
+
+            const { status, payload } = response.data
+
+            if (status) {
+                alert("Password Changed")
+                navigation.navigate('Login')
+            } else {
+                alert(payload)
+            }
+        } catch (error) {
+            alert(error.message)
+        }
+    }
 
     return (
         <View>
@@ -18,24 +50,24 @@ const Resset = ({ navigation }) => {
             <View style={tw`rounded-t-3xl -mt-14 bg-white p-5 h-full`}>
                 <Text style={tw`text-2xl font-bold mt-2`}>Resset Password</Text>
 
-                <Text style={tw`mt-2`}>Password</Text>
+                <Text style={tw`mt-2`}>Token</Text>
                 <TextInput
                     placeholder="Password"
                     style={tw`bg-gray-100 p-3 my-2 rounded-md`}
-                    onChangeText={setPhone}
-                    value={phone}
+                    onChangeText={setToken}
+                    value={token}
                 />
-                <Text style={tw`mt-2`}>Confirm Password</Text>
+                <Text style={tw`mt-2`}>Password</Text>
                 <TextInput
                     placeholder="Confirm Password"
                     style={tw`bg-gray-100 p-3 my-2 rounded-md`}
-                    onChangeText={setPhone}
-                    value={phone}
+                    onChangeText={setPassword}
+                    value={password}
                 />
                 <TouchableOpacity
 
                     style={tw`bg-[#FF392B] mt-2 p-2 rounded-md`}
-                    onPress={() => navigation.navigate('Login')}
+                    onPress={resset}
                 >
                     <Text style={tw`text-white text-center font-bold text-lg`}>Resset Password</Text>
                 </TouchableOpacity>

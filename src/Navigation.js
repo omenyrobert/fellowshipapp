@@ -1,3 +1,4 @@
+import { useContext } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import Login from "./screens/Login";
 import SignUp from "./screens/SignUp";
@@ -19,6 +20,9 @@ import Prayer from "./screens/Prayer";
 import Testmonies from "./screens/Testmonies";
 import News from "./screens/News";
 import Users from "./screens/Users";
+import { AuthContext } from "./context/Auth";
+
+
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -90,14 +94,43 @@ function StackNav() {
 }
 
 function DrawNav() {
+    const { isAuthenticated } = useContext(AuthContext);
     return (
         <Drawer.Navigator drawerContent={props => <CustomDrawer {...props} />} screenOptions={{ headerShown: false }}>
 
+            {
+                isAuthenticated ? null : (
+                    <>
+                        <Drawer.Screen options={{
+                            drawerIcon: ({ color }) => (
+                                <MaterialIcons name="login" size={22} color="black" />
+                            ),
+                        }} name="Login" component={Login} />
+                        <Drawer.Screen options={{
+                            drawerIcon: ({ color }) => (
+                                <Entypo name="user" size={22} color="black" />
+                            ),
+                        }} name="SignUp" component={SignUp} />
+
+                        <Drawer.Screen options={{
+                            drawerIcon: ({ color }) => (
+                                <Entypo name="user" size={22} color="black" />
+                            ),
+                        }} name="ForgotPassword" component={ForgotPassword} />
+
+                        <Drawer.Screen options={{
+                            drawerIcon: ({ color }) => (
+                                <Entypo name="user" size={22} color="black" />
+                            ),
+                        }} name="Resset" component={Resset} />
+                    </>
+                )
+            }
             <Drawer.Screen options={{
                 drawerIcon: ({ color }) => (
                     <Ionicons name="home-outline" size={22} color={color} />
                 ),
-            }} name="Login" component={Login} />
+            }} name="Homepage" component={TabNav} />
             <Drawer.Screen options={{
                 drawerIcon: ({ color }) => (
                     <FontAwesome name="user-circle" size={22} color="black" />
@@ -130,36 +163,15 @@ function DrawNav() {
                 ),
             }} name="Notes" component={Notes} />
 
-            <Drawer.Screen options={{
-                drawerIcon: ({ color }) => (
-                    <Entypo name="users" size={22} color="black" />
-                ),
-            }} name="New Users" component={Users} />
+
 
             <Drawer.Screen options={{
-                drawerIcon: ({ color }) => (
-                    <Entypo name="user" size={22} color="black" />
-                ),
-            }} name="SignUp" component={SignUp} />
-
-            <Drawer.Screen options={{
-                drawerIcon: ({ color }) => (
-                    <Entypo name="user" size={22} color="black" />
-                ),
-            }} name="ForgotPassword" component={ForgotPassword} />
-
-<Drawer.Screen options={{
                 drawerIcon: ({ color }) => (
                     <Entypo name="chat" size={22} color="black" />
                 ),
             }} name="ChatRoom" component={ChatRoom} />
 
 
-
-
-
-
-            <Drawer.Screen name="TabNav" component={TabNav} />
 
 
         </Drawer.Navigator>
