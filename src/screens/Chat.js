@@ -80,12 +80,19 @@ const Chat = () => {
                     />
                 </View>
                 <ScrollView horizontal>
-                    <View style={{ borderRadius: 100, margin: 10, height: 50, width: 50, padding: 10, backgroundColor: '#FF392B' }}>
-                        <Text style={{ color: '#fff', fontWeight: 'bold', fontSize: 18, marginTop: 1, marginLeft: -2, textAlign: 'center' }}>
-                            All
-                        </Text>
+                    <TouchableOpacity
+                        onPress={() => {
+                            navigation.navigate('ChatRoom')
+                        }}
+                    >
+                        <View style={{ borderRadius: 100, margin: 10, height: 50, width: 50, padding: 10, backgroundColor: '#FF392B' }}>
+                            <Text style={{ color: '#fff', fontWeight: 'bold', fontSize: 18, marginTop: 1, marginLeft: -2, textAlign: 'center' }}>
+                                All
+                            </Text>
 
-                    </View>
+                        </View>
+                    </TouchableOpacity>
+
                     {filteredUsers.map((item) => {
                         return (
                             <TouchableOpacity key={item.id} onPress={() => {
@@ -95,8 +102,8 @@ const Chat = () => {
                             }} style={tw`m-2 border-b pb-2 border-gray-200`}>
                                 <View style={tw`w-20`}>
                                     <View style={tw`bg-gray-100 ml-2 h-12 w-12 rounded-full  p-1 border border-[#3326AE]`}>
-                                        {item.profile_picture ?  <Image source={{ uri: item.profile_picture }} style={{ objectFit: 'cover', height: '100%', width: '100%', borderRadius: 100 }} /> : <Text style={tw`text-2xl font-bold text-center`}>{item.full_name[0]}</Text> }
-                                       
+                                        {item.profile_picture ? <Image source={{ uri: item.profile_picture }} style={{ objectFit: 'cover', height: '100%', width: '100%', borderRadius: 100 }} /> : <Text style={tw`text-2xl font-bold text-center`}>{item.full_name[0]}</Text>}
+
                                     </View>
                                 </View>
                                 <Text style={tw`text-[#3326AE] w-20 text-center font-bold`}>
