@@ -1,4 +1,4 @@
-import { View, Text, Image, ScrollView, TextInput } from "react-native"
+import { View, Text, Image, ScrollView, TextInput,Keyboard, Dimensions } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import tw from 'twrnc';
 import { Feather, FontAwesome, MaterialIcons } from '@expo/vector-icons';
@@ -111,14 +111,32 @@ const ChatRoom = ({ route }) => {
     }
 
 
+    const [keyboardHeight, setKeyboardHeight] = useState(0);
+
+    useEffect(() => {
+      const keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', (event) => {
+        const screenHeight = Dimensions.get('window').height;
+        const keyboardHeight = screenHeight - event.endCoordinates.screenY;
+        setKeyboardHeight(keyboardHeight);
+      });
+  
+      return () => {
+        keyboardDidShowListener.remove();
+      };
+    }, []);
+
+
+
+
+
     return (
         <SafeAreaView style={{ backgroundColor: '#fff' }}>
             <HomeHeader />
+                
             <View style={tw`flex-row p-2`}>
-                <View>
-                    <Image source={reciever ? {
-                        uri: reciever?.profile_picture
-                    } : logourl} style={tw`w-14 h-14 border-2 border-blue-700 rounded-full`} />
+                <View style={tw`w-12 h-12 border-2 border-blue-700 rounded-full`}>
+                    {reciever.profile_picture ? <Image source={{ uri: reciever?.profile_picture }} style={tw`object-cover rounded-full`} /> : <Text style={tw`text-2xl text-blue-700 font-bold mt-1 text-center`}>{reciever.full_name[0]}</Text>}
+
                 </View>
                 <View style={{ marginLeft: 10 }}>
                     <Text style={tw`text-xl font-bold text-[#FF392B]`}>
@@ -130,6 +148,7 @@ const ChatRoom = ({ route }) => {
                 </View>
 
             </View>
+            
             <ScrollView style={tw`bg-gray-100 p-3 h-[65%]`}>
                 <View style={tw`mx-2 mt-2`}>
 
@@ -138,10 +157,10 @@ const ChatRoom = ({ route }) => {
                             <View key={item.id}>
                                 {
                                     item.sender.id !== user?.id ?
-                                        <View style={tw`flex-row  m-5`}>
+                                        <View style={tw`flex-row my-3`}>
                                             <View style={tw`bg-gray-100 h-10 w-10 rounded-full  p-1 border border-[#3326AE]`}>
-                                                <Image source={{ uri: item.photo }} style={{ objectFit: 'cover', height: '100%', width: '100%', borderRadius: 100 }} />
 
+                                                {item.photo ? <Image source={{ uri: item.photo }} style={{ objectFit: 'cover', height: '100%', width: '100%', borderRadius: 100 }} /> : <Text style={tw`text-2xl font-bold text-blue-700 -mt-1 text-center`}>{item.sender.full_name[0]}</Text>}
                                             </View>
 
                                             <View style={tw`mx-2 w-[70%] `}>
@@ -166,7 +185,7 @@ const ChatRoom = ({ route }) => {
                                             </View>
 
                                         </View> :
-                                        <View style={tw`flex-row m-5`}>
+                                        <View style={tw`flex-row my-3`}>
                                             <View style={tw`w-[20%]`}>
 
                                             </View>
@@ -184,8 +203,7 @@ const ChatRoom = ({ route }) => {
                                                         {item.sender?.full_name}
                                                     </Text>
                                                     <View style={tw`bg-gray-100 h-10 w-10 rounded-full  p-1 border border-[#3326AE]`}>
-                                                        <Image source={{ uri: item.photo }} style={{ objectFit: 'cover', height: '100%', width: '100%', borderRadius: 100 }} />
-
+                                                        {item.photo ? <Image source={{ uri: item.photo }} style={{ objectFit: 'cover', height: '100%', width: '100%', borderRadius: 100 }} /> : <Text style={tw`text-2xl text-blue-700 -mt-1 font-bold text-center`}>{item.sender.full_name[0]}</Text>}
                                                     </View>
                                                     <View>
 
