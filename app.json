@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Mothers-Fellowship",
-    "slug": "Mothers-Fellowship",
+    "name": "Mothers online fellowship",
+    "slug": "Mothers-online-Fellowship",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

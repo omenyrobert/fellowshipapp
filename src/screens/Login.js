@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import { View, Text, TouchableOpacity, TextInput, Image } from "react-native";
+import { View, Text, TouchableOpacity, TextInput, ActivityIndicator, Image } from "react-native";
 import tw from 'twrnc';
 import { useNavigation } from "@react-navigation/native";
 import { useAuth } from "../hooks/auth";
@@ -14,8 +14,9 @@ const Login = () => {
     const navigation = useNavigation();
     const { login } = useAuth()
     const { setInit, init } = useContext(AuthContext)
-
+    const [posting, setPosting] = useState(false)
     async function loginUser() {
+        setPosting(true)
         const result = await login(
             email,
             password
@@ -23,8 +24,10 @@ const Login = () => {
 
         if (result.status) {
             setInit(!init)
+            setPosting(false)
         } else {
             alert(result.data)
+            setPosting(false)
         }
     }
     return (
@@ -48,9 +51,13 @@ const Login = () => {
                     placeholder="Password"
                     style={tw`bg-gray-100 p-3 my-2 rounded-md`}
                     onChangeText={setPassword}
+                    secureTextEntry={true}
                     value={password}
                 />
-                <TouchableOpacity
+
+                {posting ? <View style={tw`bg-[#FF392B] mt-2 flex-row justify-center items-center p-1.5 rounded-md`}>
+                    <ActivityIndicator size="large" color="#fff" />
+                </View> : <TouchableOpacity
 
                     style={tw`bg-[#FF392B] mt-2 p-2 rounded-md`}
                     onPress={() => {
@@ -59,7 +66,12 @@ const Login = () => {
                     }}
                 >
                     <Text style={tw`text-white text-center font-bold text-lg`}>Login</Text>
-                </TouchableOpacity>
+                </TouchableOpacity>}
+
+
+
+
+
                 <View style={tw`mt-5 flex-row justify-between`}>
                     <Text onPress={() => navigation.navigate('SignUp')} style={tw`font-semibold text-lg`}>Signup</Text>
                     <Text onPress={() => navigation.navigate('ForgotPassword')} style={tw`font-semibold text-lg text-[#3326AE]`}>Forgot Password?</Text>

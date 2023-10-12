@@ -74,7 +74,7 @@ const Chat = () => {
                     <FontAwesome style={tw`absolute z-50 mt-3 ml-4`} name="search" size={24} color="black" />
                     <TextInput
                         placeholder="Search for user"
-                        style={tw`bg-gray-200 py-3 pl-10 ml-1 border w-[90] border-gray-300 rounded-md`}
+                        style={tw`bg-gray-200 py-3 pl-10 ml-1 border w-[90%] border-gray-300 rounded-md`}
                         onChangeText={(text) => setSearch(text)}
                         value={search}
                     />
@@ -94,8 +94,9 @@ const Chat = () => {
                                 })
                             }} style={tw`m-2 border-b pb-2 border-gray-200`}>
                                 <View style={tw`w-20`}>
-                                    <View style={tw`bg-gray-100 ml-2 h-14 w-14 rounded-full  p-1 border border-[#3326AE]`}>
-                                        <Image source={{ uri: item.profile_picture }} style={{ objectFit: 'cover', height: '100%', width: '100%', borderRadius: 100 }} />
+                                    <View style={tw`bg-gray-100 ml-2 h-12 w-12 rounded-full  p-1 border border-[#3326AE]`}>
+                                        {item.profile_picture ?  <Image source={{ uri: item.profile_picture }} style={{ objectFit: 'cover', height: '100%', width: '100%', borderRadius: 100 }} /> : <Text style={tw`text-2xl font-bold text-center`}>{item.full_name[0]}</Text> }
+                                       
                                     </View>
                                 </View>
                                 <Text style={tw`text-[#3326AE] w-20 text-center font-bold`}>

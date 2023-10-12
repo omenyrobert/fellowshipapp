@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { View, Text, ScrollView, TouchableOpacity, TextInput, Image, Alert } from "react-native";
+import { View, Text, ScrollView, ActivityIndicator, TouchableOpacity, TextInput, Image, Alert } from "react-native";
 import tw from 'twrnc';
 import CheckBox from "expo-checkbox";
 import { useAuth } from "../hooks/auth";
@@ -22,7 +22,9 @@ const SignUp = ({ navigation }) => {
     const [children, setChildren] = useState("");
     const { register } = useAuth();
 
+    const [posting, setPosting] = useState(false)
     async function signup() {
+        setPosting(true)
         const result = await register(
             fullname,
             phone,
@@ -44,8 +46,10 @@ const SignUp = ({ navigation }) => {
                     }
                 ]
             )
+            setPosting(false)
         } else {
             alert(result.data)
+            setPosting(false)
         }
     }
 
@@ -89,6 +93,7 @@ const SignUp = ({ navigation }) => {
                         style={tw`bg-gray-100 p-3 my-2 rounded-md`}
                         onChangeText={setPin}
                         value={pin}
+                        secureTextEntry={true}
                     />
 
                     <Text style={tw`mt-5`}>Who recommended You</Text>
@@ -126,15 +131,21 @@ const SignUp = ({ navigation }) => {
                     <Text style={tw`my-2`}>
                         Our fellowship happends every 2am
                     </Text>
-                    <TouchableOpacity
 
+
+                    {posting ? <View style={tw`bg-[#FF392B] mt-2 flex-row justify-center items-center p-1.5 rounded-md`}>
+                        <ActivityIndicator size="large" color="#fff" />
+                    </View> : <TouchableOpacity
                         style={tw`bg-[#FF392B] mt-2 p-2 rounded-md`}
                         onPress={() => {
                             signup()
                         }}
                     >
                         <Text style={tw`text-white text-center font-bold text-lg`}>Signup</Text>
-                    </TouchableOpacity>
+                    </TouchableOpacity>}
+
+
+
                     <View style={tw`mt-1 flex-row justify-between`}>
                         <View></View>
                         <Text onPress={() => navigation.navigate('Login')} style={tw`font-semibold text-lg text-[#3326AE]`}>Login</Text>

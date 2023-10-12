@@ -55,6 +55,7 @@ const Resset = ({ route, navigation }) => {
                     placeholder="Password"
                     style={tw`bg-gray-100 p-3 my-2 rounded-md`}
                     onChangeText={setToken}
+                    secureTextEntry={true}
                     value={token}
                 />
                 <Text style={tw`mt-2`}>Password</Text>
