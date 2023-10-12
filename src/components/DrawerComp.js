@@ -75,7 +75,7 @@ const DrawerComp = ({ visible, onClose }) => {
             <View style={tw`h-[200] w-[120%] flex-row -ml-5 top-0 left-0 right-0`}>
                 <View style={tw`bg-white h-full w-[60%]`}>
 
-                    <View style={tw`p-5 flex-row`}>
+                    <View style={tw`p-5 border-b border-gray-200`}>
 
                         <Image
                             source={
@@ -83,23 +83,28 @@ const DrawerComp = ({ visible, onClose }) => {
                                     uri: user?.profile_picture,
                                 } : require('./apic.jpeg')
                             }
-                            style={{ height: 50, width: 50, borderRadius: 100, marginBottom: 10 }}
+                            style={{ height: 120, width: 120, marginLeft: '20%', borderRadius: 100, marginBottom: 10 }}
                         />
-                        <Text
-                            style={{
 
-                                fontSize: 18,
-                                color: '#000',
-                                marginBottom: 5,
-                            }}>
-                            {user?.full_name}
+                        <View>
+                            <Text
+                                style={{
 
-                        </Text>
-                        <View style={{ flexDirection: 'row' }}>
+                                    fontSize: 20,
+                                    color: '#3326AE',
+                                    fontWeight: 'bold',
+                                    textAlign: 'center',
+                                    marginBottom: 5,
+                                }}>
+                                {user?.full_name}
+
+                            </Text>
                             <Text
                                 style={{
                                     color: '#000',
                                     marginRight: 5,
+                                    marginTop: -5,
+                                    textAlign: 'center'
                                 }}>
                                 {user?.email}
                             </Text>
@@ -107,7 +112,7 @@ const DrawerComp = ({ visible, onClose }) => {
                         </View>
                     </View>
 
-                    <View style={{ height: '60%' }}>
+                    <View style={{ height: '60%', marginTop: 5 }}>
 
                         <TouchableOpacity onPress={gotohome} style={route.name === 'Home' ? styles.activeView : styles.inactiveView}>
                             <Entypo name="home" size={22} style={route.name === 'Home' ? styles.activeIcon : styles.inactiveIcon} />
