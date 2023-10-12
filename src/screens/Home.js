@@ -10,13 +10,13 @@ import News from "../components/home/News"
 const Home = () => {
     return (
         <SafeAreaView style={{ backgroundColor: '#fff' }}>
-            <HomeHeader />
             <ScrollView>
+                <HomeHeader />
                 <Banner />
-               <PrayerRequests/>
-                <News/>
-               <PreviousMeeting/>
-      
+                {/* <PrayerRequests/> */}
+                <News />
+                <PreviousMeeting />
+
             </ScrollView>
         </SafeAreaView>
     )

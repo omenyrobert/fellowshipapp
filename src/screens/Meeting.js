@@ -3,7 +3,6 @@ import { SafeAreaView } from "react-native-safe-area-context"
 import tw from 'twrnc';
 import { Feather, FontAwesome } from '@expo/vector-icons';
 import HomeHeader from "../components/HomeHeader";
-import Banner from "../components/home/Banner";
 import React, { useState, useEffect, useContext } from 'react';
 import axiosInstance, { UPLOADS_URL } from "../hooks/axios";
 import { AuthContext } from "../context/Auth";
@@ -50,7 +49,6 @@ const Meeting = () => {
         <SafeAreaView style={{ backgroundColor: '#fff' }}>
             <HomeHeader />
             <ScrollView>
-                <Banner />
                 <View>
                     <Text style={tw`font-medium ml-5 mt-5 text-xl`}>
                         Scheduled Meetings
@@ -62,13 +60,13 @@ const Meeting = () => {
                                 return null
                             }
                             return (
-                                <View key={item.id} style={tw`p-3 rounded-md border-b border-gray-200 mx-5 my-2`}>
+                                <View key={item.id} style={tw`p-1 rounded-md border-b border-gray-200 mx-5 my-2`}>
                                     <View style={tw``}>
                                         <View style={tw`flex-row`}>
                                             <View style={tw`mt-1`}>
                                                 <Feather name="video" size={24} color="blue" />
                                             </View>
-                                            <View style={tw`ml-2`}>
+                                            <View style={tw`ml-2 flex-row`}>
                                                 <Text style={tw`text-lg font-medium -mt-1`}>
                                                     {item.title}
                                                 </Text>

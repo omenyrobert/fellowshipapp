@@ -102,13 +102,13 @@ const Chat = () => {
                             }} style={tw`m-2 border-b pb-2 border-gray-200`}>
                                 <View style={tw`w-20`}>
                                     <View style={tw`bg-gray-100 ml-2 h-12 w-12 rounded-full  p-1 border border-[#3326AE]`}>
-                                        {item.profile_picture ? <Image source={{ uri: item.profile_picture }} style={{ objectFit: 'cover', height: '100%', width: '100%', borderRadius: 100 }} /> : <Text style={tw`text-2xl font-bold text-center`}>{item.full_name[0]}</Text>}
+                                        {item.profile_picture ? <Image source={{ uri: item.profile_picture }} style={{ objectFit: 'cover', height: '100%', width: '100%', borderRadius: 100 }} /> : <Text style={tw`text-xl font-bold mt-1 text-[#3326AE] text-center`}>{item.full_name[0]}</Text>}
 
                                     </View>
                                 </View>
                                 <Text style={tw`text-[#3326AE] w-20 text-center font-bold`}>
-                                    {((item.full_name).length > 9) ?
-                                        (((item.full_name).substring(0, 9 - 1)) + '...') :
+                                    {((item.full_name).length > 7) ?
+                                        (((item.full_name).substring(0, 7 - 1)) + '...') :
                                         item.full_name}
                                     {/* {item.name} */}
                                 </Text>
@@ -128,7 +128,7 @@ const Chat = () => {
                                 })
                             }} style={tw`flex-row  m-2 border-b pb-2 border-gray-200`}>
                                 <View style={tw`bg-gray-100 h-12 w-12 rounded-full  p-1 border border-[#3326AE]`}>
-                                {item.profile_picture ?  <Image source={{ uri: item.profile_picture }} style={{ objectFit: 'cover', height: '100%', width: '100%', borderRadius: 100 }} /> : <Text style={tw`text-2xl font-bold text-center`}>{item.full_name[0]}</Text> }
+                                {item.profile_picture ?  <Image source={{ uri: item.profile_picture }} style={{ objectFit: 'cover', height: '100%', width: '100%', borderRadius: 100 }} /> : <Text style={tw`text-xl font-bold mt-1 text-[#3326AE] text-center`}>{item.full_name[0]}</Text> }
                                 </View>
 
                                 <View style={tw`mx-2 w-[80%] `}>
@@ -156,7 +156,7 @@ const Chat = () => {
                                             <View style={tw`bg-[#FF392B] w-6  mt-1 rounded-full px-2`}>
                                                 {
                                                     item.unreadMessages === 0 ? null : (
-                                                        <Text style={tw`font-bold`} >
+                                                        <Text style={tw`font-bold text-white`} >
                                                             {item.unreadMessages}
                                                         </Text>
                                                     )
