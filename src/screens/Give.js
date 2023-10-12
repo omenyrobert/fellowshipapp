@@ -37,7 +37,7 @@ const Give = () => {
             // userid, amount, transaction_type, phone_number, email, reason, network, device_id
             setLoading(true)
             const response = await axiosInstance.post('/transaction/mobile-money', {
-                user_id: user.id,
+                userid: user.id,
                 amount,
                 transaction_type: isOffertory ? "OFFERTORY" : "TITHE",
                 phone_number: phone,
@@ -53,6 +53,7 @@ const Give = () => {
             const { status, payload } = response.data
             if (status) {
                 setLoading(false)
+                console.log(payload)
                 await WebBrowser.openBrowserAsync(payload.redirect_url)
             } else {
                 setLoading(false)
