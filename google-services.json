@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "649841995534",
+    "project_id": "mothers-7979e",
+    "storage_bucket": "mothers-7979e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:649841995534:android:3d7dc07b5519e68559b15f",
+        "android_client_info": {
+          "package_name": "com.fellowship"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAMxuGJXKyyKawcqytYUtk292vJimT1DAM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
