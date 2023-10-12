@@ -12,7 +12,7 @@ import {
 } from '@react-navigation/drawer';
 import tw from 'twrnc';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+// import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { useNavigation } from "@react-navigation/native";
 
 const CustomDrawer = props => {
