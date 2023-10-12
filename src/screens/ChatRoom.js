@@ -101,7 +101,6 @@ const ChatRoom = ({ route }) => {
         socket.on('userchat:latestMessages', (message) => {
             setMessages(message.reverse());
             message.forEach((item) => {
-                console.log(item)
                 if (time.unread) {
                     socket.emit("message:read", item.id)
                 }
@@ -138,7 +137,8 @@ const ChatRoom = ({ route }) => {
                 </View>
 
             </View>
-            <ScrollView style={tw`bg-gray-100 p-3 h-[65%]`}>
+            <ScrollView ref={ref => { this.scrollView = ref }}
+                onContentSizeChange={() => this.scrollView.scrollToEnd({ animated: true })} style={tw`bg-gray-100 p-3 h-[65%]`}>
                 <View style={tw`mx-2 mt-2`}>
 
                     {messages.map((item) => {
@@ -179,6 +179,7 @@ const ChatRoom = ({ route }) => {
                                                     {item.content}
                                                 </Text>
                                             </View>
+
                                             <View style={tw`w-10`}>
 
                                             </View>
@@ -224,10 +225,16 @@ const ChatRoom = ({ route }) => {
                                                             {item.content}
                                                         </Text>
                                                     </View>
+
                                                     <View style={tw`w-[25%]`}>
 
                                                     </View>
+
                                                 </View>
+                                                {
+                                                    item.unread === false ? <Text style={tw`text-gray mt-1 p-2 rounded-md`}>Seen</Text> : null
+                                                }
+
 
                                             </View>
 
