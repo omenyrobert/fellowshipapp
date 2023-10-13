@@ -89,7 +89,7 @@ const Chat = () => {
                         value={search}
                     />
                 </View>
-                <ScrollView horizontal>
+                {/* <ScrollView horizontal>
                     <TouchableOpacity
                         onPress={() => {
                             navigation.navigate('ChatRoom')
@@ -120,14 +120,58 @@ const Chat = () => {
                                     {((item.full_name).length > 7) ?
                                         (((item.full_name).substring(0, 7 - 1)) + '...') :
                                         item.full_name}
-                                    {/* {item.name} */}
+                                   
                                 </Text>
                             </TouchableOpacity>
                         )
                     })}
-                </ScrollView>
+                </ScrollView> */}
 
                 <View style={tw`mx-2 mt-2`}>
+
+                    <TouchableOpacity onPress={() => {
+                        navigation.navigate('ChatRoom')
+                    }} style={tw`flex-row border-b pb-2 border-gray-200`}>
+                        <View style={{ borderRadius: 100, margin: 10, height: 50, width: 50, padding: 10, backgroundColor: '#FF392B' }}>
+                            <Text style={{ color: '#fff', fontWeight: 'bold', fontSize: 18, marginTop: 1, marginLeft: -2, textAlign: 'center' }}>
+                                All
+                            </Text>
+
+                        </View>
+
+                        <View style={tw`m-2 w-[75%] `}>
+                            <View style={tw`flex-row justify-between `}>
+                                <Text style={tw`text-[#3326AE] mt-2 font-bold`}>
+                                    Prayer Room
+                                </Text>
+                                <View>
+
+                                    <Text style={tw`text-[#3326AE] mr-2`}>
+                                        {/* {
+                                            new Date(item?.latestMessage?.created_at).toLocaleTimeString()
+                                        } */}
+                                        time here
+                                    </Text>
+
+                                </View>
+                            </View>
+
+                            <View style={tw`flex-row`}>
+                                <Text style={tw`text-gray-600 w-[85%]`}>
+                                    latest message here
+                                </Text>
+                                <View style={tw`text-gray-600 w-[15%]`} >
+                                    <View style={tw`bg-[#FF392B] w-6  mt-1 rounded-full px-2`}>
+                                    </View>
+                                </View>
+                            </View>
+
+                        </View>
+                        <View style={tw`w-5`}>
+                        
+                        </View>
+
+                    </TouchableOpacity>
 
                     {filteredChatUsers.map((item) => {
                         return (
