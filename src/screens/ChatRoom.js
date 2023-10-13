@@ -1,4 +1,4 @@
-import { View, Text, Image, ScrollView, Keyboard, Dimensions, TextInput, KeyboardAvoidingView, Platform, BackHandler } from "react-native"
+import { View, Text, Image, ScrollView, Keyboard, Dimensions, TextInput, KeyboardAvoidingView, Platform, ActivityIndicator } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import tw from 'twrnc';
 import { Feather, FontAwesome, MaterialIcons } from '@expo/vector-icons';
@@ -49,8 +49,10 @@ const ChatRoom = ({ route, navigation }) => {
     const [socket, setSocket] = useState(null);
     const [messages, setMessages] = useState([]);
     const [message, setMessage] = useState('');
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
+        setLoading(true);
         const newSocket = io(HOST_URL, {
             extraHeaders: {
                 "username": user.full_name,
@@ -120,10 +122,12 @@ const ChatRoom = ({ route, navigation }) => {
 
         socket.on('chatroom:latestMessages', (message) => {
             setMessages(message.reverse());
+            setLoading(false);
         })
 
         socket.on('userchat:latestMessages', (message) => {
             setMessages(message.reverse());
+            setLoading(false);
             message.forEach((item) => {
                 if (item.sender.id !== user.id && item.unread) {
                     socket.emit("message:read", {
@@ -138,10 +142,6 @@ const ChatRoom = ({ route, navigation }) => {
         socket.on('userchat:message', (message) => {
             setMessages((messages) => [...messages, message]);
             if (message.sender.id !== user.id) {
-                console.log("==========")
-                console.log(message.sender.id)
-                console.log(user.id)
-                console.log("==========")
                 socket.emit("message:read", {
                     msgId: message.id,
                     user: user.id,
@@ -195,6 +195,10 @@ const ChatRoom = ({ route, navigation }) => {
                 <ScrollView ref={ref => { this.scrollView = ref }}
                     onContentSizeChange={() => this.scrollView.scrollToEnd({ animated: true })} style={tw`bg-gray-100 p-3 h-[65%]`}>
                     <View style={tw`mx-2 mt-2`}>
+
+                        {loading ? <View style={tw` mt-2 flex-row justify-center items-center p-1.5 rounded-md`}>
+                            <ActivityIndicator size="large" color="blue" />
+                        </View> : null}
 
                         {messages.map((item) => {
                             return (
