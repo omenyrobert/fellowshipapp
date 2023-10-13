@@ -1,4 +1,4 @@
-import { View, Text, Image, ScrollView, Keyboard, Dimensions, TextInput, KeyboardAvoidingView, Platform } from "react-native"
+import { View, Text, Image, ScrollView, Keyboard, Dimensions, TextInput, KeyboardAvoidingView, Platform, BackHandler } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import tw from 'twrnc';
 import { Feather, FontAwesome, MaterialIcons } from '@expo/vector-icons';
@@ -9,12 +9,14 @@ import * as ScreenCapture from 'expo-screen-capture';
 import * as MediaLibrary from 'expo-media-library';
 import { io } from "socket.io-client";
 import { HOST_URL } from "../shared/constants";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, useCallback } from "react";
 import { AuthContext } from "../context/Auth";
+import { useNavigationState, useFocusEffect } from "@react-navigation/native";
 
-const ChatRoom = ({ route }) => {
+const ChatRoom = ({ route, navigation }) => {
     const reciever = route?.params?.reciever || null;
     const { user } = useContext(AuthContext);
+
 
     useEffect(() => {
         if (hasPermissions()) {
@@ -49,12 +51,34 @@ const ChatRoom = ({ route }) => {
     const [message, setMessage] = useState('');
 
     useEffect(() => {
-        const newSocket = io(HOST_URL);
+        const newSocket = io(HOST_URL, {
+            extraHeaders: {
+                "username": user.full_name,
+                "userid": user.id,
+            }
+        });
         setSocket(newSocket);
         handleSocket(newSocket);
 
-        return () => socket.close();
     }, [HOST_URL]);
+
+
+    useFocusEffect(
+        useCallback(() => {
+            const unsubscribe = () => {
+                if (socket) {
+                    socket.disconnect();
+                }
+            }
+
+
+            return () => unsubscribe();
+        }, [socket])
+    );
+
+
+
+
 
     function sendMessage() {
         if (!message) return;
@@ -71,7 +95,7 @@ const ChatRoom = ({ route }) => {
                 content: message,
                 reciever: reciever ? reciever.id : null,
                 senderId: user.id,
-                type: "chatroom"
+                type: "chatroom",
             });
         }
 
@@ -101,8 +125,12 @@ const ChatRoom = ({ route }) => {
         socket.on('userchat:latestMessages', (message) => {
             setMessages(message.reverse());
             message.forEach((item) => {
-                if (time.unread) {
-                    socket.emit("message:read", item.id)
+                if (item.sender.id !== user.id && item.unread) {
+                    socket.emit("message:read", {
+                        msgId: item.id,
+                        user: user.id,
+                        username: user.full_name
+                    })
                 }
             })
         })
@@ -114,9 +142,14 @@ const ChatRoom = ({ route }) => {
                 console.log(message.sender.id)
                 console.log(user.id)
                 console.log("==========")
-                socket.emit("message:read", message.id)
+                socket.emit("message:read", {
+                    msgId: message.id,
+                    user: user.id,
+                    username: user.full_name
+                })
             }
         })
+
     }
 
 
