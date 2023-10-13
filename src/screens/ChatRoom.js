@@ -1,4 +1,4 @@
-import { View, Text, Image, ScrollView, Keyboard, Dimensions, TextInput, KeyboardAvoidingView, Platform, ActivityIndicator } from "react-native"
+import { View, Text, Image, ScrollView, Keyboard, Dimensions, TextInput, KeyboardAvoidingView, Platform, ActivityIndicator, TouchableOpacity } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import tw from 'twrnc';
 import { Feather, FontAwesome, MaterialIcons } from '@expo/vector-icons';
@@ -168,6 +168,25 @@ const ChatRoom = ({ route, navigation }) => {
     }, []);
 
 
+    const [page, setPage] = useState(1);
+
+    useEffect(() => {
+        if (socket) {
+            if (reciever) {
+                socket.emit('userchat:moreMessages', {
+                    senderId: user.id,
+                    recieverId: reciever.id,
+                    page: page
+                });
+            } else {
+                socket.emit('chatroom:moreMessages', {
+                    page: page
+                });
+            }
+        }
+    }, [page])
+
+
 
 
 
@@ -180,7 +199,7 @@ const ChatRoom = ({ route, navigation }) => {
 
                 <View style={tw`flex-row p-2`}>
                     <View style={tw`w-12 h-12 border-2 border-blue-700 rounded-full`}>
-                        
+
                         {reciever?.profile_picture ? <Image source={{ uri: reciever?.profile_picture }} style={tw`object-cover rounded-full`} /> : <Text style={tw`text-2xl text-blue-700 font-bold mt-1 text-center`}>{reciever?.full_name[0]}</Text>}
                     </View>
                     <View style={{ marginLeft: 10 }}>
@@ -194,12 +213,26 @@ const ChatRoom = ({ route, navigation }) => {
 
                 </View>
                 <ScrollView ref={ref => { this.scrollView = ref }}
-                    onContentSizeChange={() => this.scrollView.scrollToEnd({ animated: true })} style={tw`bg-gray-100 p-3 h-[65%]`}>
+                    onContentSizeChange={() => {
+                        if (page === 1) {
+                            this.scrollView.scrollToEnd({ animated: true })
+                        }
+                    }} style={tw`bg-gray-100 p-3 h-[65%]`}>
                     <View style={tw`mx-2 mt-2`}>
 
                         {loading ? <View style={tw` mt-2 flex-row justify-center items-center p-1.5 rounded-md`}>
                             <ActivityIndicator size="large" color="blue" />
                         </View> : null}
+
+                        {/* Load more button */}
+                        <View style={tw` mt-2 flex-row justify-center items-center p-1.5 rounded-md`}>
+                            <TouchableOpacity onPress={() => {
+                                setPage(page + 1);
+                                setLoading(true);
+                            }} style={tw`bg-blue-700 p-2 rounded-md`}>
+                                <Text style={tw`text-white`}>Load More</Text>
+                            </TouchableOpacity>
+                        </View>
 
                         {messages.map((item) => {
                             return (
