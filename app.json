@@ -11,7 +11,9 @@
       "resizeMode": "contain",
       "backgroundColor": "#fff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.fellowship"
@@ -22,7 +24,10 @@
         "backgroundColor": "#FF392B"
       },
       "package": "com.fellowship",
-      "googleServicesFile": "./google-services.json"
+      "googleServicesFile": "./google-services.json",
+      "permissions": [
+        "android.permission.RECORD_AUDIO"
+      ]
     },
     "web": {
       "favicon": "./assets/icon.png"
@@ -34,6 +39,11 @@
           "photosPermission": "The app accesses your photos to set profile."
         }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "ff3000de-48af-45d0-bed3-41015a5303f5"
+      }
+    }
   }
 }
