@@ -7,10 +7,11 @@ import axiosInstance from "../hooks/axios";
 import { AuthContext } from "../context/Auth";
 import { useAppData } from "../hooks/app-data";
 import { AppContext } from "../context/AppData";
+import { useNavigation } from "@react-navigation/native";
 
 
 
-const Prayer = () => {
+const PrayerRequest = () => {
     const [prayer, setPrayer] = useState('')
     const { user } = useContext(AuthContext)
     const { prayers } = useContext(AppContext)
@@ -147,6 +148,6 @@ const Prayer = () => {
         </SafeAreaView>
     )
 }
-export default Prayer
+export default PrayerRequest
 
 

@@ -16,7 +16,7 @@ import Resset from "./screens/Resset";
 import Notes from "./screens/Notes";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import CustomDrawer from "./components/CustomDrawer";
-import Prayer from "./screens/Prayer";
+import PrayerRequest from "./screens/PrayerRequest";
 import Testmonies from "./screens/Testmonies";
 import News from "./screens/News";
 import Users from "./screens/Users";
@@ -86,11 +86,11 @@ function StackNav() {
             <Stack.Screen name="Login" component={Login} />
             <Stack.Screen name="SignUp" component={SignUp} />
             <Stack.Screen name="Resset" component={Resset} />
+            <Stack.Screen name="PrayerRequest" component={PrayerRequest} />
             <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
             <Stack.Screen name="ChatRoom" component={ChatRoom} />
             <Stack.Screen name="Profile" component={Profile} />
             <Stack.Screen name="Notes" component={Notes} />
-            <Stack.Screen name="Prayer" component={Prayer} />
             <Stack.Screen name="Testimonies" component={Testimonies} />
             <Stack.Screen name="Home" component={Home} />
             <Stack.Screen name="News" component={News} />
@@ -146,12 +146,6 @@ function DrawNav() {
 
             <Drawer.Screen options={{
                 drawerIcon: ({ color }) => (
-                    <FontAwesome5 name="praying-hands" size={20} color="black" />
-                ),
-            }} name="Prayer Requests" component={Prayer} />
-
-            <Drawer.Screen options={{
-                drawerIcon: ({ color }) => (
                     <Ionicons name="ios-happy-outline" size={22} color="black" />
                 ),
             }} name="Testimonies" component={Testmonies} />
@@ -169,6 +163,12 @@ function DrawNav() {
                 ),
             }} name="Notes" component={Notes} />
 
+
+            <Drawer.Screen options={{
+                drawerIcon: ({ color }) => (
+                    <Entypo name="pencil" size={22} color="black" />
+                ),
+            }} name="PrayerRequest" component={PrayerRequest} />
 
 
             <Drawer.Screen options={{

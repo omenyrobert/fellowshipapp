@@ -48,7 +48,7 @@ const DrawerComp = ({ visible, onClose }) => {
 
 
     const gotoprayer = () => {
-        navigation.navigate('Prayer')
+        navigation.navigate('PrayerRequest')
         onClose(!visible)
     }
 
@@ -83,7 +83,7 @@ const DrawerComp = ({ visible, onClose }) => {
                                     uri: user?.profile_picture,
                                 } : require('./apic.jpeg')
                             }
-                            style={{ height: 120, width: 120, marginLeft: '20%', borderRadius: 100, marginBottom: 10 }}
+                            style={{ height: 120, width: 120, marginLeft: '20%', marginTop: 20, borderRadius: 100, marginBottom: 10 }}
                         />
 
                         <View>
