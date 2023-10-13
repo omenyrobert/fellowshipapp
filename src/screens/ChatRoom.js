@@ -53,7 +53,7 @@ const ChatRoom = ({ route }) => {
         setSocket(newSocket);
         handleSocket(newSocket);
 
-        return () => newSocket.close();
+        return () => socket.close();
     }, [HOST_URL]);
 
     function sendMessage() {
@@ -110,6 +110,10 @@ const ChatRoom = ({ route }) => {
         socket.on('userchat:message', (message) => {
             setMessages((messages) => [...messages, message]);
             if (message.sender.id !== user.id) {
+                console.log("==========")
+                console.log(message.sender.id)
+                console.log(user.id)
+                console.log("==========")
                 socket.emit("message:read", message.id)
             }
         })
