@@ -1,6 +1,6 @@
 import axiosInstance from "./axios";
 import { useContext } from "react";
-import { AppContext } from "../context/AppData";
+import { AppContext, registerForPushNotificationsAsync } from "../context/AppData";
 import * as SecureStore from 'expo-secure-store';
 import { AuthContext } from "../context/Auth";
 
@@ -57,9 +57,13 @@ export const useAuth = () => {
     password
   ) => {
     try {
-      const response = await axiosInstance.post("/users/login", {
-        email, password
-      })
+
+      const data = {
+        email,
+        password,
+        expoPushToken: expoPushToken
+      }
+      const response = await axiosInstance.post("/users/login", data)
 
       const { status, payload } = response.data
 

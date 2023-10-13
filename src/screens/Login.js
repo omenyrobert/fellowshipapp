@@ -4,7 +4,7 @@ import tw from 'twrnc';
 import { useNavigation } from "@react-navigation/native";
 import { useAuth } from "../hooks/auth";
 import { AuthContext } from "../context/Auth";
-import { AppContext } from "../context/AppData";
+import { AppContext, registerForPushNotificationsAsync } from "../context/AppData";
 
 const logourl = require('../../assets/icon.png')
 const bg = require('../../assets/bg.jpg')
@@ -18,11 +18,11 @@ const Login = () => {
     const { expoPushToken } = useContext(AppContext)
     const [posting, setPosting] = useState(false)
     async function loginUser() {
+
         setPosting(true)
         const result = await login(
             email,
-            password,
-            expoPushToken
+            password
         )
 
         if (result.status) {
