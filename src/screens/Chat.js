@@ -5,9 +5,11 @@ import { Feather, FontAwesome, MaterialIcons } from '@expo/vector-icons';
 import HomeHeader from "../components/HomeHeader";
 import { useNavigation } from "@react-navigation/native";
 import { AppContext } from "../context/AppData";
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext, useEffect, useCallback } from "react";
 import { useAppData } from "../hooks/app-data";
 import { AuthContext } from "../context/Auth";
+import { useFocusEffect } from "@react-navigation/native";
+
 
 
 const Chat = () => {
@@ -62,6 +64,14 @@ const Chat = () => {
         setFilteredUsers(filteredUsers_)
         setFilteredChatUsers(filteredChatUsers_)
     }, [search, allUsers])
+
+
+    useFocusEffect(
+        useCallback(() => {
+            getUsers()
+            getChatUsers()
+        }, [])
+    );
 
 
 
@@ -128,7 +138,7 @@ const Chat = () => {
                                 })
                             }} style={tw`flex-row  m-2 border-b pb-2 border-gray-200`}>
                                 <View style={tw`bg-gray-100 h-12 w-12 rounded-full  p-1 border border-[#3326AE]`}>
-                                {item.profile_picture ?  <Image source={{ uri: item.profile_picture }} style={{ objectFit: 'cover', height: '100%', width: '100%', borderRadius: 100 }} /> : <Text style={tw`text-xl font-bold mt-1 text-[#3326AE] text-center`}>{item.full_name[0]}</Text> }
+                                    {item.profile_picture ? <Image source={{ uri: item.profile_picture }} style={{ objectFit: 'cover', height: '100%', width: '100%', borderRadius: 100 }} /> : <Text style={tw`text-xl font-bold mt-1 text-[#3326AE] text-center`}>{item.full_name[0]}</Text>}
                                 </View>
 
                                 <View style={tw`mx-2 w-[80%] `}>
