@@ -143,6 +143,7 @@ const ChatRoom = ({ route }) => {
 
                 <View style={tw`flex-row p-2`}>
                     <View style={tw`w-12 h-12 border-2 border-blue-700 rounded-full`}>
+                        
                         {reciever?.profile_picture ? <Image source={{ uri: reciever?.profile_picture }} style={tw`object-cover rounded-full`} /> : <Text style={tw`text-2xl text-blue-700 font-bold mt-1 text-center`}>{reciever?.full_name[0]}</Text>}
                     </View>
                     <View style={{ marginLeft: 10 }}>
@@ -189,7 +190,7 @@ const ChatRoom = ({ route }) => {
 
                                                     </View>
                                                     <View style={tw`p-2 rounded-md text-white rounded bg-[#3326AE] flex-row justify-between`}>
-                                                        <Text style={tw`w-[70%] text-white`}>
+                                                        <Text style={tw`w-[65%] text-white`}>
                                                             {item.content}
                                                         </Text>
                                                         <Text style={tw`text-xs font-light text-white`}>
@@ -214,7 +215,7 @@ const ChatRoom = ({ route }) => {
                                                     <View style={tw`flex-row -mt-5`}>
                                                         <View style={tw`w-[95%]`}>
                                                             <View style={tw`text-gray-700 flex-row justify-between bg-white mt-1 p-2 rounded-md`}>
-                                                                <Text style={tw`w-[75%]`}>
+                                                                <Text style={tw`w-[65%]`}>
 
                                                                     {item.content}
                                                                 </Text>

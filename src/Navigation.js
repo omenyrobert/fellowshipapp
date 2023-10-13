@@ -146,12 +146,6 @@ function DrawNav() {
 
             <Drawer.Screen options={{
                 drawerIcon: ({ color }) => (
-                    <FontAwesome5 name="praying-hands" size={20} color="black" />
-                ),
-            }} name="Prayer Requests" component={Prayer} />
-
-            <Drawer.Screen options={{
-                drawerIcon: ({ color }) => (
                     <Ionicons name="ios-happy-outline" size={22} color="black" />
                 ),
             }} name="Testimonies" component={Testmonies} />
