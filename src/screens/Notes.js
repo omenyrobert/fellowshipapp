@@ -1,10 +1,10 @@
-import { View, Text, Image, ScrollView, TouchableOpacity, TextInput } from "react-native"
+import { View, Text, Image, ScrollView, TouchableOpacity, TextInput, RefreshControl } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import tw from 'twrnc';
 import { Feather, EvilIcons, FontAwesome, MaterialIcons } from '@expo/vector-icons';
 import HomeHeader from "../components/HomeHeader";
 import { useNavigation } from "@react-navigation/native";
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useCallback } from 'react';
 import axiosInstance from "../hooks/axios";
 import { AuthContext } from "../context/Auth";
 import { useAppData } from "../hooks/app-data";
@@ -12,6 +12,13 @@ import { AppContext } from "../context/AppData";
 
 const Notes = () => {
     const [note, setNote] = useState('')
+    const [refreshing, setRefreshing] = useState(false);
+
+    const onRefresh = useCallback(() => {
+        setRefreshing(true);
+        getNotes().then(() => setRefreshing(false));
+    }, []);
+
 
     const { token, user } = useContext(AuthContext)
     const { getNotes } = useAppData()
@@ -51,7 +58,12 @@ const Notes = () => {
     return (
         <SafeAreaView style={{ backgroundColor: '#fff' }}>
             <HomeHeader />
-            <ScrollView style={{ backgroundColor: '#f5f5f5' }}>
+            <ScrollView style={{ backgroundColor: '#f5f5f5' }} refreshControl={
+                <RefreshControl
+                    refreshing={refreshing}
+                    onRefresh={onRefresh}
+                />
+            }>
                 <View style={tw`p-5`}>
                     <Text>Take Notes</Text>
                     <TextInput

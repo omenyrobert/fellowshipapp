@@ -1,4 +1,4 @@
-import { View, Text, Image, ScrollView, TouchableOpacity, TextInput, ActivityIndicator } from "react-native"
+import { View, Text, Image, ScrollView, TouchableOpacity, TextInput, ActivityIndicator, RefreshControl } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import tw from 'twrnc';
 import { Feather, FontAwesome, MaterialIcons } from '@expo/vector-icons';
@@ -41,6 +41,18 @@ const Chat = () => {
         setUsersLoading(true)
         getUsers(page)
     }, [page])
+
+    const [refreshing, setRefreshing] = useState(false);
+    const onRefresh = useCallback(() => {
+        async function refresh() {
+            setRefreshing(true);
+            await getUsers(page)
+            await getChatUsers()
+            setRefreshing(false);
+        }
+        refresh()
+    }, []);
+
 
 
     const [allUsers, setAllUsers] = useState([])
@@ -109,7 +121,9 @@ const Chat = () => {
         <SafeAreaView style={{ backgroundColor: '#fff' }}>
             <HomeHeader />
 
-            <ScrollView style={{ backgroundColor: '#f5f5f5' }}>
+            <ScrollView style={{ backgroundColor: '#f5f5f5' }} refreshControl={
+                <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            } >
                 <View style={tw`flex-row relative ml-6 mt-3`}>
                     <FontAwesome style={tw`absolute z-50 mt-3 ml-4`} name="search" size={24} color="black" />
                     <TextInput

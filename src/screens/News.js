@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, ImageBackground } from "react-native"
+import { View, Text, ScrollView, ImageBackground, RefreshControl } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import HomeHeader from "../components/HomeHeader"
 import tw from 'twrnc';
@@ -13,6 +13,12 @@ const News = () => {
     const { user } = useContext(AuthContext)
     const { news } = useContext(AppContext)
     const { getNews } = useAppData()
+    const [refreshing, setRefreshing] = useState(false);
+
+    const onRefresh = React.useCallback(() => {
+        setRefreshing(true);
+        getNews().then(() => setRefreshing(false));
+    }, []);
 
     useEffect(() => {
         getNews()
@@ -22,7 +28,12 @@ const News = () => {
     return (
         <SafeAreaView style={{ backgroundColor: '#fff' }}>
             <HomeHeader />
-            <ScrollView style={{ padding: 20 }}>
+            <ScrollView style={{ padding: 20 }} refreshControl={
+                <RefreshControl
+                    refreshing={refreshing}
+                    onRefresh={onRefresh}
+                />
+            }>
 
                 <Text style={{ fontSize: 22, fontWeight: 'bold', color: '#FF392B' }}>News</Text>
 
@@ -33,7 +44,7 @@ const News = () => {
                             <ImageBackground
                                 source={{ uri: pray.image }} // Replace with your image path or URL
 
-                                
+
                             >
                                 <View style={tw`rounded-lg h-40 p-5 bg-black/50`}>
                                     <View style={tw`h-18`}>

@@ -53,7 +53,6 @@ const Give = () => {
             const { status, payload } = response.data
             if (status) {
                 setLoading(false)
-                console.log(payload)
                 await WebBrowser.openBrowserAsync(payload.redirect_url)
             } else {
                 setLoading(false)

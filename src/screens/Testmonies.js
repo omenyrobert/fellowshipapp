@@ -1,8 +1,8 @@
-import { View, Text, ScrollView, TouchableOpacity, TextInput, Image } from "react-native"
+import { View, Text, ScrollView, TouchableOpacity, TextInput, Image, RefreshControl } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import HomeHeader from "../components/HomeHeader"
 import tw from 'twrnc';
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useCallback } from 'react';
 import axiosInstance from "../hooks/axios";
 import { AuthContext } from "../context/Auth";
 import { useAppData } from "../hooks/app-data";
@@ -15,6 +15,12 @@ const Testimonies = () => {
     const { user } = useContext(AuthContext)
     const [myTestimonies, setMyTestimonies] = useState([])
     const { getTestimonies } = useAppData()
+    const [refreshing, setRefreshing] = useState(false);
+
+    const onRefresh = useCallback(() => {
+        setRefreshing(true);
+        getTestimonies().then(() => setRefreshing(false));
+    }, []);
 
     useEffect(() => {
         const myTestimonies_ = testimonies.filter((item) => {
@@ -52,7 +58,12 @@ const Testimonies = () => {
     return (
         <SafeAreaView style={{ backgroundColor: '#fff' }}>
             <HomeHeader />
-            <ScrollView style={{ backgroundColor: '#f5f5f5' }}>
+            <ScrollView style={{ backgroundColor: '#f5f5f5' }} refreshControl={
+                <RefreshControl
+                    refreshing={refreshing}
+                    onRefresh={onRefresh}
+                />
+            }>
                 <View style={{ padding: 20 }}>
                     <Text style={{ fontSize: 22, fontWeight: 'bold', color: '#FF392B' }}>Testimonies</Text>
                     <Text style={{ marginTop: 20, fontSize: 18 }}>Testify for the Lord</Text>

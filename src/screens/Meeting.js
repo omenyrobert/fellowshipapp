@@ -1,9 +1,9 @@
-import { View, Text, ScrollView, TouchableOpacity, ActivityIndicator } from "react-native"
+import { View, Text, ScrollView, TouchableOpacity, ActivityIndicator, RefreshControl } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import tw from 'twrnc';
 import { Feather, FontAwesome } from '@expo/vector-icons';
 import HomeHeader from "../components/HomeHeader";
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useCallback } from 'react';
 import axiosInstance, { UPLOADS_URL } from "../hooks/axios";
 import { AuthContext } from "../context/Auth";
 import { useAppData } from "../hooks/app-data";
@@ -15,6 +15,13 @@ const Meeting = () => {
     const { meetings } = useContext(AppContext)
     const { getMeetings } = useAppData()
     const [loading, setLoading] = useState(false)
+    const [refreshing, setRefreshing] = useState(false);
+
+    const onRefresh = useCallback(() => {
+        setRefreshing(true);
+        getMeetings().then(() => setRefreshing(false));
+    }, []);
+
 
     useEffect(() => {
         getMeetings()
@@ -48,7 +55,12 @@ const Meeting = () => {
     return (
         <SafeAreaView style={{ backgroundColor: '#fff' }}>
             <HomeHeader />
-            <ScrollView>
+            <ScrollView style={{ padding: 20 }} refreshControl={
+                <RefreshControl
+                    refreshing={refreshing}
+                    onRefresh={onRefresh}
+                />
+            }>
                 <View>
                     <Text style={tw`font-medium ml-5 mt-5 text-xl`}>
                         Scheduled Meetings

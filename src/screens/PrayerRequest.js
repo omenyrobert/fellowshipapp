@@ -1,8 +1,8 @@
-import { View, Text, ScrollView, TouchableOpacity, TextInput, Image } from "react-native"
+import { View, Text, ScrollView, TouchableOpacity, TextInput, Image, ActivityIndicator } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import HomeHeader from "../components/HomeHeader"
 import tw from 'twrnc';
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useCallback } from 'react';
 import axiosInstance from "../hooks/axios";
 import { AuthContext } from "../context/Auth";
 import { useAppData } from "../hooks/app-data";
@@ -17,6 +17,12 @@ const PrayerRequest = () => {
     const { prayers } = useContext(AppContext)
     const { getPrayers } = useAppData()
     const [myPrayers, setMyPrayers] = useState([])
+    const [refreshing, setRefreshing] = useState(false);
+
+    const onRefresh = useCallback(() => {
+        setRefreshing(true);
+        getPrayers().then(() => setRefreshing(false));
+    }, []);
 
     useEffect(() => {
         const myPrayers_ = prayers.filter((item) => {
@@ -56,7 +62,12 @@ const PrayerRequest = () => {
     return (
         <SafeAreaView style={{ backgroundColor: '#fff' }}>
             <HomeHeader />
-            <ScrollView style={{ backgroundColor: '#f5f5f5' }}>
+            <ScrollView style={{ backgroundColor: '#f5f5f5' }} refreshControl={
+                <RefreshControl
+                    refreshing={refreshing}
+                    onRefresh={onRefresh}
+                />
+            }>
                 <View style={{ padding: 20 }}>
                     <Text style={{ fontSize: 22, fontWeight: 'bold', color: '#FF392B' }}>Prayer Requests</Text>
                     <Text style={{ marginTop: 20, fontSize: 18 }}>Send your prayer request</Text>
