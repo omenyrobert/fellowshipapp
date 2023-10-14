@@ -89,9 +89,9 @@ export const useAppData = () => {
     }
   }
 
-  const getUsers = async () => {
+  const getUsers = async (page = 1) => {
     try {
-      const respose = await axiosInstance.get("/users", {
+      const respose = await axiosInstance.get("/users?page=" + page, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -152,6 +152,27 @@ export const useAppData = () => {
     }
   }
 
+  async function getLatestChatMessage() {
+    try {
+      const response = await axiosInstance.get("/users/latest-chat-room-message", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      const { status, payload } = response.data;
+
+      if (status) {
+        return payload
+      } else {
+        return null
+      }
+    } catch (error) {
+      return null
+    }
+
+  }
+
 
   return {
     getPrayers,
@@ -160,6 +181,7 @@ export const useAppData = () => {
     getMeetings,
     getUsers,
     getChatUsers,
-    getNotes
+    getNotes,
+    getLatestChatMessage
   }
 }

@@ -225,14 +225,18 @@ const ChatRoom = ({ route, navigation }) => {
                         </View> : null}
 
                         {/* Load more button */}
-                        <View style={tw` mt-2 flex-row justify-center items-center p-1.5 rounded-md`}>
-                            <TouchableOpacity onPress={() => {
-                                setPage(page + 1);
-                                setLoading(true);
-                            }} style={tw`bg-blue-700 p-2 rounded-md`}>
-                                <Text style={tw`text-white`}>Load More</Text>
-                            </TouchableOpacity>
-                        </View>
+                        {
+                            messages.length > 29 ? (
+                                <View style={tw` mt-2 flex-row justify-center items-center p-1.5 rounded-md`}>
+                                    <TouchableOpacity onPress={() => {
+                                        setPage(page + 1);
+                                        setLoading(true);
+                                    }} style={tw`bg-blue-700 p-2 rounded-md`}>
+                                        <Text style={tw`text-white`}>Load More</Text>
+                                    </TouchableOpacity>
+                                </View>
+                            ) : null
+                        }
 
                         {messages.map((item) => {
                             return (

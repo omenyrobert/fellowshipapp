@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Mothers online fellowship",
-    "slug": "Mothers-online-Fellowship",
+    "name": "Mothers Online Fellowship",
+    "slug": "Mothers-Fellowship",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -11,9 +11,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#fff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.fellowship"
@@ -25,9 +23,7 @@
       },
       "package": "com.fellowship",
       "googleServicesFile": "./google-services.json",
-      "permissions": [
-        "android.permission.RECORD_AUDIO"
-      ]
+      "permissions": ["android.permission.RECORD_AUDIO"]
     },
     "web": {
       "favicon": "./assets/icon.png"
@@ -42,7 +38,7 @@
     ],
     "extra": {
       "eas": {
-        "projectId": "ff3000de-48af-45d0-bed3-41015a5303f5"
+        "projectId": "7d4129d0-b56e-406c-ad6d-be06251c0a2b"
       }
     }
   }

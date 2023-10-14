@@ -1,4 +1,4 @@
-import { View, Text, Image, ScrollView, TouchableOpacity, TextInput } from "react-native"
+import { View, Text, Image, ScrollView, TouchableOpacity, TextInput, ActivityIndicator } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import tw from 'twrnc';
 import { Feather, FontAwesome, MaterialIcons } from '@expo/vector-icons';
@@ -17,35 +17,64 @@ const Chat = () => {
     const { users, chatUsers } = useContext(AppContext)
     const { user } = useContext(AuthContext)
 
-    const { getUsers, getChatUsers } = useAppData()
+    const { getUsers, getChatUsers, getLatestChatMessage } = useAppData()
+    const [loading, setLoading] = useState(true)
+    const [page, setPage] = useState(1)
+    const [usersLoading, setUsersLoading] = useState(true)
+    const [lastChatMsg, setLastChatMsg] = useState(null)
 
     useEffect(() => {
-        getUsers()
         getChatUsers()
+        getUsers(page)
+
     }, [])
+
+    useEffect(() => {
+        async function getLatestChatMessage_() {
+            const response = await getLatestChatMessage()
+            setLastChatMsg(response)
+        }
+        getLatestChatMessage_()
+    }, [])
+
+    useEffect(() => {
+        setUsersLoading(true)
+        getUsers(page)
+    }, [page])
+
 
     const [allUsers, setAllUsers] = useState([])
     const [search, setSearch] = useState('')
     const [filteredUsers, setFilteredUsers] = useState([])
     const [allChatUsers, setAllChatUsers] = useState([])
-    const [filteredChatUsers, setFilteredChatUsers] = useState([])
+    const [filteredChatUsers, setFilteredChatUsers] = useState(null)
 
     useEffect(() => {
-        // remove user from users
-        const filteredUsers = users.filter((item) => {
-            return item.id !== user.id
-        })
-        setAllUsers(filteredUsers)
+
+        if (filteredChatUsers) {
+            const filteredUsers = users.filter((item) => {
+                if (item.id === user.id) {
+                    return false
+                }
+                return !filteredChatUsers.some((item_) => {
+                    return item_.id === item.id
+                })
+            })
+            setAllUsers(filteredUsers)
+            setUsersLoading(false)
+        }
 
 
-    }, [users])
+
+    }, [users, filteredChatUsers])
 
     useEffect(() => {
         // remove user from chatUsers
         const filteredChatUsers_ = chatUsers.filter((item) => {
             return item.id !== user.id
         })
-        setFilteredChatUsers(filteredChatUsers_)
+        setAllChatUsers(filteredChatUsers_)
+        setLoading(false)
     }, [chatUsers])
 
 
@@ -63,7 +92,8 @@ const Chat = () => {
         })
         setFilteredUsers(filteredUsers_)
         setFilteredChatUsers(filteredChatUsers_)
-    }, [search, allUsers])
+        setLoading(false)
+    }, [search, allUsers, allChatUsers])
 
 
     useFocusEffect(
@@ -89,43 +119,8 @@ const Chat = () => {
                         value={search}
                     />
                 </View>
-                {/* <ScrollView horizontal>
-                    <TouchableOpacity
-                        onPress={() => {
-                            navigation.navigate('ChatRoom')
-                        }}
-                    >
-                        <View style={{ borderRadius: 100, margin: 10, height: 50, width: 50, padding: 10, backgroundColor: '#FF392B' }}>
-                            <Text style={{ color: '#fff', fontWeight: 'bold', fontSize: 18, marginTop: 1, marginLeft: -2, textAlign: 'center' }}>
-                                All
-                            </Text>
 
-                        </View>
-                    </TouchableOpacity>
 
-                    {filteredUsers.map((item) => {
-                        return (
-                            <TouchableOpacity key={item.id} onPress={() => {
-                                navigation.navigate('ChatRoom', {
-                                    reciever: item
-                                })
-                            }} style={tw`m-2 border-b pb-2 border-gray-200`}>
-                                <View style={tw`w-20`}>
-                                    <View style={tw`bg-gray-100 ml-2 h-12 w-12 rounded-full  p-1 border border-[#3326AE]`}>
-                                        {item.profile_picture ? <Image source={{ uri: item.profile_picture }} style={{ objectFit: 'cover', height: '100%', width: '100%', borderRadius: 100 }} /> : <Text style={tw`text-xl font-bold mt-1 text-[#3326AE] text-center`}>{item.full_name[0]}</Text>}
-
-                                    </View>
-                                </View>
-                                <Text style={tw`text-[#3326AE] w-20 text-center font-bold`}>
-                                    {((item.full_name).length > 7) ?
-                                        (((item.full_name).substring(0, 7 - 1)) + '...') :
-                                        item.full_name}
-                                   
-                                </Text>
-                            </TouchableOpacity>
-                        )
-                    })}
-                </ScrollView> */}
 
                 <View style={tw`mx-2 mt-2`}>
 
@@ -147,10 +142,7 @@ const Chat = () => {
                                 <View>
 
                                     <Text style={tw`text-[#3326AE] mr-2`}>
-                                        {/* {
-                                            new Date(item?.latestMessage?.created_at).toLocaleTimeString()
-                                        } */}
-                                        time here
+                                        {lastChatMsg?.created_at ? new Date(lastChatMsg?.created_at).toLocaleTimeString() : null}
                                     </Text>
 
                                 </View>
@@ -158,7 +150,7 @@ const Chat = () => {
 
                             <View style={tw`flex-row`}>
                                 <Text style={tw`text-gray-600 w-[85%]`}>
-                                    latest message here
+                                    {lastChatMsg?.content}
                                 </Text>
                                 <View style={tw`text-gray-600 w-[15%]`} >
                                     <View style={tw`bg-[#FF392B] w-6  mt-1 rounded-full px-2`}>
@@ -168,12 +160,19 @@ const Chat = () => {
 
                         </View>
                         <View style={tw`w-5`}>
-                        
+
                         </View>
 
                     </TouchableOpacity>
 
-                    {filteredChatUsers.map((item) => {
+                    {
+                        loading &&
+                        <View style={tw`flex-row justify-center mt-10`}>
+                            <ActivityIndicator size="large" color="#FF392B" />
+                        </View>
+                    }
+
+                    {filteredChatUsers?.map((item) => {
                         return (
 
                             <TouchableOpacity key={item.id} onPress={() => {
@@ -231,6 +230,73 @@ const Chat = () => {
 
 
                 </View>
+                {/* A divider line */}
+
+                <View style={tw`flex-row justify-between mt-2 mx-2`}>
+                    <Text style={tw`text-[#3326AE] font-bold`}>
+                        Other Users
+                    </Text>
+                </View>
+
+
+
+                <View style={tw`mx-2 mt-2`}>
+                    {filteredUsers.map((item) => {
+                        return (
+
+                            <TouchableOpacity key={item.id} onPress={() => {
+                                navigation.navigate('ChatRoom', {
+                                    reciever: item
+                                })
+                            }} style={tw`flex-row  m-2 border-b pb-2 border-gray-200`}>
+                                <View style={tw`bg-gray-100 h-12 w-12 rounded-full  p-1 border border-[#3326AE]`}>
+                                    {item.profile_picture ? <Image source={{ uri: item.profile_picture }} style={{ objectFit: 'cover', height: '100%', width: '100%', borderRadius: 100 }} /> : <Text style={tw`text-xl font-bold mt-1 text-[#3326AE] text-center`}>{item.full_name[0]}</Text>}
+                                </View>
+
+                                <View style={tw`mx-2 w-[80%] `}>
+                                    <View style={tw`flex-row justify-between `}>
+                                        <Text style={tw`text-[#3326AE] font-bold`}>
+                                            {item.full_name}
+                                        </Text>
+                                        <View>
+
+
+                                            <Feather name="arrow-right" size={24} color="#FF392B" />
+                                        </View>
+                                    </View>
+                                </View>
+                            </TouchableOpacity>
+
+                        )
+                    })}
+                </View>
+
+                {
+                    usersLoading &&
+                    <View style={tw`flex-row justify-center mt-10`}>
+                        <ActivityIndicator size="large" color="#FF392B" />
+                    </View>
+                }
+
+                {/* Load more button */}
+
+                {
+                    filteredUsers.length > 9 && (
+                        <View style={tw`flex-row justify-center mt-5`}>
+                            <TouchableOpacity onPress={() => {
+                                setPage(page + 1)
+                            }} style={tw`bg-[#FF392B] px-4 py-2 rounded-md`}>
+                                <Text style={tw`text-white font-bold`}>
+                                    Load More
+                                </Text>
+                            </TouchableOpacity>
+                        </View>
+                    )
+                }
+
+
+
+
                 <View style={{ height: 100 }}>
 
                 </View>
