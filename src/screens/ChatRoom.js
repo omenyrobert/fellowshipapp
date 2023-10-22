@@ -200,7 +200,7 @@ const ChatRoom = ({ route, navigation }) => {
                 <View style={tw`flex-row p-2`}>
                     <View style={tw`w-12 h-12 border-2 border-blue-700 rounded-full`}>
 
-                        {reciever?.profile_picture ? <Image source={{ uri: reciever?.profile_picture }} style={tw`object-cover rounded-full`} /> : <Text style={tw`text-2xl text-blue-700 font-bold mt-1 text-center`}>{reciever?.full_name[0]}</Text>}
+                        {reciever?.profile_picture ? <Image source={{ uri: reciever?.profile_picture }} style={tw`rounded-full`} /> : <Text style={tw`text-2xl text-blue-700 font-bold mt-1 text-center`}>{reciever?.full_name[0]}</Text>}
                     </View>
                     <View style={{ marginLeft: 10 }}>
                         <Text style={tw`text-xl font-bold text-[#FF392B]`}>

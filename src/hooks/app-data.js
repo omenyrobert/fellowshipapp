@@ -17,7 +17,7 @@ export const useAppData = () => {
       });
       const { status } = response.data;
       if (status) {
-        await SecureStore.setItemAsync("prayers", JSON.stringify(response.data.payload));
+        //await SecureStore.setItemAsync("prayers", JSON.stringify(response.data.payload));
         setPrayers(response.data.payload)
       } else {
         setPrayers([])
@@ -36,7 +36,7 @@ export const useAppData = () => {
       });
       const { status } = response.data;
       if (status) {
-        await SecureStore.setItemAsync("testimonies", JSON.stringify(response.data.payload));
+        //await SecureStore.setItemAsync("testimonies", JSON.stringify(response.data.payload));
         setTestimonies(response.data.payload)
       } else {
         setTestimonies([])
@@ -55,7 +55,7 @@ export const useAppData = () => {
       });
       const { status } = response.data;
       if (status) {
-        await SecureStore.setItemAsync("news", JSON.stringify(response.data.payload));
+        //await SecureStore.setItemAsync("news", JSON.stringify(response.data.payload));
         setNews(response.data.payload)
       } else {
         setNews([])
@@ -78,7 +78,7 @@ export const useAppData = () => {
       const { status } = respose.data;
 
       if (status) {
-        await SecureStore.setItemAsync("meetings", JSON.stringify(respose.data.payload));
+        //await SecureStore.setItemAsync("meetings", JSON.stringify(respose.data.payload));
         setMeetings(respose.data.payload)
       } else {
         setMeetings([])
@@ -121,7 +121,7 @@ export const useAppData = () => {
       const { status } = respose.data;
 
       if (status) {
-        await SecureStore.setItemAsync("chatusers", JSON.stringify(respose.data.payload));
+        //await SecureStore.setItemAsync("chatusers", JSON.stringify(respose.data.payload));
         setChatUsers(respose.data.payload)
       } else {
         setChatUsers([])
@@ -142,7 +142,7 @@ export const useAppData = () => {
       const { status } = respose.data;
 
       if (status) {
-        await SecureStore.setItemAsync("notes", JSON.stringify(respose.data.payload));
+        //await SecureStore.setItemAsync("notes", JSON.stringify(respose.data.payload));
         setNotes(respose.data.payload)
       } else {
         setNotes([])

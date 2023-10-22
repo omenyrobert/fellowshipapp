@@ -97,10 +97,10 @@ const Chat = () => {
             return
         }
         const filteredUsers_ = allUsers.filter((item) => {
-            return item.full_name.toLowerCase().includes(search.toLowerCase())
+            return item?.full_name?.toLowerCase().includes(search?.toLowerCase())
         })
         const filteredChatUsers_ = allChatUsers.filter((item) => {
-            return item.full_name.toLowerCase().includes(search.toLowerCase())
+            return item?.full_name?.toLowerCase().includes(search?.toLowerCase())
         })
         setFilteredUsers(filteredUsers_)
         setFilteredChatUsers(filteredChatUsers_)
@@ -255,7 +255,7 @@ const Chat = () => {
 
 
                 <View style={tw`mx-2 mt-2`}>
-                    {filteredUsers.map((item) => {
+                    {filteredUsers?.map((item) => {
                         return (
 
                             <TouchableOpacity key={item.id} onPress={() => {
@@ -295,7 +295,7 @@ const Chat = () => {
                 {/* Load more button */}
 
                 {
-                    filteredUsers.length > 9 && (
+                    filteredUsers?.length > 9 && (
                         <View style={tw`flex-row justify-center mt-5`}>
                             <TouchableOpacity onPress={() => {
                                 setPage(page + 1)
