@@ -11,7 +11,9 @@
       "resizeMode": "contain",
       "backgroundColor": "#fff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.fellowship"
@@ -23,7 +25,9 @@
       },
       "package": "com.fellowship",
       "googleServicesFile": "./google-services.json",
-      "permissions": ["android.permission.RECORD_AUDIO"]
+      "permissions": [
+        "android.permission.RECORD_AUDIO"
+      ]
     },
     "web": {
       "favicon": "./assets/icon.png"

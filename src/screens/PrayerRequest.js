@@ -7,7 +7,6 @@ import axiosInstance from "../hooks/axios";
 import { AuthContext } from "../context/Auth";
 import { useAppData } from "../hooks/app-data";
 import { AppContext } from "../context/AppData";
-import { useNavigation } from "@react-navigation/native";
 
 
 
@@ -18,6 +17,7 @@ const PrayerRequest = () => {
     const { getPrayers } = useAppData()
     const [myPrayers, setMyPrayers] = useState([])
     const [refreshing, setRefreshing] = useState(false);
+    const [loading, setLoading] = useState(false)
 
     const onRefresh = useCallback(() => {
         setRefreshing(true);
@@ -41,6 +41,10 @@ const PrayerRequest = () => {
 
     async function submitPrayer() {
         try {
+            if (prayer === '') {
+                return alert("Please enter your prayer request")
+            }
+            setLoading(true)
             const response = await axiosInstance.post('/prayer-requets/create', {
                 request: prayer,
                 user: user.id
@@ -51,12 +55,15 @@ const PrayerRequest = () => {
             if (status) {
                 setPrayer('')
                 getPrayers()
+                setLoading(false)
                 alert("Prayer request sent successfully")
             } else {
                 alert(payload)
+                setLoading(false)
             }
         } catch (error) {
             alert(error.message)
+            setLoading(false)
         }
     }
     return (
@@ -77,15 +84,25 @@ const PrayerRequest = () => {
                         multiline
                         numberOfLines={4}
                         onChangeText={(text) => setPrayer(text)}
+                        value={prayer}
 
                     />
 
-                    <TouchableOpacity
-                        style={tw`bg-[#FF392B] mt-2 p-2 rounded-md`}
-                        onPress={() => submitPrayer()}
-                    >
-                        <Text style={tw`text-white text-center font-bold text-lg`}>Submit</Text>
-                    </TouchableOpacity>
+                    {
+                        loading ? (
+                            <View style={tw`bg-[#FF392B] mt-2 p-2 rounded-md`}>
+                                <ActivityIndicator size="small" color="#fff" />
+                            </View>
+                        ) : (
+                            <TouchableOpacity
+                                style={tw`bg-[#FF392B] mt-2 p-2 rounded-md`}
+                                onPress={() => submitPrayer()}
+                            >
+                                <Text style={tw`text-white text-center font-bold text-lg`}>Submit</Text>
+                            </TouchableOpacity>
+                        )
+                    }
+
 
                     <Text style={{ fontSize: 18, marginTop: 20, fontWeight: 'medium', color: '#3326AE' }}>My Prayer Requests</Text>
 
