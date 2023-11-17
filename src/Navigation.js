@@ -71,7 +71,7 @@ function TabNav() {
                     unmountOnBlur: true,
                     tabBarIcon: ({ color }) => <Entypo name="chat" size={24} color={color} />, headerShown: false
                 }}
-                component={Chat} />
+                component={ChatRoom} />
 
 
 
