@@ -15,15 +15,21 @@ const SignUp = ({ navigation }) => {
 
     const [phone, setPhone] = useState("");
     const [pin, setPin] = useState("");
+    const [confirmPin, setConfirmPin] = useState("");
     const [fullname, setFullname] = useState("");
     const [email, setEmail] = useState("");
     const [ref, setRef] = useState("");
     const [isMother, setIsMother] = useState(false);
-    const [children, setChildren] = useState("");
+    const [children, setChildren] = useState("0");
     const { register } = useAuth();
 
     const [posting, setPosting] = useState(false)
     async function signup() {
+        if (pin !== confirmPin) {
+            alert("Password does not match")
+            return
+        }
+
         setPosting(true)
         const result = await register(
             fullname,
@@ -96,6 +102,15 @@ const SignUp = ({ navigation }) => {
                         secureTextEntry={true}
                     />
 
+                    <Text style={tw`mt-5`}>Confirm Password</Text>
+                    <TextInput
+                        placeholder="Confirm Password"
+                        style={tw`bg-gray-100 p-3 my-2 rounded-md`}
+                        onChangeText={setConfirmPin}
+                        value={confirmPin}
+                        secureTextEntry={true}
+                    />
+
                     <Text style={tw`mt-5`}>Who recommended You</Text>
 
                     <TextInput
@@ -110,26 +125,42 @@ const SignUp = ({ navigation }) => {
                         <View style={tw`mt-2`}>
                             <CheckBox value={isMother}
                                 onValueChange={(value) => {
-                                    setIsMother(value)
+                                    setIsMother(true)
                                 }}
                                 color={isMother ? "#FF392B" : undefined} />
-                            <Text style={tw`ml-8 -mt-5`}>{
-                                isMother ? "Yes (Click to Change)" : "No (Click to Change)"
-                            }</Text>
+                            <Text style={tw`ml-8 -mt-5`}>
+                                Yes {" "}
+                            </Text>
+                        </View>
+                        <View style={tw`mt-2`}>
+                            <CheckBox value={!isMother}
+                                onValueChange={(value) => {
+                                    setIsMother(false)
+                                }}
+                                color={!isMother ? "#FF392B" : undefined} />
+                            <Text style={tw`ml-8 -mt-5`}>
+                                No
+                            </Text>
                         </View>
                     </View>
+                    {
+                        isMother && (<>
+                            <Text style={tw`mt-5`}>  how many children</Text>
 
-                    <Text style={tw`mt-5`}>  how many children</Text>
+                            <TextInput
+                                placeholder="Enter Number of Children"
+                                style={tw`bg-gray-100 p-3 my-2 rounded-md`}
+                                onChangeText={setChildren}
+                                value={children}
+                                keyboardType="numeric"
+                            />
+                        </>)
+                    }
 
-                    <TextInput
-                        placeholder="Enter Name"
-                        style={tw`bg-gray-100 p-3 my-2 rounded-md`}
-                        onChangeText={setChildren}
-                        value={children}
-                    />
+
 
                     <Text style={tw`my-2`}>
-                        Our fellowship happends every 2am
+                        We fellowship daily starting at 2am
                     </Text>
 
 

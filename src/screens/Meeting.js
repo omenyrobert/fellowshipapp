@@ -78,7 +78,7 @@ const Meeting = () => {
                                             <View style={tw`mt-1`}>
                                                 <Feather name="video" size={24} color="blue" />
                                             </View>
-                                            <View style={tw`ml-2 flex-row`}>
+                                            <View style={tw`ml-2`}>
                                                 <Text style={tw`text-lg font-medium -mt-1`}>
                                                     {item.title}
                                                 </Text>

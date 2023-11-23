@@ -66,12 +66,12 @@ function TabNav() {
 
 
             {/* Chat icon */}
-            <Tab.Screen name="Chat"
+            {/* <Tab.Screen name="Chat"
                 options={{
                     unmountOnBlur: true,
                     tabBarIcon: ({ color }) => <Entypo name="chat" size={24} color={color} />, headerShown: false
                 }}
-                component={ChatRoom} />
+                component={ChatRoom} /> */}
 
 
 

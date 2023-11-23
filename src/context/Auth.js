@@ -3,7 +3,7 @@ import axiosInstance from "../hooks/axios"
 import { useAppData } from "../hooks/app-data"
 import * as SecureStore from 'expo-secure-store';
 import { AppContext } from "./AppData";
-import { View, Text, Image, ScrollView, TouchableOpacity, TextInput } from "react-native"
+import { View, Text, Image, ScrollView, TouchableOpacity, TextInput, ActivityIndicator } from "react-native"
 
 export const AuthContext = createContext()
 
@@ -202,7 +202,13 @@ const AuthLoader = ({ children }) => {
             {
                 isLoading && (
                     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-                        <Text>Loading...</Text>
+                        <ActivityIndicator size="large" color="#FF392B" />
+                        <Text style={{ color: "#FF392B", fontWeight: "bold", fontSize: 26 }}>
+                            Welcome
+                        </Text>
+                        <Text style={{ fontWeight: "bold", fontSize: 20 }}>
+                            Mothers Online Fellowship
+                        </Text>
                     </View>
                 )
             }

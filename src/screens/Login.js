@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import { View, Text, TouchableOpacity, TextInput, ActivityIndicator, Image, KeyboardAvoidingView } from "react-native";
+import { View, Text, TouchableOpacity, TextInput, ActivityIndicator, ScrollView, Image, KeyboardAvoidingView } from "react-native";
 import tw from 'twrnc';
 import { useNavigation } from "@react-navigation/native";
 import { useAuth } from "../hooks/auth";
@@ -34,7 +34,8 @@ const Login = () => {
         }
     }
     return (
-        <View>
+        <ScrollView>
+
             <Image source={bg} style={tw`w-full h-65`} />
             <View style={tw`text-white h-1/4 rounded-3xl -mt-20 p-5 bg-white`}>
                 <Image source={logourl} style={tw`-mt-5 w-full h-56`} />
@@ -42,7 +43,7 @@ const Login = () => {
             <View style={tw`rounded-t-3xl bg-white px-5 -mt-14  h-full`}>
                 <Text style={tw`text-2xl text-[#FF392B] font-bold -mt-14`}>Login</Text>
 
-                <KeyboardAvoidingView>
+                <View>
                     <Text style={tw`mt-8`}>Email</Text>
                     <TextInput
                         placeholder="Email"
@@ -58,7 +59,7 @@ const Login = () => {
                         secureTextEntry={true}
                         value={password}
                     />
-                </KeyboardAvoidingView>
+                </View>
 
                 {posting ? <View style={tw`bg-[#FF392B] mt-2 flex-row justify-center items-center p-1.5 rounded-md`}>
                     <ActivityIndicator size="large" color="#fff" />
@@ -81,9 +82,12 @@ const Login = () => {
                     <Text onPress={() => navigation.navigate('SignUp')} style={tw`font-semibold text-lg`}>Signup</Text>
                     <Text onPress={() => navigation.navigate('ForgotPassword')} style={tw`font-semibold text-lg text-[#3326AE]`}>Forgot Password?</Text>
                 </View>
+                <View style={tw`h-32`}></View>
             </View>
 
-        </View>
+
+
+        </ScrollView>
     )
 }
 

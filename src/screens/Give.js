@@ -12,15 +12,12 @@ import * as WebBrowser from 'expo-web-browser';
 
 
 const Give = () => {
-
-
-
     const [loading, setLoading] = useState(false)
     const [network, setNetwork] = useState("MTN")
     const [amount, setAmount] = useState("")
     const [phone, setPhone] = useState("")
     const [prayer, setPrayer] = useState("")
-    const [isOffertory, setIsOffertory] = useState(false)
+    const [isOffertory, setIsOffertory] = useState("OFFERTORY")
     const { token, user } = useContext(AuthContext)
     const { expoPushToken } = useContext(AppContext)
 
@@ -39,7 +36,7 @@ const Give = () => {
             const response = await axiosInstance.post('/transaction/mobile-money', {
                 userid: user.id,
                 amount,
-                transaction_type: isOffertory ? "OFFERTORY" : "TITHE",
+                transaction_type: isOffertory,
                 phone_number: phone,
                 email: user.email,
                 reason: prayer,
@@ -75,20 +72,27 @@ const Give = () => {
             <ScrollView >
                 <View>
                     <Text style={tw`font-medium text-[#FF392B] ml-5 text-xl mt-5`}>
-                        Support Our Ministriy
+                        Support Our Ministry
                     </Text>
                     <Text style={tw`ml-8 text-lg font-medium mt-5`}>Type of Giving</Text>
                     <View style={tw`flex-row mt-2 ml-8`}>
 
                         <View style={tw`mt-2 `}>
-                            <CheckBox value={isOffertory === true}
-                                onValueChange={() => setIsOffertory(true)} />
+                            <CheckBox
+                                value={isOffertory === "OFFERTORY"}
+                                onValueChange={() => setIsOffertory("OFFERTORY")}
+                            />
                             <Text style={tw`ml-8 -mt-5`}>Offertory</Text>
                         </View>
                         <View style={tw`mt-2 ml-10`}>
-                            <CheckBox value={isOffertory === false}
-                                onValueChange={() => setIsOffertory(false)} />
+                            <CheckBox value={isOffertory === "TITHE"}
+                                onValueChange={() => setIsOffertory("TITHE")} />
                             <Text style={tw`ml-8 -mt-5`}>Tithe</Text>
+                        </View>
+                        <View style={tw`mt-2 ml-10`}>
+                            <CheckBox value={isOffertory === "SEED"}
+                                onValueChange={() => setIsOffertory("SEED")} />
+                            <Text style={tw`ml-8 -mt-5`}>Seed</Text>
                         </View>
                     </View>
                     <View style={tw`bg-white mt-2`}>
@@ -122,14 +126,14 @@ const Give = () => {
                             </Text>
 
                             <TextInput
-                                placeholder="Amount"
+                                placeholder="Prayer Request"
                                 editable
                                 multiline
                                 numberOfLines={4}
-                                maxLength={40}
-                                style={tw`bg-gray-100 py-3 pl-5 mx-5 mt-2 border border-gray-200 rounded-md`}
+                                maxLength={1000}
+                                style={tw`bg-gray-100 p-3 mx-5 mt-2 border border-gray-200 rounded-md`}
                                 value={prayer}
-                                onChangeText={setPrayer}
+                                onChangeText={setPrayer} // 1000
                             />
 
 

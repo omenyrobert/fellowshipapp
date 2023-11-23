@@ -24,7 +24,7 @@ const HomeHeader = () => {
 
 
   return (
-    <View style={tw`flex-row px-3 border-b border-gray-200 mb-2 pb-5 pt-8 justify-between`} >
+    <View style={tw`flex-row px-3 border-b border-gray-200 mb-2 pb-5 pt-3 justify-between`} >
       {/* Logo */}
       <View >
         <Text style={tw`text-xl text-[#3326AE] font-bold`}>
@@ -40,7 +40,7 @@ const HomeHeader = () => {
         <TouchableOpacity onPress={() => navigation.navigate('Notes')} style={tw`mr-5`}>
           <Entypo name="pencil" size={30} color="black" />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('Chat')} >
+        <TouchableOpacity onPress={() => navigation.navigate('ChatRoom')} >
           <AntDesign name="message1" size={30} style={tw`relative`} color="black" />
           {/* <View style={tw`bg-red-700 ml-5  rounded-full h-5 w-5 pl-1 absolute`}>
             <Text style={tw`text-white font-bold`} >O</Text>

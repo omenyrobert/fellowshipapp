@@ -26,6 +26,7 @@ const Banner = () => {
 
     return (
         <>
+            <Text style={tw`text-xl font-bold text-[#3326AE] mt-2 mx-5`}>Events</Text>
 
             <Swiper style={tw`h-56`} autoplay={true} showsButtons={false}>
                 {news.slice(0, 5).map((pray) => {
@@ -61,9 +62,9 @@ const Banner = () => {
 
 
             </Swiper>
-            
-            <View style={tw`flex-row justify-between mx-5`}>
-                <TouchableOpacity onPress={() => navigation.navigate('Give')} style={tw`bg-[#FF392B] w-28 rounded p-2`}>
+
+            <View style={tw`flex-row justify-center mx-5`}>
+                <TouchableOpacity onPress={() => navigation.navigate('Give')} style={tw`bg-[#FF392B] w-[80%] rounded p-2`}>
                     <Text style={tw`text-center text-white`}>Support Us</Text>
                 </TouchableOpacity>
             </View>
