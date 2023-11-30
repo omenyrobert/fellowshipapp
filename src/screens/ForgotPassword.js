@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { View, Text, TouchableOpacity, TextInput, Image } from "react-native";
+import { View, Text, TouchableOpacity, TextInput, Image, ScrollView, ActivityIndicator } from "react-native";
 import tw from 'twrnc';
 import axiosInstance from "../hooks/axios";
 const logourl = require('../../assets/icon.png')
@@ -7,9 +7,11 @@ const bg = require('../../assets/bg.jpg')
 
 const ForgotPassword = ({ navigation }) => {
     const [email, setEmail] = useState("");
+    const [loading, setLoading] = useState(false);
 
     async function getCode() {
         try {
+            setLoading(true)
             const response = await axiosInstance.post('/users/token', {
                 email
             })
@@ -18,17 +20,20 @@ const ForgotPassword = ({ navigation }) => {
 
             if (status) {
                 alert("Resset Code sent to your Email")
+                setLoading(false)
                 navigation.navigate('Resset', { email })
             } else {
                 alert(payload)
+                setLoading(false)
             }
         } catch (error) {
             alert(error.message)
+            setLoading(false)
         }
     }
 
     return (
-        <View>
+        <ScrollView>
             <Image source={bg} style={tw`w-full h-72`} />
             <View style={tw`text-white rounded-3xl -mt-20 p-5 bg-white`}>
                 <Image source={logourl} style={tw`-mt-5 w-full h-50`} />
@@ -43,20 +48,27 @@ const ForgotPassword = ({ navigation }) => {
                     onChangeText={setEmail}
                     value={email}
                 />
-                <TouchableOpacity
+                {
+                    loading === false ? (<TouchableOpacity
 
-                    style={tw`bg-[#FF392B] mt-2 p-2 rounded-md`}
-                    onPress={getCode}
-                >
-                    <Text style={tw`text-white text-center font-bold text-lg`}>Resset Password</Text>
-                </TouchableOpacity>
+                        style={tw`bg-[#FF392B] mt-2 p-2 rounded-md`}
+                        onPress={getCode}
+                    >
+                        <Text style={tw`text-white text-center font-bold text-lg`}>Resset Password</Text>
+                    </TouchableOpacity>) : (
+                        <View style={tw`bg-[#FF392B] mt-2 p-2 rounded-md`}>
+                            <ActivityIndicator size="large" color="#fff" />
+                        </View>
+                    )
+                }
                 <View style={tw`mt-1 flex-row justify-between`}>
                     <View></View>
                     <Text onPress={() => navigation.navigate('Login')} style={tw`font-semibold text-lg`}>Login</Text>
                 </View>
             </View>
+            <View style={tw`h-20`}></View>
 
-        </View>
+        </ScrollView>
     )
 }
 export default ForgotPassword

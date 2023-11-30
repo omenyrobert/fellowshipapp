@@ -3,6 +3,7 @@
     "name": "Mothers Online Fellowship",
     "slug": "Mothers-Fellowship",
     "version": "1.0.0",
+    "owner": "softwares",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -14,14 +15,15 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.fellowship"
+      "bundleIdentifier": "com.fellowship.mothers.app"
     },
     "android": {
+      "versionCode": 3,
       "adaptiveIcon": {
         "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#FF392B"
       },
-      "package": "com.fellowship",
+      "package": "com.fellowship.mothers.app",
       "googleServicesFile": "./google-services.json",
       "permissions": ["android.permission.RECORD_AUDIO"]
     },
