@@ -18,7 +18,7 @@
       "bundleIdentifier": "com.fellowship.mothers.app"
     },
     "android": {
-      "versionCode": 3,
+      "versionCode": 4,
       "adaptiveIcon": {
         "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#FF392B"
